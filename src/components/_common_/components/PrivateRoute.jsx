@@ -1,8 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { AUTO_LOGOUT } from "../../auth/constants/types";
-import { LOGIN } from "../../auth/constants/endpoints";
 import ErrorBoundary from "./ErrorBoundary";
 
 const PrivateRoute = ({ component, path, exact }) => {

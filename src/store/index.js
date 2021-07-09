@@ -1,8 +1,18 @@
 import { combineReducers } from "redux";
-import authReducers from "../components/auth/reducers";
+import accountReducers from "../components/account/reducers";
+import assistReducers from "../components/assist/reducers";
+import bookingReducers from "../components/booking/reducers";
+import comparisonReducers from "../components/comparison/reducers";
+import homeReducers from "../components/home/reducers";
+import searchReducers from "../components/search/reducers";
 
 const reducers = {
-    auth: authReducers,
+    account: accountReducers,
+    assist: assistReducers,
+    booking: bookingReducers,
+    comparison: comparisonReducers,
+    home: homeReducers,
+    search: searchReducers,
 };
 
 const rootReducer = combineReducers(reducers);

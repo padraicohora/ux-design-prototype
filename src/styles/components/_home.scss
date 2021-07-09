@@ -1,0 +1,16 @@
+#home-splash {
+  background-image: url("../assets/beech.jpg");
+  height: 60vh;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  &:after{
+    content: " ";
+    background-color: #9CAABF;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    opacity: .5;
+  }
+}
