@@ -31,6 +31,9 @@ import { KeyboardArrowUp } from "@styled-icons/material-rounded/KeyboardArrowUp"
 import { ViewStream } from "@styled-icons/material-rounded/ViewStream";
 import { ViewHeadline } from "@styled-icons/material-rounded/ViewHeadline";
 import { AccountCircle} from "@styled-icons/material-rounded/AccountCircle"
+import { Place } from "@styled-icons/material-rounded/Place"
+import { Calendar } from "@styled-icons/boxicons-regular/Calendar"
+import { Users } from "@styled-icons/heroicons-solid/Users"
 
 // material-outlined
 import { AccessTime } from "@styled-icons/material-outlined/AccessTime";
@@ -70,3 +73,6 @@ export const FOLDER_ICON = <Folder />;
 export const COMPACT_LIST_ICON = <ViewHeadline />;
 export const EXPANDED_LIST_ICON = <ViewStream />;
 export const ACCOUNT_CIRCLE = <AccountCircle />;
+export const PLACE = <Place />;
+export const CALENDAR = <Calendar />;
+export const USERS = <Users />;

@@ -1,10 +1,10 @@
 #home-splash {
-  background-image: url("../assets/beech.jpg");
+  background-image: url("./../assets/beech.jpg");
   height: 60vh;
   background-position: center;
   background-size: cover;
   position: relative;
-  &:after{
+  &:before{
     content: " ";
     background-color: #9CAABF;
     height: 100%;
@@ -12,5 +12,25 @@
     position: absolute;
     top: 0;
     opacity: .5;
+  }
+}
+
+.header-navigation{
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.search-collapse{
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  top:60px;
+}
+
+.account-avatar{
+  svg{
+    height: 35px!important;
+    float: none!important;
   }
 }
