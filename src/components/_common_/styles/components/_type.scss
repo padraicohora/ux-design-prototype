@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+body{
+  font-family: 'Poppins', sans-serif;
+}
+
+html {
+  font-size: 1rem;
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 0.95rem;
+  }
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-weight-medium {
+  font-weight: $font-weight-medium;
+}
+
+.text-link{
+  color: $primary;
+  cursor: pointer;
+  &:hover{
+    color: $primary-active-color;
+    text-decoration: none;
+  }
+}

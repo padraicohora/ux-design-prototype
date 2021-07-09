@@ -1,0 +1,18 @@
+// Bootstrap overrides
+// these will be override the bootstrap styles coming from UI components
+@import "_common_";
+
+// acquisconnect/components
+// This is contains the styles from Bootstrap
+// as well as any required Acquis BI styles created in the components library
+@import "../../../../node_modules/bootstrap/scss/bootstrap";
+
+// mixins
+@import 'mixins';
+
+// components
+@import "components/index";
+
+
+
+

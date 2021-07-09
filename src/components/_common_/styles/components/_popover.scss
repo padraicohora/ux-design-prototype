@@ -1,0 +1,18 @@
+.popover {
+  border: 0;
+  border-radius: $border-radius;
+  //box-shadow: $shadow-float;
+  max-width: 400px;
+  width: 80%;
+  .popover-inner {
+    padding: 1.2rem;
+    .popover-header {
+      background: none !important;
+      border: 0;
+      font-size: large;
+    }
+    .popover-body {
+
+    }
+  }
+}

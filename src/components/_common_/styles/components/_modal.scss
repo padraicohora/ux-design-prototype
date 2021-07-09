@@ -1,0 +1,100 @@
+.modal-backdrop {
+  background: darken($primary-light-background, 20%);
+  opacity: 0.2;
+}
+
+.modal {
+
+  .modal-content {
+    background: white;
+  }
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    background: $primary-light-background;
+  }
+
+  .modal-dialog {
+    @include media-breakpoint-only(xs) {
+      margin: 0;
+    }
+    &:not(.modal-dialog-centered) {
+      width: 100%;
+      margin: 0 !important;
+      float: right !important;
+      transition: 0s !important;
+      transform: none !important;
+      .modal-content {
+        @include media-breakpoint-up(sm) {
+          min-height: 100vh;
+          border-radius: $border-radius 0 0 $border-radius;
+        }
+      }
+    }
+    &.modal-left {
+      float: left !important;
+      .modal-content {
+        @include media-breakpoint-up(sm) {
+          min-height: 100vh;
+          border-radius: 0 $border-radius $border-radius 0;
+        }
+      }
+    }
+    .modal-content {
+      box-shadow: 0px 0px 60px -50px $body-color;
+      border: 0;
+      border-radius: $border-radius;
+      @include media-breakpoint-only(xs) {
+        border-radius: $border-radius $border-radius 0 0;
+        margin-top: 10vh;
+        min-height: 90vh;
+      }
+      .modal-header {
+        border: 0 !important;
+        position: sticky;
+        top: 0;
+        z-index: 999999;
+        padding: 2rem;
+      }
+
+      .modal-body {
+        padding: 0 2rem 2rem;
+      }
+
+      .modal-footer {
+        border-top:  0 !important;
+        padding: 0 2rem 2rem;
+        .btn {
+          text-transform: capitalize;
+        }
+        @include media-breakpoint-only(xs) {
+          .btn {
+           width: 100%;
+            &.btn-primary {
+              order: 1;
+            }
+            &.btn-link {
+              order: 2;
+            }
+          }
+        }
+      }
+
+      .close {
+        text-shadow: none !important;
+        color: $body-color !important;
+        opacity: 1 !important;
+        font-weight: normal;
+        font-size: 25px;
+      }
+    }
+  }
+}
+
+.modal-open {
+  #root {
+    filter: blur(3px);
+  }
+}
+
+

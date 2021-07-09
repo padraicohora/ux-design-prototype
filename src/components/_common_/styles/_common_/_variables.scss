@@ -1,0 +1,37 @@
+$line-height-sizes: (
+        sm: 1,
+        md: 1.8,
+        lg: 2,
+) !default;
+
+$z-index: (
+        negative: -2,
+        low: 1,
+        medium: 2,
+        high: 3,
+) !default;
+
+$numbers: (
+        0: 0,
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 4,
+        5: 5,
+        6: 6,
+        7: 7,
+        8: 8,
+        9: 9,
+        10: 10
+) !default;
+
+
+:root {
+  --sat: env(safe-area-inset-top);
+  --sar: env(safe-area-inset-right);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
+}
+
+//typography
+$font-weight-medium: 500;

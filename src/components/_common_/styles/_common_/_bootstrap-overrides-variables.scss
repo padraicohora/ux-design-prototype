@@ -1,0 +1,36 @@
+//container
+$enable-responsive-font-sizes: true !default;
+
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1400px,
+        xxxl: 1600px
+) !default;
+
+$container-max-widths: (
+        sm: 600px,
+        md: 800px,
+        lg: 1000px,
+        xl: 1220px,
+        xxl: 1300px,
+        xxxl: 1400px
+) !default;
+
+//Typography
+$font-weight-bold: 600 !default;
+$font-size-base: 0.95rem !default;
+$popover-font-size: 0.95rem !default;
+
+//border
+$border-radius: 10px !default;
+$border-radius-lg: 18px !default;
+//_card.scss
+$card-border-width: 0;
+
+//_button.scss
+$btn-font-weight: $font-weight-medium;
+

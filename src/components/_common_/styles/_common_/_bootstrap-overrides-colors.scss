@@ -1,0 +1,20 @@
+//Applicable to Buttons and Badges
+$primary: hsl(204, 86%, 39%) !default;
+$secondary: hsl(216, 2%, 43%) !default;
+$success: hsl(148, 40%, 50%) !default;
+$info: hsl(207, 59%, 70%) !default;
+$warning: hsl(38, 100%, 50%) !default;
+$danger: hsl(360, 40%, 50%) !default;
+$light: hsl(216, 21%, 68%) !default;
+$dark: hsl(216, 60%, 26%) !default;
+
+//Typography
+$text-muted: #9CAABF !default;
+$body-color: #424f65 !default;
+$headings-color: $dark;
+
+//_card.scss
+$card-cap-color: $secondary;
+$card-cap-bg: white;
+
+

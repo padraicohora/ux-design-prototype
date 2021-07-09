@@ -1,0 +1,57 @@
+.Toastify {
+  .Toastify__close-button {
+    svg {
+      fill: $secondary !important;
+    }
+  }
+
+  .Toastify__toast-container--top-right {
+    top: calc(env(safe-area-inset-top) + 1em) !important;
+  }
+
+  .Toastify__toast {
+    background: white !important;
+    color: $secondary !important;
+
+    @include media-breakpoint-only(xs) {
+      margin: 4vh auto;
+      max-width: 80%;
+    }
+    .error {
+      .svg-icon, p {
+        color: $danger !important;
+      }
+    }
+
+    .success {
+      .svg-icon, p {
+        color: $success !important;
+      }
+    }
+
+    .warning {
+      .svg-icon, p {
+        color: $warning !important;
+      }
+    }
+    .Toastify__progress-bar {
+      height: 2px;
+      opacity: 0.3 !important;
+      &.Toastify__progress-bar--default {
+        background: $primary !important;
+      }
+      &.Toastify__progress-bar--success {
+        background: $success !important;
+      }
+      &.Toastify__progress-bar--info {
+        background: $info !important;
+      }
+      &.Toastify__progress-bar--error {
+        background: $danger !important;
+      }
+      &.Toastify__progress-bar--warning {
+        background: $warning !important;
+      }
+    }
+  }
+}
