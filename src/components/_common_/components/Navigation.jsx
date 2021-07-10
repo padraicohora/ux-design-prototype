@@ -16,28 +16,36 @@ import Icon from "./Icon";
 import {ACCOUNT_CIRCLE, CALENDAR, PLACE, USERS} from "../constants/icons";
 import Select from "react-select";
 import {useHistory} from "react-router-dom";
-import {HOME} from "../../home/constants/endpoints";
+import {HOME, TOGGLE_SEARCH_BAR} from "../../home/constants";
 import {RESULTS} from "../../search/constants";
+import {useDispatch, useSelector} from "react-redux";
 
 // import {NavLink} from "react-router-dom";
 
 const Navigation = (props) => {
     const history = useHistory();
     const [isOpen, setIsOpen] = useState(false);
-    const [searchOpen, setSearchOpen] = useState(true);
 
+    const {searchOpen} = useSelector(state => state.home)
+    const dispatch = useDispatch()
     const toggle = () => setIsOpen(!isOpen);
-    const showSearch = () => setSearchOpen(!searchOpen);
+    const showSearch = () => dispatch({type:TOGGLE_SEARCH_BAR});
     const onSearch = (e) => {
         e.preventDefault();
         history.push(RESULTS)
         showSearch()
     }
 
+    const goHome = () => {
+        console.log(`searchOpen`, searchOpen)
+        if(!searchOpen) dispatch({type:TOGGLE_SEARCH_BAR})
+        history.push(HOME)
+    };
+
     return <div className={"sticky-top"}>
         <Navbar color="white" light expand="md" className={"header-navigation"}>
             <Container>
-                <NavbarBrand onClick={()=>history.push(HOME)}>reactstrap</NavbarBrand>
+                <NavbarBrand onClick={goHome}>book-assist</NavbarBrand>
                 <NavbarToggler onClick={toggle}/>
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ml-auto align-items-center" navbar>

@@ -5,6 +5,11 @@ import bookingReducers from "../components/booking/reducers";
 import comparisonReducers from "../components/comparison/reducers";
 import homeReducers from "../components/home/reducers";
 import searchReducers from "../components/search/reducers";
+import {TOGGLE_SEARCH_BAR} from "../components/home/constants";
+
+// console.log(`homeReducers`, homeReducers({
+//     searchOpen:true,
+// }, {type:TOGGLE_SEARCH_BAR}))
 
 const reducers = {
     account: accountReducers,
@@ -15,6 +20,7 @@ const reducers = {
     search: searchReducers,
 };
 
-const rootReducer = combineReducers(reducers);
+// const rootReducer = combineReducers(reducers);
 
-export default (state, action) => rootReducer(action.type === "LOGOUT" ? undefined : state, action);
+// export default (state, action) => rootReducer( state, action);
+export default combineReducers(reducers);

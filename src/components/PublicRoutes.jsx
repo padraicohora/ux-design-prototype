@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "../styles/index.scss";
 
 import "normalize.css";
-import {HOME} from "./home/constants/endpoints";
+import {HOME} from "./home/constants";
 import Home from "./home/components/Home";
 import {ASSIST_RESULTS, ASSIST_WIZARD} from "./assist/constants";
 import {RESULTS} from "./search/constants";

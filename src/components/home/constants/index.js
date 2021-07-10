@@ -1,6 +1,6 @@
 
-
-// <editor-fold desc="<-- API -->">
+// <editor-fold desc="<-- ACTIONS -->">
+export const TOGGLE_SEARCH_BAR = "TOGGLE_SEARCH_BAR";
 // </editor-fold>
 
 // <editor-fold desc="<-- Views -->">

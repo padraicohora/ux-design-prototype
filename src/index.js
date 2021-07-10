@@ -6,7 +6,7 @@ import PublicRoutes from "./components/PublicRoutes";
 import reducers from "./store";
 import middleware from "./store/middleware";
 import Loader from "./components/_common_/components/Loader";
-
+console.log(`reducers`, reducers())
 const store = createStore(reducers, middleware);
 
 ReactDOM.render(
