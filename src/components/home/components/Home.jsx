@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     Button,
@@ -12,11 +12,27 @@ import {
     Jumbotron,
     Row
 } from "reactstrap";
-import Slider from "react-slick";
+
+import Flickity from "react-flickity-component";
+
+import room1 from "../../../assets/hotels/bedroom-349698_640.jpg"
+import room2 from "../../../assets/hotels/bed-4416515_640.jpg"
+import room3 from "../../../assets/hotels/bedroom-490779_640.jpg"
+import room4 from "../../../assets/hotels/hotel-389256_640.jpg"
+import room5 from "../../../assets/hotels/hotel-1330841_640.jpg"
+import room6 from "../../../assets/hotels/hotel-1330846_640.jpg"
+import room7 from "../../../assets/hotels/hotel-room-1447201_640.jpg"
+import room8 from "../../../assets/hotels/interior-1026452_640.jpg"
+import room9 from "../../../assets/hotels/lake-192990_640.jpg"
+import room10 from "../../../assets/hotels/pool-2128578_640.jpg"
+import room11 from "../../../assets/hotels/terrace-1030758_640.jpg"
+import room12 from "../../../assets/hotels/water-165219_640.jpg"
+import room13 from "../../../assets/hotels/window-3178666_640.jpg"
 import { useHistory } from "react-router-dom";
 import {HOME, TOGGLE_SEARCH_BAR} from "../constants";
 import {RESULTS} from "../../search/constants";
 import {ASSIST_WIZARD} from "../../assist/constants";
+
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -74,13 +90,6 @@ const Home = () => {
 };
 
 const ExploreSlider = ({ theme, items, onViewMore }) => {
-  const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 7,
-    slidesToScroll: 1,
-  };
   return (
     <>
       <Container className={"d-flex align-items-center"}>
@@ -90,56 +99,35 @@ const ExploreSlider = ({ theme, items, onViewMore }) => {
         </Button>
       </Container>
       <Container fluid>
-        <Slider {...settings}>
-          <div>
+
+          <Flickity className={'carousel'} // default ''
+                    elementType={'div'} // default 'div'
+                    options={{initialIndex: 2}} // takes flickity options {}
+                    disableImagesLoaded={false} // default false
+                    reloadOnUpdate // default false
+                    static >
+
               <AccommodationCard/>
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
-            <div>
-                <h3>1</h3>
-            </div>
-            <div>
-                <h3>2</h3>
-            </div>
-            <div>
-                <h3>3</h3>
-            </div>
-            <div>
-                <h3>4</h3>
-            </div>
-            <div>
-                <h3>5</h3>
-            </div>
-            <div>
-                <h3>6</h3>
-            </div>
-        </Slider>
+              <AccommodationCard/>
+              <AccommodationCard/>
+              <AccommodationCard/>
+              <AccommodationCard/>
+              <AccommodationCard/>
+
+          </Flickity>
       </Container>
+
     </>
   );
 };
 
-const AccommodationCard = () => {
+const AccommodationCard = ({image}) => {
    return  <div>
         <Card>
-            <CardImg top width="100%" src="/assets/318x180.svg" alt="Card image cap" />
+            <CardImg top width="100%" src={room1} alt="Card image cap" />
             <CardBody>
-                <CardTitle tag="h5" className={"card-title"}>Card title</CardTitle>
-                <span className={"card-rating"}>9.1</span>
+                <div className={"card-heading"}><CardTitle tag="h5" className={"card-title"}>Hotel Buena Vista</CardTitle>
+                    <span className={"card-rating"}>9.1</span></div>
                 <div className={"card-info"}>
                     <CardSubtitle tag="h6" className="mb-2 text-muted card-subtitle">Card subtitle</CardSubtitle>
                     <CardText>Some quick example text to build on the card title and make up the bulk of the card's
