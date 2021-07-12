@@ -1,38 +1,31 @@
-import React, {useRef, useState} from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-    Button,
-    Card,
-    CardBody,
-    CardImg,
-    CardSubtitle,
-    CardText,
-    CardTitle,
-    Container,
-    Jumbotron,
-    Row
-} from "reactstrap";
+import React, {useEffect, useRef, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {Button, Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Container, Jumbotron} from "reactstrap";
 
 import Flickity from "react-flickity-component";
 
 import room1 from "../../../assets/hotels/bedroom-349698_640.jpg"
-import room2 from "../../../assets/hotels/bed-4416515_640.jpg"
-import room3 from "../../../assets/hotels/bedroom-490779_640.jpg"
-import room4 from "../../../assets/hotels/hotel-389256_640.jpg"
-import room5 from "../../../assets/hotels/hotel-1330841_640.jpg"
-import room6 from "../../../assets/hotels/hotel-1330846_640.jpg"
-import room7 from "../../../assets/hotels/hotel-room-1447201_640.jpg"
-import room8 from "../../../assets/hotels/interior-1026452_640.jpg"
-import room9 from "../../../assets/hotels/lake-192990_640.jpg"
-import room10 from "../../../assets/hotels/pool-2128578_640.jpg"
-import room11 from "../../../assets/hotels/terrace-1030758_640.jpg"
-import room12 from "../../../assets/hotels/water-165219_640.jpg"
-import room13 from "../../../assets/hotels/window-3178666_640.jpg"
-import { useHistory } from "react-router-dom";
-import {HOME, TOGGLE_SEARCH_BAR} from "../constants";
+import {useHistory} from "react-router-dom";
+import {TOGGLE_SEARCH_BAR} from "../constants";
 import {RESULTS} from "../../search/constants";
 import {ASSIST_WIZARD} from "../../assist/constants";
 
+const AccommodationCard = ({image}) => {
+    return  <Card style={{minWidth:"350px", width: "25%"}} className={"px-4 "}>
+            <CardImg top width="100%" src={room1} alt="Card image cap" />
+            <CardBody>
+                <div className={"card-heading"}><CardTitle tag="h5" className={"card-title"}>Hotel Buena Vista</CardTitle>
+                    <span className={"card-rating"}>9.1</span></div>
+                <div className={"card-info"}>
+                    <CardSubtitle tag="h6" className="mb-2 text-muted card-subtitle">Card subtitle</CardSubtitle>
+                    <CardText>Some quick example text to build on the card title and make up the bulk of the card's
+                        content.
+                    </CardText>
+                </div>
+                <div className={"card-price"}>€111</div>
+            </CardBody>
+        </Card>
+}
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -75,38 +68,56 @@ const Home = () => {
                 <span className={"h5 text-secondary font-weight-bold mb-0"}>Explore</span>
                 <div className="round">
                     <div id="cta">
-                        <span className="arrow primera next "/>
-                        <span className="arrow segunda next "/>
+                        <span className="arrow primera down-arrow "/>
+                        <span className="arrow segunda down-arrow "/>
                     </div>
                 </div>
             </div>
 
         </div>
-      <ExploreSlider theme={"Relaxing"} onViewMore={openResults} />
-      <ExploreSlider theme={"Relaxing"} onViewMore={openResults} />
-      <ExploreSlider theme={"Relaxing"} onViewMore={openResults} />
+      <ExploreSlider theme={"Relaxing and Pampering"} onViewMore={openResults} />
+      <ExploreSlider theme={"Relaxing and Pampering"} onViewMore={openResults} />
+      <ExploreSlider theme={"Relaxing and Pampering"} onViewMore={openResults} />
     </div>
   );
 };
 
 const ExploreSlider = ({ theme, items, onViewMore }) => {
+   const [headingLeft, setHeadingLeft] = useState(0);
+    const heading =  useRef({})
+    let flkty = {}
+
+    useEffect(()=>{
+        if(heading && heading.current){
+            setHeadingLeft(heading.current.offsetLeft - 22)
+        }
+    }, [])
+
   return (
     <>
-      <Container className={"d-flex align-items-center"}>
-        <h2 className={"flex-fill"}>{theme}</h2>
-        <Button color={"transparent"} onClick={onViewMore}>
-          View More
+      <Container className={"d-flex align-items-center my-3"}>
+        <h3 className={"flex-fill font-weight-medium mb-0"} ref={heading}>{theme}</h3>
+        <Button color={"light"} outline={true} onClick={onViewMore} className={"text-primary"}>
+          Want to see more?
         </Button>
       </Container>
-      <Container fluid>
+      <Container fluid className={"px-0 overflow-x-hidden"}>
 
-          <Flickity className={'carousel'} // default ''
+          <Flickity className={'carousel overflow-hidden h-100'} // default ''
+                    style={{height:"calc(100% + 40px)"}}
                     elementType={'div'} // default 'div'
-                    options={{initialIndex: 2}} // takes flickity options {}
+                    options={{
+                        initialIndex: 0,
+                        cellAlign: 'left',
+                        contain: true,
+                        freeScroll: true,
+                        percentPosition: false
+                    }} // takes flickity options {}
                     disableImagesLoaded={false} // default false
                     reloadOnUpdate // default false
+                    flickityRef={c => flkty = c}
                     static >
-
+                <div style={{width:headingLeft, height:"100%"}} className={"invisible"}/>
               <AccommodationCard/>
               <AccommodationCard/>
               <AccommodationCard/>
@@ -121,23 +132,6 @@ const ExploreSlider = ({ theme, items, onViewMore }) => {
   );
 };
 
-const AccommodationCard = ({image}) => {
-   return  <div>
-        <Card>
-            <CardImg top width="100%" src={room1} alt="Card image cap" />
-            <CardBody>
-                <div className={"card-heading"}><CardTitle tag="h5" className={"card-title"}>Hotel Buena Vista</CardTitle>
-                    <span className={"card-rating"}>9.1</span></div>
-                <div className={"card-info"}>
-                    <CardSubtitle tag="h6" className="mb-2 text-muted card-subtitle">Card subtitle</CardSubtitle>
-                    <CardText>Some quick example text to build on the card title and make up the bulk of the card's
-                        content.
-                    </CardText>
-                </div>
-                <div className={"card-price"}>€111</div>
-            </CardBody>
-        </Card>
-    </div>
-}
+
 
 export default Home;
