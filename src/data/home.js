@@ -27,7 +27,10 @@ export const relaxingHotels = [
         rating: 9.8,
         location: "Tulaghi",
         price: "€119,47",
-        image: relaxing1
+        image: relaxing1,
+        title:"Calantha Hotel",
+        type:"Hotel",
+        reviews:"102"
     },
     {
         id: "bc43fc77-bcb6-42e3-8c44-2514e6fa57b9",

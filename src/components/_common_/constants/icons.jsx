@@ -34,6 +34,7 @@ import { AccountCircle} from "@styled-icons/material-rounded/AccountCircle"
 import { Place } from "@styled-icons/material-rounded/Place"
 import { Calendar } from "@styled-icons/boxicons-regular/Calendar"
 import { Users } from "@styled-icons/heroicons-solid/Users"
+import { PinDrop } from "@styled-icons/material-outlined/PinDrop"
 
 // material-outlined
 import { AccessTime } from "@styled-icons/material-outlined/AccessTime";
@@ -74,5 +75,6 @@ export const COMPACT_LIST_ICON = <ViewHeadline />;
 export const EXPANDED_LIST_ICON = <ViewStream />;
 export const ACCOUNT_CIRCLE = <AccountCircle />;
 export const PLACE = <Place />;
+export const PIN_DROP = <PinDrop />;
 export const CALENDAR = <Calendar />;
 export const USERS = <Users />;

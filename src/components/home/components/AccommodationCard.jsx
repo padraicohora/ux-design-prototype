@@ -1,8 +1,9 @@
-import {Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle} from "reactstrap";
+import {Badge, Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle} from "reactstrap";
 import React from "react";
 import Icon from "../../_common_/components/Icon";
+import {PIN_DROP, PLACE} from "../../_common_/constants/icons";
 
-const AccommodationCard = ({image, title, location, rating, subText, price}) => {
+const AccommodationCard = ({image, title, location, country, rating, subText, price, type}) => {
     return <div className={"p-4 accommodation-card"}>
         <Card className={"bg-light my-2"}>
             <CardImg top width="100%" src={image} alt="Card image cap"/>
@@ -15,12 +16,15 @@ const AccommodationCard = ({image, title, location, rating, subText, price}) => 
                         {rating}
                     </small>
                 </div>
-                <CardSubtitle tag="h6" className="mb-2 text-muted card-subtitle">
-                    <Icon svg={}/>
-                        {location}
+                <CardSubtitle tag="h6" className="mb-2 text-muted card-subtitle align-items-center d-flex">
+                    <Icon svg={PIN_DROP}/>
+                        {location}, {country}
                 </CardSubtitle>
                 <div className={"card-info d-flex"}>
-                    <CardText className={"mb-0"}>{subText}
+
+                    <CardText className={"mb-0"}>
+                        {subText}
+                        <Badge color={"primary"} pill>{type}</Badge>
                     </CardText>
                     <div className={"card-price align-self-end"}>{price}</div>
                 </div>
