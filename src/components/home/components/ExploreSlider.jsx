@@ -14,8 +14,6 @@ const ExploreSlider = ({theme, items, onViewMore}) => {
         }
     }, [])
 
-    const renderItems = items && items.map(item => <AccommodationCard {...item} />)
-
     return (
         <>
             <Container className={"d-flex align-items-center my-3"}>
@@ -42,7 +40,7 @@ const ExploreSlider = ({theme, items, onViewMore}) => {
                           flickityRef={c => flkty = c}
                           static>
                     <div style={{width: headingLeft}} className={"invisible"}/>
-                    {renderItems}
+                    {items && items.map(item => <AccommodationCard {...item} />)}
                 </Flickity>
             </Container>
 

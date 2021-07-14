@@ -89,12 +89,12 @@ https://flickity.metafizzy.co
   transform: translateY(-50%);
 }
 
-.flickity-prev-next-button.previous {
-  left: 10px;
-}
-.flickity-prev-next-button.next {
-  right: 10px;
-}
+//.flickity-prev-next-button.previous {
+//  left: 10px;
+//}
+//.flickity-prev-next-button.next {
+//  right: 10px;
+//}
 /* right to left */
 .flickity-rtl .flickity-prev-next-button.previous {
   left: auto;
@@ -143,4 +143,59 @@ https://flickity.metafizzy.co
 
 .flickity-page-dots .dot.is-selected {
   opacity: 1;
+}
+
+
+.flickity-prev-next-button {
+  width: 130px;
+  height: 130px;
+
+  &.previous {
+    left: -85px;
+    background-color: $light;
+    transition: all 0.3s ease-in-out;
+    &:not(:disabled){
+      opacity: 0.5;
+    }
+    .flickity-button-icon {
+      position: absolute;
+      left: 55%;
+      top: 35%;
+      width: 30%;
+      height: 30%;
+    }
+    &:hover{
+      left: -55px;
+      opacity: 0.8;
+    }
+  }
+  &.next {
+    right: -85px;
+    background-color: $light;
+    transition: all 0.2s ease-in-out;
+    &:not(:disabled){
+      opacity: 0.5;
+    }
+    .flickity-button-icon {
+      position: absolute;
+      left: 14%;
+      top: 35%;
+      width: 30%;
+      height: 30%;
+    }
+    &:hover{
+      right: -55px;
+      opacity: 0.8;
+    }
+  }
+}
+
+.carousel{
+  height: calc(100% + 40px)
+}
+
+.flickity-page-dots {
+  position: relative;
+  bottom: 0;
+  margin-top: 20px;
 }

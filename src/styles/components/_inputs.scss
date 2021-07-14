@@ -1,0 +1,16 @@
+.input-group-text {
+  color: #343a40;
+  background-color: #ffffff;
+}
+
+.input-group-prepend{
+  .input-group-text {
+    border-right-width: 0;
+  }
+}
+
+.input-group{
+  input.form-control{
+    border-left-width: 0;
+  }
+}
