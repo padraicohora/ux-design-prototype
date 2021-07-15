@@ -162,7 +162,7 @@ const relaxingHotels = [
     price: "€99,53",
     imageGroup: "relaxing",
     imageNumber: 1,
-    image: relaxing1,
+    image: relaxing11,
     type: "Resorts",
   },
   {

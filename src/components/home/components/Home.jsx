@@ -6,9 +6,9 @@ import {TOGGLE_SEARCH_BAR} from "../constants";
 import {RESULTS} from "../../search/constants";
 import {ASSIST_WIZARD} from "../../assist/constants";
 import  ExploreSlider from "./ExploreSlider";
-import {adventureHotels, romanceHotels} from "../../../data/home";
 import relaxingHotels from "../../../data/json/relaxing";
-
+import adventureHotels from "../../../data/json/adventure";
+import romanceHotels from "../../../data/json/romantic";
 
 
 const Home = () => {
