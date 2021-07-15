@@ -5,6 +5,8 @@
 
 .input-group-prepend{
   .input-group-text {
+    padding-left: 0.5rem;
+    padding-right: 0.25rem;
     border-right-width: 0;
   }
 }
@@ -14,3 +16,9 @@
     border-left-width: 0;
   }
 }
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: $primary;
+}
+

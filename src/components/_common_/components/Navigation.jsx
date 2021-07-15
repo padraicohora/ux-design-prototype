@@ -22,35 +22,49 @@ import {useHistory} from "react-router-dom";
 import {HOME, TOGGLE_SEARCH_BAR} from "../../home/constants";
 import {RESULTS} from "../../search/constants";
 import {useDispatch, useSelector} from "react-redux";
+import moment from "moment";
 
-// import {NavLink} from "react-router-dom";
+import "react-dates/initialize";
+// import "react-dates/lib/css/_datepicker.css";
+import {DateRangePicker} from "react-dates";
+import "./react_dates_overrides.scss"
+
+
 
 const Navigation = (props) => {
-    const history                     = useHistory();
-    const [isOpen, setIsOpen]         = useState(false);
-    const [location, setLocation]     = useState("");
-    const [datesPanel, setDatesPanels] = useState("");
-    const [guests, setGuests]         = useState("2 - Adults");
-    const [dates, setDates]           = useState("");
+    const history = useHistory();
+    const [ isOpen, setIsOpen ] = useState(false);
+    const [ location, setLocation ] = useState("");
+    const [ locationFocus, setLocationFocus ] = useState(false);
 
-    const {searchOpen} = useSelector((state) => state.home);
-    const dispatch     = useDispatch();
-    const toggle       = () => setIsOpen(!isOpen);
-    const showSearch   = () => dispatch({type: TOGGLE_SEARCH_BAR});
-    const onSearch     = (e) => {
+    const [ startDate, setStartDate ] = useState(moment());
+    const [ endDate, setEndDate ] = useState(moment());
+    const [ datesFocused, setDatesFocused ] = useState();
+
+
+    const [ guests, setGuests ] = useState("2 - Adults");
+    const [ guestsFocused, setGuestsFocused ] = useState(false);
+
+    const { searchOpen } = useSelector((state) => state.home);
+    const dispatch = useDispatch();
+    const toggle = () => setIsOpen(!isOpen);
+    const showSearch = () => dispatch({ type: TOGGLE_SEARCH_BAR });
+    const onSearch = (e) => {
         e.preventDefault();
         history.push(RESULTS);
         showSearch();
     };
 
     const goHome = () => {
-        console.log(`searchOpen`, searchOpen);
-        if (!searchOpen) dispatch({type: TOGGLE_SEARCH_BAR});
+        if (!searchOpen) dispatch({ type: TOGGLE_SEARCH_BAR });
         history.push(HOME);
     };
 
-    return (
-        <div className={"sticky-top"}>
+    const setSearchDates = ({ startDate, endDate }) => {
+        setStartDate(startDate)
+        setEndDate(endDate)
+    }
+    return (<div className={"sticky-top"}>
             <Navbar color="white" light expand="md" className={"header-navigation"}>
                 <Container>
                     <NavbarBrand onClick={goHome}>book-assist</NavbarBrand>
@@ -78,12 +92,15 @@ const Navigation = (props) => {
                         <Col sm={4} className={"pr-2"}>
                             <FormGroup className="mb-2 mb-sm-0 py-3">
                                 <InputGroup className={"flex-fill"}>
-                                    <InputGroupAddon addonType="prepend">
-                                        <InputGroupText>
+                                    <InputGroupAddon addonType="prepend" >
+                                        <InputGroupText className={locationFocus ? "border-primary":null}>
                                             <Icon svg={PLACE}/>
                                         </InputGroupText>
                                     </InputGroupAddon>
-                                    <Input placeholder="Enter location" value={location}/>
+                                    <Input placeholder="Enter location"
+                                           defaultValue={location}
+                                           onFocus={() => setLocationFocus(true)}
+                                           onBlur={() =>setLocationFocus(false)}/>
                                 </InputGroup>
                             </FormGroup>
                         </Col>
@@ -95,8 +112,17 @@ const Navigation = (props) => {
                                             <Icon svg={CALENDAR}/>
                                         </InputGroupText>
                                     </InputGroupAddon>
-                                    <Input placeholder="Check-in / Check out" value={dates}
-                                           onClick={() => setDatesPanel(!datesPanel)}/>
+                                    <DateRangePicker
+                                        startDate={startDate}
+                                        startDateId="your_unique_start_date_id"
+                                        endDate={endDate}
+                                        endDateId="your_unique_end_date_id"
+                                        onDatesChange={setSearchDates}
+                                        focusedInput={datesFocused}
+                                        onFocusChange={( focusedInput ) => setDatesFocused(focusedInput)}
+                                        displayFormat={ 'DD/MM/YYYY'}
+                                        small
+/>
                                 </InputGroup>
                             </FormGroup>
                         </Col>
@@ -104,11 +130,13 @@ const Navigation = (props) => {
                             <FormGroup className="mb-2 mb-sm-0">
                                 <InputGroup className={"flex-fill"}>
                                     <InputGroupAddon addonType="prepend">
-                                        <InputGroupText>
+                                        <InputGroupText className={guestsFocused ? "border-primary":null}>
                                             <Icon svg={USERS}/>
                                         </InputGroupText>
                                     </InputGroupAddon>
-                                    <Input placeholder="Guests" value={guests}/>
+                                    <Input placeholder="Guests" defaultValue={guests}
+                                           onFocus={() => setGuestsFocused(true)}
+                                           onBlur={() =>setGuestsFocused(false)}/>
                                 </InputGroup>
                             </FormGroup>
                         </Col>
@@ -125,7 +153,6 @@ const Navigation = (props) => {
                     </Form>
                 </Container>
             </Collapse>
-        </div>
-    );
+        </div>);
 };
 export default Navigation;

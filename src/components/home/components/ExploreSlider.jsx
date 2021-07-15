@@ -18,7 +18,7 @@ const ExploreSlider = ({theme, items, onViewMore}) => {
         <>
             <Container className={"d-flex align-items-center my-3"}>
                 <h3 className={"flex-fill font-weight-medium mb-0"} ref={heading}>{theme}</h3>
-                <Button color={"light"} o utline={true}
+                <Button color={"light"} outline={true}
                         onClick={onViewMore} className={"text-primary"}>
                     Want to see more?
                 </Button>
@@ -40,7 +40,7 @@ const ExploreSlider = ({theme, items, onViewMore}) => {
                           flickityRef={c => flkty = c}
                           static>
                     <div style={{width: headingLeft}} className={"invisible"}/>
-                    {items && items.map(item => <AccommodationCard {...item} />)}
+                    {items && items.map(item => <AccommodationCard {...item} key={item.id}/>)}
                 </Flickity>
             </Container>
 

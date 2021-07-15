@@ -43,6 +43,7 @@ const AccommodationCard = ({
                                 {location}
                             </CardSubtitle>
                         </div>
+
                         <div className={"card-price text-dark"}>{price}</div>
                     </div>
 
