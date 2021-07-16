@@ -35,6 +35,7 @@ import { Place } from "@styled-icons/material-rounded/Place"
 import { Calendar } from "@styled-icons/boxicons-regular/Calendar"
 import { Users } from "@styled-icons/heroicons-solid/Users"
 import { PinDrop } from "@styled-icons/material-outlined/PinDrop"
+import { MapsHomeWork } from "@styled-icons/material-outlined/MapsHomeWork"
 
 // material-outlined
 import { AccessTime } from "@styled-icons/material-outlined/AccessTime";
@@ -78,3 +79,4 @@ export const PLACE = <Place />;
 export const PIN_DROP = <PinDrop />;
 export const CALENDAR = <Calendar />;
 export const USERS = <Users />;
+export const ACCOMMODATION_TYPE = <MapsHomeWork />;

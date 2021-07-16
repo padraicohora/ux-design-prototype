@@ -31,7 +31,7 @@ const AccommodationCard = ({
                 <CardImg top width="100%" src={image} alt="Card image cap"/>
                 <CardBody>
                     <div className={"card-heading align-items-center d-flex mb-2"}>
-                        <div className={"d-flex flex-fill flex-column"}>
+                        <div className={"d-flex flex-fill flex-column text-truncate"}>
                             <CardTitle tag="span"
                                        className={"card-title flex-fill mb-2"}>
                                 {title}

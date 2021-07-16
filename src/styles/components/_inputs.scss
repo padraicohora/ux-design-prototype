@@ -13,7 +13,14 @@
 
 .input-group{
   input.form-control{
+    transition:none;
     border-left-width: 0;
+  }
+  .input.dropdown-toggle{
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    min-width: 120px;
   }
 }
 
@@ -21,4 +28,12 @@
   box-shadow: none;
   border-color: $primary;
 }
+
+.dropdown-toggle::after {
+  right: 10px;
+  position: absolute;
+  top: 50%;
+}
+
+
 
