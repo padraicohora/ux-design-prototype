@@ -1,6 +1,7 @@
 .popover {
   border: 0;
   border-radius: $border-radius;
+  border: 1px solid rgba(0, 0, 0, 0.15);
   //box-shadow: $shadow-float;
   max-width: 400px;
   width: 80%;
@@ -15,4 +16,8 @@
 
     }
   }
+}
+
+.location-suggestions{
+  min-width: calc(100% - 30px);
 }

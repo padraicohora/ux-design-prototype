@@ -18,14 +18,20 @@ import {
   NavbarBrand,
   NavbarToggler,
   NavItem,
-  UncontrolledDropdown, UncontrolledPopover,
+  Popover,
+  UncontrolledDropdown,
+  UncontrolledPopover,
 } from "reactstrap";
 import Icon from "./Icon";
 import {
   ACCOMMODATION_TYPE,
   ACCOUNT_CIRCLE,
+  ADD_CIRCLE,
+  AddCircleOutline,
   CALENDAR,
   PLACE,
+  REMOVE_CIRCLE,
+  RemoveCircleOutline,
   USERS,
 } from "../constants/icons";
 import { useHistory } from "react-router-dom";
@@ -49,8 +55,16 @@ const Navigation = (props) => {
   const [endDate, setEndDate] = useState(moment());
   const [datesFocused, setDatesFocused] = useState();
 
-  const [guests, setGuests] = useState("2 - Adults");
   const [guestsFocused, setGuestsFocused] = useState(false);
+
+  let [adults, setAdults] = useState(2);
+  const [children, setChildren] = useState(0);
+  const [rooms, setRooms] = useState(1);
+  const guestString = () =>
+    `${adults} Adults, ${
+      children > 0 ? children + " Children, " : ""
+    }${rooms} Rooms`;
+  const [guestsAmount, setGuestsAmount] = useState(guestString());
 
   const [type, setType] = useState("Hotel");
   const [typeFocused, setTypeFocused] = useState(false);
@@ -106,11 +120,11 @@ const Navigation = (props) => {
         </Container>
       </Navbar>
       <Collapse isOpen={searchOpen} className={"search-collapse bg-light"}>
-        <Container>
+        <Container className={"position-relative"}>
           <Form inline className={"row px-3"}>
             <div className={"pr-2 flex-fill"}>
               <FormGroup className="mb-2 mb-sm-0 py-3">
-                <InputGroup className={"flex-fill"}>
+                <InputGroup className={"flex-fill"} id={"locationInput"}>
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText
                       className={locationFocus ? "border-primary" : null}
@@ -120,11 +134,31 @@ const Navigation = (props) => {
                   </InputGroupAddon>
                   <Input
                     placeholder="Enter location"
-                    defaultValue={location}
-                    onFocus={() => setLocationFocus(true)}
-                    onBlur={() => setLocationFocus(false)}
+
+                    value={location}
+                    autocomplete="off"
+                    onChange={(e)=> setLocation(e.target.value)}
                   />
+
                 </InputGroup>
+                <Popover
+                    hideArrow
+                    fade={false}
+                    trigger="legacy"
+                    isOpen={location.length > 2 && locationFocus}
+                    placement="bottom-start"
+                    target="locationInput"
+                    container={"div.search-collapse .container"}
+                    popperClassName={"location-suggestions"}
+                    toggle={() => {
+                      setLocationFocus(!locationFocus);
+                      if (locationFocus === true)
+                        setLocation("Sorento");
+                    }}
+                >
+
+                  <h5 className={"font-weight-bold"}>Showing results for "{location}"</h5>
+                </Popover>
               </FormGroup>
             </div>
             <div className={"px-2 "}>
@@ -149,6 +183,7 @@ const Navigation = (props) => {
                     onFocusChange={(focusedInput) =>
                       setDatesFocused(focusedInput)
                     }
+                    customArrowIcon={<></>}
                     displayFormat={"DD/MM/YYYY"}
                     hideKeyboardShortcutsPanel
                     small
@@ -156,7 +191,7 @@ const Navigation = (props) => {
                 </InputGroup>
               </FormGroup>
             </div>
-            <div className={"px-2 "}>
+            <div className={"px-2 "} style={{minWidth:270}}>
               <FormGroup className="mb-2 mb-sm-0">
                 <InputGroup className={"flex-fill"}>
                   <InputGroupAddon addonType="prepend">
@@ -169,17 +204,101 @@ const Navigation = (props) => {
                   <Input
                     id={"guestsInput"}
                     placeholder="Guests"
-                    defaultValue={guests}
-                    onFocus={() => setGuestsFocused(true)}
-                    onBlur={() => setGuestsFocused(false)}
+                    value={guestsAmount}
+                    className={guestsFocused ? "border-primary" : null}
                   />
-                  <UncontrolledPopover
+                  <Popover
+                    hideArrow
+                    fade={false}
                     trigger="legacy"
+                    isOpen={guestsFocused}
                     placement="bottom"
                     target="guestsInput"
+                    toggle={() => {
+                      setGuestsFocused(!guestsFocused);
+                      if (guestsFocused === true)
+                        setGuestsAmount(guestString());
+                    }}
                   >
-                    test
-                  </UncontrolledPopover>
+                    <div>
+                      <div className={"d-flex align-items-center mb-3"}>
+                        <h5 className={"mb-0 flex-fill"}>Adults</h5>
+                        <div className={"d-flex align-items-center border rounded"}>
+                          <Button
+                            onClick={() => setAdults(adults - 1)}
+                            color={"light"}
+                            className={"d-flex align-items-center"}
+                            disabled={adults < 2}
+                          >
+                            <Icon svg={REMOVE_CIRCLE} />
+                          </Button>
+                          <div className={"px-3 text-primary flex-fill"}>
+                            {adults}
+                          </div>
+                          <Button
+                            onClick={() => setAdults(adults + 1)}
+                            color={"light"}
+                            className={"d-flex align-items-center"}
+                            disabled={adults > 8}
+                          >
+                            <Icon svg={ADD_CIRCLE} />
+                          </Button>
+                        </div>
+                      </div>
+                      <div className={"d-flex align-items-center mb-3"}>
+                        <h5 className={"mb-0 flex-fill"}>Children</h5>
+                        <div
+                          className={"d-flex align-items-center border rounded"}
+                        >
+                          <Button
+                            onClick={() => setChildren(children - 1)}
+                            color={"light"}
+                            className={"d-flex align-items-center"}
+                            disabled={children < 1}
+                          >
+                            <Icon svg={REMOVE_CIRCLE} />
+                          </Button>
+                          <div className={"px-3 text-primary flex-fill"}>
+                            {children}
+                          </div>
+                          <Button
+                            onClick={() => setChildren(children + 1)}
+                            color={"light"}
+                            className={"d-flex align-items-center"}
+                            disabled={children > 8}
+                          >
+                            <Icon svg={ADD_CIRCLE} />
+                          </Button>
+                        </div>
+                      </div>
+                      <div className={"d-flex align-items-center mb-3"}>
+                        <h5 className={"mb-0 flex-fill"}>Rooms</h5>
+                        <div
+                          className={"d-flex align-items-center border rounded"}
+                        >
+                          <Button
+                            onClick={() => setRooms(rooms - 1)}
+                            color={"light"}
+                            className={"d-flex align-items-center"}
+                            disabled={rooms < 2}
+                          >
+                            <Icon svg={REMOVE_CIRCLE} />
+                          </Button>
+                          <div className={"px-3 text-primary flex-fill"}>
+                            {rooms}
+                          </div>
+                          <Button
+                            onClick={() => setRooms(rooms + 1)}
+                            color={"light"}
+                            className={"d-flex align-items-center"}
+                            disabled={rooms > 8}
+                          >
+                            <Icon svg={ADD_CIRCLE} />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </Popover>
                 </InputGroup>
               </FormGroup>
             </div>
