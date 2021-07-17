@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
-  Button,
+  Button, CardSubtitle,
+  CardTitle,
   Col,
   Collapse,
   Container,
@@ -19,6 +20,7 @@ import {
   NavbarToggler,
   NavItem,
   Popover,
+  Row,
   UncontrolledDropdown,
   UncontrolledPopover,
 } from "reactstrap";
@@ -28,7 +30,7 @@ import {
   ACCOUNT_CIRCLE,
   ADD_CIRCLE,
   AddCircleOutline,
-  CALENDAR,
+  CALENDAR, PIN_DROP,
   PLACE,
   REMOVE_CIRCLE,
   RemoveCircleOutline,
@@ -44,6 +46,8 @@ import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import { DateRangePicker } from "react-dates";
 import "../../../styles/components/_react_dates_overrides.scss";
+import relaxingHotels from "../../../data/json/relaxing";
+import AccommodationCard from "../../home/components/AccommodationCard";
 
 const Navigation = (props) => {
   const history = useHistory();
@@ -88,6 +92,10 @@ const Navigation = (props) => {
     setStartDate(startDate);
     setEndDate(endDate);
   };
+
+
+
+  const LocationList = ()=> relaxingHotels.slice().splice(0, relaxingHotels.length).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
   return (
     <div className={"sticky-top"}>
       <Navbar color="white" light expand="md" className={"header-navigation"}>
@@ -133,10 +141,10 @@ const Navigation = (props) => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
-                    placeholder="Enter location"
-
+                    placeholder={`Enter a ${type} name or location`}
                     value={location}
                     autocomplete="off"
+                    lpIgnore
                     onChange={(e)=> setLocation(e.target.value)}
                   />
 
@@ -150,6 +158,7 @@ const Navigation = (props) => {
                     target="locationInput"
                     container={"div.search-collapse .container"}
                     popperClassName={"location-suggestions"}
+                    innerClassName={"p-4"}
                     toggle={() => {
                       setLocationFocus(!locationFocus);
                       if (locationFocus === true)
@@ -157,7 +166,50 @@ const Navigation = (props) => {
                     }}
                 >
 
-                  <h5 className={"font-weight-bold"}>Showing results for "{location}"</h5>
+                  <h5 className={"font-weight-bold justify-content-between align-items-center d-flex"}>Showing results for "{location}"
+                    <span className={"small "}>53 results</span></h5>
+                  <Container>
+                    <Row>
+                      <Col sm={4}>
+                        <h4 className={"d-flex align-items-center justify-content-between"}>Locations
+                          <span className={"small"}>(13)</span>
+                        </h4>
+                        <ul className={"list-group list-group-flush"}>
+                          <li>
+
+                            <div className={"card-heading align-items-center d-flex mb-2"}>
+                              <div className={"d-flex flex-fill flex-column text-truncate"}>
+                                <CardTitle tag="span"
+                                           className={"card-title flex-fill mb-2"}>
+                                  hotel name
+                                </CardTitle>
+                                <CardSubtitle
+                                    tag="span"
+                                    className="mb-2 text-secondary card-subtitle align-items-center d-flex">
+                                  <Icon svg={PIN_DROP}/>
+                                  hotel location
+                                </CardSubtitle>
+                              </div>
+
+                              <div className={"card-price text-dark"}>{"€122.33"}</div>
+                            </div>
+                          </li>
+                          <LocationList/>
+                        </ul>
+                        <Button color={"light"} outline={true}
+                                className={"text-primary"}>
+                          View More
+                        </Button>
+                      </Col>
+                      <Col sm={4}>
+                        <h4>Accommodations</h4>
+                      </Col>
+                      <Col sm={4}>
+                        <h4>Related</h4>
+
+                      </Col>
+                    </Row>
+                  </Container>
                 </Popover>
               </FormGroup>
             </div>
@@ -328,8 +380,8 @@ const Navigation = (props) => {
                         Hotel
                       </DropdownItem>
                       <DropdownItem
-                        active={type === "Resorts"}
-                        onClick={() => setType("Resorts")}
+                        active={type === "Resort"}
+                        onClick={() => setType("Resort")}
                       >
                         Resorts
                       </DropdownItem>

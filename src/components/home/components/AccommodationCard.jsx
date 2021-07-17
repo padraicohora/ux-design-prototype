@@ -2,6 +2,7 @@ import {Badge, Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle,} from
 import React from "react";
 import Icon from "../../_common_/components/Icon";
 import {PIN_DROP} from "../../_common_/constants/icons";
+import classnames from "classnames";
 
 const AccommodationCard = ({
     image,
@@ -11,7 +12,8 @@ const AccommodationCard = ({
     subText,
     price,
     type,
-    reviews
+    reviews,
+    compact
 }) => {
 
     function calculateRating(rating) {
@@ -25,9 +27,17 @@ const AccommodationCard = ({
         if (number > 95 && number <= 100) return "Unbelievable"
     }
 
+    const rootClass = classnames("accommodation-card", {
+        compact,
+        "p-4" : !compact,
+    })
+    const cardClass = classnames( {
+        compact,
+        "my-2" : !compact,
+    })
     return (
-        <div className={"p-4 accommodation-card"}>
-            <Card className={"my-2"}>
+        <div className={rootClass}>
+            <Card className={cardClass}>
                 <CardImg top width="100%" src={image} alt="Card image cap"/>
                 <CardBody>
                     <div className={"card-heading align-items-center d-flex mb-2"}>

@@ -55,3 +55,31 @@
     height: 200px;
   }
 }
+
+.accommodation-card.compact{
+  min-width: unset;
+  width: auto;
+  overflow: hidden;
+  .card.compact {
+    flex-direction: row;
+    position: relative;
+
+    .card-img-top {
+      height: 90px;
+      width: 160px;
+      position: absolute;
+      z-index: 1;
+      transform: translateX(-25px);
+    }
+    .card-body {
+      flex: 1 1 auto;
+      min-height: 1px;
+      padding: 1.25rem;
+      position: relative;
+      margin-left: 110px;
+      z-index: 2;
+      background: white;
+    }
+  }
+}
+
