@@ -7,7 +7,6 @@ const WrapperIcon = styled.span`
    display: inline-block;
    svg {
        height: 20px;
-       float: left;
    }
 `;
 

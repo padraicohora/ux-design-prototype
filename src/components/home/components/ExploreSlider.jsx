@@ -16,15 +16,15 @@ const ExploreSlider = ({theme, items, onViewMore}) => {
 
     return (
         <>
-            <Container className={"d-flex align-items-center my-3"}>
+            <Container className={"d-flex align-items-center mt-5 mb-3"}>
                 <h3 className={"flex-fill font-weight-medium mb-0"} ref={heading}>{theme}</h3>
                 <Button color={"light"} outline={true}
                         onClick={onViewMore} className={"text-primary"}>
-                    Want to see more?
+                    Show All
                 </Button>
             </Container>
             <Container fluid className={"px-0 overflow-x-hidden"}>
-                <Flickity className={'carousel overflow-hidden h-100'}
+                <Flickity className={'carousel overflow-hidden h-100 mb-3'}
                           style={{height: "calc(100% + 40px)"}}
                           elementType={'div'}
                           options={{

@@ -19,6 +19,7 @@ import Booking from "./booking/components/Booking";
 import {BOOKING} from "./booking/constants";
 import Navigation from "./_common_/components/Navigation";
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
+import Footer from "./_common_/components/Footer";
 
 // const Login = lazy(() => import("./auth/Login"));
 // const Recover = lazy(() => import("./auth/Recover"));
@@ -38,6 +39,7 @@ const PublicRoutes = () => (
         {/*<PrivateRoute path={SECURE} component={PrivateRoutes} />*/}
         <Redirect to={HOME}/>
     </Switch>
+    <Footer/>
 {/*<AccountModal open={open}/>*/}
 </BrowserRouter>
 );

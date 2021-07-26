@@ -38,6 +38,10 @@ import { PinDrop } from "@styled-icons/material-outlined/PinDrop"
 import { MapsHomeWork } from "@styled-icons/material-outlined/MapsHomeWork"
 import { AddCircleOutline } from "@styled-icons/material-rounded/AddCircleOutline"
 import { RemoveCircleOutline } from "@styled-icons/material-rounded/RemoveCircleOutline"
+import { Phone } from "@styled-icons/material/Phone"
+import { Facebook } from "@styled-icons/boxicons-logos/Facebook"
+import { Twitter } from "@styled-icons/boxicons-logos/Twitter"
+import { Instagram } from "@styled-icons/boxicons-logos/Instagram"
 
 // material-outlined
 import { AccessTime } from "@styled-icons/material-outlined/AccessTime";
@@ -84,3 +88,7 @@ export const USERS = <Users />;
 export const ACCOMMODATION_TYPE = <MapsHomeWork />;
 export const ADD_CIRCLE = <AddCircleOutline />;
 export const REMOVE_CIRCLE = <RemoveCircleOutline />;
+export const PHONE = <Phone />;
+export const FACEBOOK = <Facebook />;
+export const TWITTER = <Twitter />;
+export const INSTAGRAM = <Instagram />;

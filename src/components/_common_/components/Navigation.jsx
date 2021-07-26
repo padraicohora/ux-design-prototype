@@ -30,10 +30,12 @@ import {
   ACCOUNT_CIRCLE,
   ADD_CIRCLE,
   AddCircleOutline,
-  CALENDAR, PIN_DROP,
+  CALENDAR,
+  PIN_DROP,
   PLACE,
   REMOVE_CIRCLE,
   RemoveCircleOutline,
+  SEARCH_ICON, SEARCH_OFF_ICON,
   USERS,
 } from "../constants/icons";
 import { useHistory } from "react-router-dom";
@@ -106,12 +108,13 @@ const Navigation = (props) => {
             <Nav className="ml-auto align-items-center" navbar>
               <NavItem>
                 <Button
-                  color="dark"
-                  outline
+                  color="transparent"
+                  // outline
                   onClick={showSearch}
-                  style={{ width: 120 }}
+                  // style={{ width: 120 }}
                 >
-                  Book Now
+                  <Icon svg={!searchOpen ? SEARCH_ICON : SEARCH_OFF_ICON} />
+                  {/*{searchOpen ? "Hide Search" : "Show Search"}*/}
                 </Button>
               </NavItem>
               {/*<NavItem>*/}
@@ -266,6 +269,7 @@ const Navigation = (props) => {
                     isOpen={guestsFocused}
                     placement="bottom"
                     target="guestsInput"
+                    innerClassName={"pb-0"}
                     toggle={() => {
                       setGuestsFocused(!guestsFocused);
                       if (guestsFocused === true)
