@@ -6,21 +6,20 @@ import {Button, Input, InputGroup, InputGroupAddon} from "reactstrap";
 
 const Footer = (props) => {
     return <>
-  <section className="deneb_cta mt-5">
+  <section className="deneb_cta" style={{marginTop:"6rem"}}>
     <div className="container">
       <div className="cta_wrapper">
         <div className="row align-items-center">
-          <div className="col-lg-7">
-            <div className="cta_content">
-              <h3>Save time, save money!</h3>
+          <div className="col-lg-2"/>
+          <div className="col-lg-8 text-center">
+            <div className="cta_content mb-5">
+              <h2 className={"text-white"}>Save time, save money!</h2>
               <p>Sign up and we'll send the best deals to you</p>
             </div>
-          </div>
-          <div className="col-lg-5">
-            <InputGroup>
+            <InputGroup className={"mb-1"}>
               <Input placeholder={"Enter email"}/>
               <InputGroupAddon addonType="append">
-              <Button color={"light"}>Sign Up</Button>
+              <Button color={"light"} className={"px-4"}>Sign Up</Button>
               </InputGroupAddon>
             </InputGroup>
           </div>
@@ -38,7 +37,7 @@ const Footer = (props) => {
               {/*<div className="widget_title" style={{marginBottom:30}}/>*/}
               <p className={"mt-5"}>Quisque orci nisl, viverra et sem ac, tincidunt egestas massa. Morbi est arcu,
                 hendrerit ac vehicula condimentum, euismod nec tortor praesent consequat urna.</p>
-              <ul className="social">
+              <ul className="social pl-0">
                 <li><a href="#"><Icon svg={FACEBOOK}/></a></li>
                 <li><a href="#"><Icon svg={TWITTER}/></a></li>
                 <li><a href="#"><Icon svg={INSTAGRAM}/></a></li>
@@ -86,7 +85,7 @@ const Footer = (props) => {
                   <div className="icon">
                     <Icon svg={PIN_DROP}/>
                   </div>
-                  <div className="info">
+                  <div className="text-secondary">
                     <p>Foxes Bow, Limerick, <span>Ireland.</span></p>
                   </div>
                 </div>
@@ -101,7 +100,7 @@ const Footer = (props) => {
         <div className="row">
           <div className="col-lg-12">
             <div className="copyright_text">
-              <p>Copyright &copy; 2020 All rights reserved.</p>
+              <p className={"mb-0"}>Copyright &copy; 2021 All rights reserved.</p>
             </div>
           </div>
         </div>

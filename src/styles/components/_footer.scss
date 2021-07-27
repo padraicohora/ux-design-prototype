@@ -7,6 +7,8 @@ body {
   background-size: cover;
   padding-top: 200px;
   padding-bottom: 70px;
+  box-shadow: $box-shadow-sm;
+  position: relative;
 }
 
 @media (max-width: 767px) {
@@ -72,7 +74,7 @@ body {
 
 .deneb_footer .widget_wrapper .widget_link ul li a {
   text-transform: capitalize;
-  color: #7a808d;
+  color: $secondary;
 }
 
 .deneb_footer .widget_wrapper .widget_link ul li a:hover,
@@ -95,6 +97,9 @@ body {
 
 .deneb_footer .widget_wrapper .widget_contact .contact_info .single_info .info p a {
   color: $secondary;
+  &:hover, &:focus{
+    color:  $link-hover-color;
+  }
 }
 
 .deneb_footer .widget_wrapper .widget_contact .contact_info .single_info .info p span {
@@ -102,7 +107,7 @@ body {
 }
 
 .deneb_footer .copyright_area {
-  background: #edecf0;
+  background: $gray-200;
   padding: 10px 0;
 }
 

@@ -130,7 +130,7 @@ const Navigation = (props) => {
           </Collapse>
         </Container>
       </Navbar>
-      <Collapse isOpen={searchOpen} className={"search-collapse bg-light"}>
+      <Collapse isOpen={searchOpen} className={"search-collapse"}>
         <Container className={"position-relative"}>
           <Form inline className={"row px-3"}>
             <div className={"pr-2 flex-fill"}>
