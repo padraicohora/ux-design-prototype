@@ -49,6 +49,8 @@ import "react-dates/lib/css/_datepicker.css";
 import { DateRangePicker } from "react-dates";
 import "../../../styles/components/_react_dates_overrides.scss";
 import relaxingHotels from "../../../data/json/relaxing";
+import adventureHotels from "../../../data/json/adventure";
+import romanceHotels from "../../../data/json/romantic";
 import AccommodationCard from "../../home/components/AccommodationCard";
 
 const Navigation = (props) => {
@@ -74,6 +76,7 @@ const Navigation = (props) => {
 
   const [type, setType] = useState("Hotel");
   const [typeFocused, setTypeFocused] = useState(false);
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
   const { searchOpen } = useSelector((state) => state.home);
   const dispatch = useDispatch();
@@ -97,7 +100,10 @@ const Navigation = (props) => {
 
 
 
-  const LocationList = ()=> relaxingHotels.slice().splice(0, relaxingHotels.length).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
+  const LocationList = () => relaxingHotels.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
+  const AccommodationList = () => romanceHotels.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
+  const RelatedList = () => adventureHotels.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
+
   return (
     <div className={"sticky-top"}>
       <Navbar color="white" light expand="md" className={"header-navigation"}>
@@ -117,15 +123,7 @@ const Navigation = (props) => {
                   {/*{searchOpen ? "Hide Search" : "Show Search"}*/}
                 </Button>
               </NavItem>
-              {/*<NavItem>*/}
-              {/*  <Button*/}
-              {/*    color={"transparent"}*/}
-              {/*    className={"account-avatar pr-0"}*/}
-              {/*    disabled*/}
-              {/*  >*/}
-              {/*    <Icon svg={ACCOUNT_CIRCLE} />*/}
-              {/*  </Button>*/}
-              {/*</NavItem>*/}
+
             </Nav>
           </Collapse>
         </Container>
@@ -148,67 +146,67 @@ const Navigation = (props) => {
                     value={location}
                     autocomplete="off"
                     lpIgnore
-                    onChange={(e)=> setLocation(e.target.value)}
+                    onFocus={() => setLocationFocus(true)}
+                    onBlur={() => setLocationFocus(false)}
+                    onChange={(e) => {
+                      setLocation(e.target.value);
+                    }}
                   />
 
                 </InputGroup>
                 <Popover
                     hideArrow
                     fade={false}
-                    trigger="legacy"
-                    isOpen={location.length > 2 && locationFocus}
+                    trigger="click"
+                    // isOpen={location.length > 2 && locationFocus}
+                    isOpen={popoverOpen}
+                    // isOpen={true}
                     placement="bottom-start"
                     target="locationInput"
                     container={"div.search-collapse .container"}
                     popperClassName={"location-suggestions"}
                     innerClassName={"p-4"}
-                    toggle={() => {
-                      setLocationFocus(!locationFocus);
-                      if (locationFocus === true)
-                        setLocation("Sorento");
-                    }}
+                    toggle={()=> setPopoverOpen(!popoverOpen)}
                 >
 
-                  <h5 className={"font-weight-bold justify-content-between align-items-center d-flex"}>Showing results for "{location}"
-                    <span className={"small "}>53 results</span></h5>
+
                   <Container>
+                    <h4 className={"font-weight-bold justify-content-between align-items-center d-flex mt-2 mb-4"}>Showing results for "{location}"
+                      <span className={"small "}>40 results</span></h4>
                     <Row>
                       <Col sm={4}>
-                        <h4 className={"d-flex align-items-center justify-content-between"}>Locations
-                          <span className={"small"}>(13)</span>
-                        </h4>
+                        <h5 className={"d-flex align-items-center justify-content-between mb-4"}>Locations
+                          <span className={"small mr-5"}>(7)</span>
+                        </h5>
                         <ul className={"list-group list-group-flush"}>
-                          <li>
-
-                            <div className={"card-heading align-items-center d-flex mb-2"}>
-                              <div className={"d-flex flex-fill flex-column text-truncate"}>
-                                <CardTitle tag="span"
-                                           className={"card-title flex-fill mb-2"}>
-                                  hotel name
-                                </CardTitle>
-                                <CardSubtitle
-                                    tag="span"
-                                    className="mb-2 text-secondary card-subtitle align-items-center d-flex">
-                                  <Icon svg={PIN_DROP}/>
-                                  hotel location
-                                </CardSubtitle>
-                              </div>
-
-                              <div className={"card-price text-dark"}>{"€122.33"}</div>
-                            </div>
-                          </li>
                           <LocationList/>
                         </ul>
-                        <Button color={"light"} outline={true}
-                                className={"text-primary"}>
-                          View More
+                        <Button color={"light"}>
+                          Show All
                         </Button>
                       </Col>
                       <Col sm={4}>
-                        <h4>Accommodations</h4>
+                        <h5 className={"d-flex align-items-center justify-content-between mb-4"}>Accommodations
+                          <span className={"small mr-5"}>(22)</span>
+                        </h5>
+                        <ul className={"list-group list-group-flush"}>
+                          <AccommodationList/>
+                        </ul>
+                        <Button color={"light"}>
+                          Show All
+                        </Button>
+
                       </Col>
                       <Col sm={4}>
-                        <h4>Related</h4>
+                        <h5 className={"d-flex align-items-center justify-content-between mb-4"}>Related
+                          <span className={"small mr-5"}>(11)</span>
+                        </h5>
+                        <ul className={"list-group list-group-flush"}>
+                          <RelatedList/>
+                        </ul>
+                        <Button color={"light"}>
+                          Show All
+                        </Button>
 
                       </Col>
                     </Row>
@@ -370,9 +368,12 @@ const Navigation = (props) => {
                   </InputGroupAddon>
                   <UncontrolledDropdown setActiveFromChild>
                     <DropdownToggle
-                      tag="CustomInput"
+                      tag="Input"
                       className="nav-link border-left-0 form-control input pl-2"
                       caret
+                      value={type}
+                      onFocus={() => setTypeFocused(true)}
+                      onBlur={() => setTypeFocused(false)}
                     >
                       {type}
                     </DropdownToggle>

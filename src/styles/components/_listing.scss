@@ -8,12 +8,16 @@
     background-color: $light;
   }
 
+  .card-heading{
+    margin-bottom: 0.5rem;
+  }
   .card-title {
     font-size: 18px;
   }
 
   .card-subtitle {
     font-size: 16px;
+    margin-bottom: 0.5rem;
     svg {
       height: 17px;
       margin-right: 3px;
@@ -40,6 +44,7 @@
     }
     .card-title {
       color: $primary;
+      margin-bottom: 0.5rem
     }
     .card-rating {
       box-shadow: $box-shadow;
@@ -60,13 +65,48 @@
   min-width: unset;
   width: auto;
   overflow: hidden;
+  margin-bottom: 1.4rem;
   .card.compact {
     flex-direction: row;
     position: relative;
+    background-color: white;
+
+    .card-title {
+      font-size: 16px;
+      margin-bottom: 0.25rem
+    }
+
+    .card-text .badge-primary{
+      background-color:$gray-300!important;
+      color: $secondary;
+    }
+
+    .card-subtitle {
+      font-size: 14px;
+      margin-bottom: 0;
+      svg {
+        height: 14px;
+        margin-right: 3px;
+      }
+    }
+
+    .card-heading{
+      margin-bottom: 0;
+    }
+
+    .rating{
+      display: none!important;
+    }
+
+    .card-price {
+      font-size: 16px;
+      align-self: flex-end !important;
+      display: none !important;
+    }
 
     .card-img-top {
-      height: 90px;
-      width: 160px;
+      height: 67px;
+      width: 120px;
       position: absolute;
       z-index: 1;
       transform: translateX(-25px);
@@ -74,9 +114,9 @@
     .card-body {
       flex: 1 1 auto;
       min-height: 1px;
-      padding: 1.25rem;
+      padding: 0 12px;
       position: relative;
-      margin-left: 110px;
+      margin-left: 70px;
       z-index: 2;
       background: white;
     }

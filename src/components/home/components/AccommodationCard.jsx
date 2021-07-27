@@ -40,15 +40,15 @@ const AccommodationCard = ({
             <Card className={cardClass}>
                 <CardImg top width="100%" src={image} alt="Card image cap"/>
                 <CardBody>
-                    <div className={"card-heading align-items-center d-flex mb-2"}>
+                    <div className={"card-heading align-items-center d-flex"}>
                         <div className={"d-flex flex-fill flex-column text-truncate"}>
                             <CardTitle tag="span"
-                                       className={"card-title flex-fill mb-2"}>
+                                       className={"card-title flex-fill"}>
                                 {title}
                             </CardTitle>
                             <CardSubtitle
                                 tag="span"
-                                className="mb-2 text-secondary card-subtitle align-items-center d-flex">
+                                className=" text-secondary card-subtitle align-items-center d-flex">
                                 <Icon svg={PIN_DROP}/>
                                 {location}
                             </CardSubtitle>
@@ -64,7 +64,7 @@ const AccommodationCard = ({
                                 {type}
                             </Badge>
                         </CardText>
-                        <div className={"d-flex align-items-center"}>
+                        <div className={"d-flex align-items-center rating"}>
                             <div className={"mx-2"}>
                                 <small
                                     className={"card-rating card-rating font-weight-bolder p-2 rounded-circle small"}>

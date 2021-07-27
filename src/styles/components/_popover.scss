@@ -20,4 +20,7 @@
 
 .location-suggestions{
   min-width: calc(100% - 30px);
+  max-height: 70vh;
+  overflow: hidden;
+  box-shadow: $box-shadow-lg, 26px 3rem 60rem 60rem rgba(0, 0, 0, 0.18);
 }
