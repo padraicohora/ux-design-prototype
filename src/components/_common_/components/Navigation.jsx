@@ -52,6 +52,7 @@ import relaxingHotels from "../../../data/json/relaxing";
 import adventureHotels from "../../../data/json/adventure";
 import romanceHotels from "../../../data/json/romantic";
 import AccommodationCard from "../../home/components/AccommodationCard";
+import locations from "../../../data/json/locations";
 
 const Navigation = (props) => {
   const history = useHistory();
@@ -100,7 +101,7 @@ const Navigation = (props) => {
 
 
 
-  const LocationList = () => relaxingHotels.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
+  const LocationList = () => locations.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
   const AccommodationList = () => romanceHotels.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
   const RelatedList = () => adventureHotels.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
 

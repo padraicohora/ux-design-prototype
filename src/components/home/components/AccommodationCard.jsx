@@ -43,14 +43,14 @@ const AccommodationCard = ({
                     <div className={"card-heading align-items-center d-flex"}>
                         <div className={"d-flex flex-fill flex-column text-truncate"}>
                             <CardTitle tag="span"
-                                       className={"card-title flex-fill"}>
+                                       className={"card-title flex-fill text-truncate"}>
                                 {title}
                             </CardTitle>
                             <CardSubtitle
                                 tag="span"
                                 className=" text-secondary card-subtitle align-items-center d-flex">
                                 <Icon svg={PIN_DROP}/>
-                                {location}
+                                <span className={"flex-fill text-truncate"}>{location}</span>
                             </CardSubtitle>
                         </div>
 

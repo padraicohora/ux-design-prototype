@@ -13,6 +13,7 @@
   }
   .card-title {
     font-size: 18px;
+    margin-bottom: 0.5rem
   }
 
   .card-subtitle {
@@ -44,7 +45,6 @@
     }
     .card-title {
       color: $primary;
-      margin-bottom: 0.5rem
     }
     .card-rating {
       box-shadow: $box-shadow;
