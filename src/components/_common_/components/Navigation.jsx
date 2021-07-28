@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   Button, CardSubtitle,
   CardTitle,
@@ -48,7 +48,6 @@ import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import { DateRangePicker } from "react-dates";
 import "../../../styles/components/_react_dates_overrides.scss";
-import relaxingHotels from "../../../data/json/relaxing";
 import adventureHotels from "../../../data/json/adventure";
 import romanceHotels from "../../../data/json/romantic";
 import AccommodationCard from "../../home/components/AccommodationCard";
@@ -79,7 +78,7 @@ const Navigation = (props) => {
   const [typeFocused, setTypeFocused] = useState(false);
   const [popoverOpen, setPopoverOpen] = useState(false);
 
-  const { searchOpen } = useSelector((state) => state.home);
+  const { searchOpen, searchLocations, searchAccommodations, searchRelated } = useSelector((state) => state.home);
   const dispatch = useDispatch();
   const toggle = () => setIsOpen(!isOpen);
   const showSearch = () => dispatch({ type: TOGGLE_SEARCH_BAR });
@@ -100,10 +99,18 @@ const Navigation = (props) => {
   };
 
 
+  useEffect(() => {
+    console.log(`location`, location)
+    if(location.length > 2){
+      dispatch({type:"SEARCH_BY_LOCATION", payload:location})
+    }
+  }, [ location ]);
 
-  const LocationList = () => locations.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
-  const AccommodationList = () => romanceHotels.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
-  const RelatedList = () => adventureHotels.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
+
+
+  const LocationList = () => searchLocations.slice(0,5).map(hotel => <AccommodationCard compact locationBased {...hotel} key={hotel.id}/>)
+  const AccommodationList = () => searchAccommodations.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
+  const RelatedList = () => searchRelated.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
 
   return (
     <div className={"sticky-top"}>
@@ -158,10 +165,8 @@ const Navigation = (props) => {
                 <Popover
                     hideArrow
                     fade={false}
-                    trigger="click"
-                    // isOpen={location.length > 2 && locationFocus}
-                    isOpen={popoverOpen}
-                    // isOpen={true}
+                    trigger="legacy"
+                    isOpen={searchRelated.length !== 0 && popoverOpen}
                     placement="bottom-start"
                     target="locationInput"
                     container={"div.search-collapse .container"}
@@ -177,7 +182,7 @@ const Navigation = (props) => {
                     <Row>
                       <Col sm={4}>
                         <h5 className={"d-flex align-items-center justify-content-between mb-4"}>Locations
-                          <span className={"small mr-5"}>(7)</span>
+                          <span className={"small mr-5"}>{`(${searchLocations.length})`}</span>
                         </h5>
                         <ul className={"list-group list-group-flush"}>
                           <LocationList/>
@@ -188,7 +193,7 @@ const Navigation = (props) => {
                       </Col>
                       <Col sm={4}>
                         <h5 className={"d-flex align-items-center justify-content-between mb-4"}>Accommodations
-                          <span className={"small mr-5"}>(22)</span>
+                          <span className={"small mr-5"}>{`(${searchAccommodations.length})`}</span>
                         </h5>
                         <ul className={"list-group list-group-flush"}>
                           <AccommodationList/>
@@ -200,7 +205,7 @@ const Navigation = (props) => {
                       </Col>
                       <Col sm={4}>
                         <h5 className={"d-flex align-items-center justify-content-between mb-4"}>Related
-                          <span className={"small mr-5"}>(11)</span>
+                          <span className={"small mr-5"}>{`(${searchRelated.length})`}</span>
                         </h5>
                         <ul className={"list-group list-group-flush"}>
                           <RelatedList/>

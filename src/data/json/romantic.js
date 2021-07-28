@@ -26,7 +26,8 @@ const romanceHotels = [
     imageNumber: 1,
     image: romantic1,
     type: "Cabin",
-    title:"Hypnos"
+    title: "Hypnos",
+    group: "romantic",
   },
   {
     id: "c50f7b1cc79b65e7e8cac8565f46385d",
@@ -40,7 +41,9 @@ const romanceHotels = [
     imageNumber: 2,
     image: romantic2,
     type: "Apartment",
-  title:"Iris", },
+    title: "Iris",
+    group: "romantic",
+  },
   {
     id: "b0b673e8cb5c87506f784afdabef73a1",
     country: "United States",
@@ -53,7 +56,9 @@ const romanceHotels = [
     imageNumber: 3,
     image: romantic3,
     type: "Hotel",
-  title:"Azul", },
+    title: "Azul",
+    group: "romantic",
+  },
   {
     id: "ae637f8f23302469dfecf76e355d26de",
     country: "France",
@@ -66,7 +71,9 @@ const romanceHotels = [
     imageNumber: 4,
     image: romantic4,
     type: "Apartment",
-  title:"Ebony", },
+    title: "Ebony",
+    group: "romantic",
+  },
   {
     id: "f597e506f5e987f5e238d68fac35bb21",
     country: "Argentina",
@@ -79,7 +86,9 @@ const romanceHotels = [
     imageNumber: 5,
     image: romantic5,
     type: "Resorts",
-  title:"Between Two Rooms", },
+    title: "Between Two Rooms",
+    group: "romantic",
+  },
   {
     id: "699412109491fae4fb66715cab9063c0",
     country: "Egypt",
@@ -92,7 +101,9 @@ const romanceHotels = [
     imageNumber: 6,
     image: romantic6,
     type: "Hotel",
-  title:"Better Sleep Hotel", },
+    title: "Better Sleep Hotel",
+    group: "romantic",
+  },
   {
     id: "f9966f342c0fec6be178b7d341737fe3",
     country: "China",
@@ -105,7 +116,9 @@ const romanceHotels = [
     imageNumber: 7,
     image: romantic7,
     type: "Resorts",
-  title:"Paradise Comfort", },
+    title: "Paradise Comfort",
+    group: "romantic",
+  },
   {
     id: "caae23e4f1850543e67f3e8661b5ebc1",
     country: "South Africa",
@@ -118,7 +131,9 @@ const romanceHotels = [
     imageNumber: 8,
     image: romantic8,
     type: "Villa",
-  title:"Corners of Heaven", },
+    title: "Corners of Heaven",
+    group: "romantic",
+  },
   {
     id: "3ac26d2bbe83d194461ece0d7f6d0082",
     country: "Brazil",
@@ -131,7 +146,9 @@ const romanceHotels = [
     imageNumber: 9,
     image: romantic9,
     type: "Villa",
-  title:"Midnight Suites", },
+    title: "Midnight Suites",
+    group: "romantic",
+  },
   {
     id: "cf30bab9a9459da9473649d9524eea7e",
     country: "United Kingdom",
@@ -144,7 +161,9 @@ const romanceHotels = [
     imageNumber: 10,
     image: romantic10,
     type: "Resorts",
-  title:"Bed Soul", },
+    title: "Bed Soul",
+    group: "romantic",
+  },
   {
     id: "259135484940139e617018354fbfb6d9",
     country: "Sweden",
@@ -157,7 +176,9 @@ const romanceHotels = [
     imageNumber: 1,
     image: romantic11,
     type: "Hotel",
-  title:"Long Road Hotel", },
+    title: "Long Road Hotel",
+    group: "romantic",
+  },
   {
     id: "918e13b6b5a360c3dc870b373e23af4d",
     country: "China",
@@ -170,7 +191,9 @@ const romanceHotels = [
     imageNumber: 2,
     image: romantic12,
     type: "Apartment",
-  title:"Guest Lodgings", },
+    title: "Guest Lodgings",
+    group: "romantic",
+  },
   {
     id: "96e57bee8bc43ad395233a68a2efd029",
     country: "China",
@@ -183,7 +206,9 @@ const romanceHotels = [
     imageNumber: 3,
     image: romantic13,
     type: "Apartment",
-  title:"The Boarding Room", },
+    title: "The Boarding Room",
+    group: "romantic",
+  },
   {
     id: "c391e57289cb62b71b920dd3e6acf9b3",
     country: "China",
@@ -196,7 +221,9 @@ const romanceHotels = [
     imageNumber: 4,
     image: romantic14,
     type: "Apartment",
-  title:"Lord's Vale Hotel", },
+    title: "Lord's Vale Hotel",
+    group: "romantic",
+  },
   {
     id: "f0a1986e71885f0be0523fb1e75cc374",
     country: "New Zealand",
@@ -209,7 +236,9 @@ const romanceHotels = [
     imageNumber: 5,
     image: romantic5,
     type: "Hotel",
-  title:"Crown Nimbus Hotel & Spa", },
+    title: "Crown Nimbus Hotel & Spa",
+    group: "romantic",
+  },
   {
     id: "adf4a25276f69b5743e8223805ed1143",
     country: "China",
@@ -222,7 +251,9 @@ const romanceHotels = [
     imageNumber: 6,
     image: romantic6,
     type: "Apartment",
-  title:"Noble Mirror Hotel", },
+    title: "Noble Mirror Hotel",
+    group: "romantic",
+  },
   {
     id: "3171f6c6b73824d8c12e00c9d77aed14",
     country: "Greece",
@@ -235,7 +266,9 @@ const romanceHotels = [
     imageNumber: 7,
     image: romantic7,
     type: "Apartment",
-  title:"Eastern Temple Hotel", },
+    title: "Eastern Temple Hotel",
+    group: "romantic",
+  },
   {
     id: "1ed64d329505c9051a66f2cf0695f86e",
     country: "France",
@@ -248,7 +281,9 @@ const romanceHotels = [
     imageNumber: 8,
     image: romantic8,
     type: "Cabin",
-  title:"Mellow Summit Hotel", },
+    title: "Mellow Summit Hotel",
+    group: "romantic",
+  },
   {
     id: "69c1ad322295df36529d7fcf5e4f9b4e",
     country: "Japan",
@@ -261,7 +296,9 @@ const romanceHotels = [
     imageNumber: 9,
     image: romantic9,
     type: "Resorts",
-  title:"Pacific Star Resort & Spa", },
+    title: "Pacific Star Resort & Spa",
+    group: "romantic",
+  },
   {
     id: "0c7b80bfff2411a96167afd57e0c4d47",
     country: "China",
@@ -274,8 +311,8 @@ const romanceHotels = [
     imageNumber: 10,
     image: romantic10,
     type: "Hotel",
-    title:"Marina Garden Resort"
-  }
-]
+    title: "Marina Garden Resort",
+  },
+];
 
 export default romanceHotels;

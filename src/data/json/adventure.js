@@ -27,7 +27,7 @@ const adventureHotels = [
     image: adventure1,
     type: "Cabin",
     title: "Wanderlust",
-  },
+    group:"adventure" },
   {
     id: "c8bb66da9ceca3aac078572e7d4afcb8",
     country: "China",
@@ -41,7 +41,7 @@ const adventureHotels = [
     image: adventure2,
     type: "Hotel",
     title: "Autumn Dome Hotel",
-  },
+    group:"adventure" },
   {
     id: "b29f60033022a84f23c164d2910388be",
     country: "China",
@@ -55,7 +55,7 @@ const adventureHotels = [
     image: adventure3,
     type: "Resorts",
     title: "Peaceful Square Resort & Spa",
-  },
+    group:"adventure" },
   {
     id: "75784fd331626cf63295d747d181acbc",
     country: "China",
@@ -69,7 +69,7 @@ const adventureHotels = [
     image: adventure4,
     type: "Apartment",
     title: "Golden Peaks",
-  },
+    group:"adventure" },
   {
     id: "d82e84e71351538005333db66fe04cf9",
     country: "Netherlands",
@@ -83,7 +83,7 @@ const adventureHotels = [
     image: adventure5,
     type: "Resorts",
     title: "Serene Petal Resort",
-  },
+    group:"adventure" },
   {
     id: "3c79a8d852f3908675593353839eeb50",
     country: "China",
@@ -97,7 +97,7 @@ const adventureHotels = [
     image: adventure6,
     type: "Resorts",
     title: "Cloud Resort",
-  },
+    group:"adventure" },
   {
     id: "4c309bf4ad49c021de43ed2776d52aa8",
     country: "Thailand",
@@ -111,7 +111,7 @@ const adventureHotels = [
     image: adventure7,
     type: "Cabin",
     title: "Summer Pool House",
-  },
+    group:"adventure" },
   {
     id: "c9f4bbaea58bab6b11f110ca69012a59",
     country: "Madagascar",
@@ -125,7 +125,7 @@ const adventureHotels = [
     image: adventure8,
     type: "Hotel",
     title: "Delight Hotel",
-  },
+    group:"adventure" },
   {
     id: "19a2c7106ff99034523634f2cc6ebc89",
     country: "United States",
@@ -139,7 +139,7 @@ const adventureHotels = [
     image: adventure9,
     type: "Resorts",
     title: "Revelation Resort",
-  },
+    group:"adventure" },
   {
     id: "9b58af7dbae0c5f397b69ed3cfce36b3",
     country: "France",
@@ -153,7 +153,7 @@ const adventureHotels = [
     image: adventure10,
     type: "Villa",
     title: "Crimson Ocean",
-  },
+    group:"adventure" },
   {
     id: "67908f524241da835198b638c7de7ea2",
     country: "China",
@@ -167,7 +167,7 @@ const adventureHotels = [
     image: adventure11,
     type: "Resorts",
     title: "Northern Seaside Resort",
-  },
+    group:"adventure" },
   {
     id: "6ed0b4d5840eaff390129f5f1cdad434",
     country: "China",
@@ -181,7 +181,7 @@ const adventureHotels = [
     image: adventure12,
     type: "Cabin",
     title: "Sunrise Garden",
-  },
+    group:"adventure" },
   {
     id: "25386396f4e00251a34bcbb5a9eda224",
     country: "China",
@@ -195,7 +195,7 @@ const adventureHotels = [
     image: adventure13,
     type: "Apartment",
     title: "Yellow Oak House",
-  },
+    group:"adventure" },
   {
     id: "094f3d6d69f13d85523e8a36d763e6d7",
     country: "Ireland",
@@ -209,7 +209,7 @@ const adventureHotels = [
     image: adventure14,
     type: "Apartment",
     title: "The Twin Dome",
-  },
+    group:"adventure" },
   {
     id: "f7eff8a85ea9d3a8edb763886608281a",
     country: "Argentina",
@@ -223,7 +223,7 @@ const adventureHotels = [
     image: adventure1,
     type: "Apartment",
     title: "The Cozy House",
-  },
+    group:"adventure" },
   {
     id: "875274cfb3ea4636f6c0d566841a1507",
     country: "Croatia",
@@ -237,7 +237,7 @@ const adventureHotels = [
     image: adventure6,
     type: "Resorts",
     title: "Exalted Resort",
-  },
+    group:"adventure" },
   {
     id: "0244c18986a31000a9ec32a5b4f41e4b",
     country: "Thailand",
@@ -251,7 +251,7 @@ const adventureHotels = [
     image: adventure7,
     type: "Apartment",
     title: "Sapphire Point House",
-  },
+    group:"adventure" },
   {
     id: "fa0adcb608097e9cbca62cb011d9f8bf",
     country: "China",
@@ -265,7 +265,7 @@ const adventureHotels = [
     image: adventure8,
     type: "Hotel",
     title: "Western Bluff Hotel",
-  },
+    group:"adventure" },
   {
     id: "02e9d4c85b338254ea5fd60a282b6c29",
     country: "China",
@@ -279,7 +279,7 @@ const adventureHotels = [
     image: adventure9,
     type: "Hotel",
     title: "Twin Beach Hotel",
-  },
+    group:"adventure" },
   {
     id: "d299715ada4c8ba1a98390f989e6594a",
     country: "Ireland",
@@ -293,7 +293,7 @@ const adventureHotels = [
     image: adventure10,
     type: "Hotel",
     title: "Serene Plains Hotel & Spa",
-  },
+    group:"adventure" },
 ];
 
 export default adventureHotels;

@@ -13,7 +13,11 @@ const AccommodationCard = ({
     price,
     type,
     reviews,
-    compact
+    compact,
+    locationBased,
+    city,
+    country,
+    accomodations
 }) => {
 
     function calculateRating(rating) {
@@ -29,10 +33,12 @@ const AccommodationCard = ({
 
     const rootClass = classnames("accommodation-card", {
         compact,
+        locationBased,
         "p-4" : !compact,
     })
     const cardClass = classnames( {
         compact,
+        locationBased,
         "my-2" : !compact,
     })
     return (
@@ -44,13 +50,13 @@ const AccommodationCard = ({
                         <div className={"d-flex flex-fill flex-column text-truncate"}>
                             <CardTitle tag="span"
                                        className={"card-title flex-fill text-truncate"}>
-                                {title}
+                                {locationBased ? city  : title}
                             </CardTitle>
                             <CardSubtitle
                                 tag="span"
                                 className=" text-secondary card-subtitle align-items-center d-flex">
-                                <Icon svg={PIN_DROP}/>
-                                <span className={"flex-fill text-truncate"}>{location}</span>
+                                {!locationBased && <Icon svg={PIN_DROP}/>}
+                                <span className={"flex-fill text-truncate"}>{locationBased ? country : location}</span>
                             </CardSubtitle>
                         </div>
 
@@ -59,7 +65,9 @@ const AccommodationCard = ({
 
                     <div className={"card-info d-flex align-items-center"}>
                         <CardText className={"mb-0 flex-fill"}>
-                            {subText}
+                            {locationBased && <small>
+                                {`${accomodations} accommodations`}
+                            </small>}
                             <Badge color={"primary"} pill>
                                 {type}
                             </Badge>
@@ -71,12 +79,13 @@ const AccommodationCard = ({
                                     {rating}
                                 </small>
                             </div>
-                            <div className={"d-flex flex-column "}>
+                            {!compact && <div className={"d-flex flex-column "}>
                                 <span className={"mb-0 text-secondary rating-text"}>
                                     {calculateRating(rating)}
                                 </span>
-                                <small className={"text-muted rating-text"}>{`${reviews} reviews`}</small>
-                            </div>
+                                <small
+                                    className={"text-muted rating-text"}>{`${reviews} reviews`}</small>
+                            </div>}
                         </div>
 
                     </div>

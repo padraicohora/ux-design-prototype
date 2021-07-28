@@ -24,7 +24,7 @@ const relaxingHotels = [
     imageNumber: 1,
     image: relaxing1,
     type: "Apartment",
-  },
+ group:"relaxing" },
   {
     id: "6c85eb901b23732150a54e7137010d10",
     title: "Panthera",
@@ -38,7 +38,7 @@ const relaxingHotels = [
     imageNumber: 2,
     image: relaxing2,
     type: "Resorts",
-  },
+ group:"relaxing" },
   {
     id: "e16a29dbd535a4d888e25f91137494de",
     title: "Atlas Hotel",
@@ -52,7 +52,7 @@ const relaxingHotels = [
     imageNumber: 3,
     image: relaxing3,
     type: "Villa",
-  },
+ group:"relaxing" },
   {
     id: "52184a7bdcd7f7812282966945a72449",
     title: "Sequoia Hotel",
@@ -66,7 +66,7 @@ const relaxingHotels = [
     imageNumber: 4,
     image: relaxing4,
     type: "Cabin",
-  },
+ group:"relaxing" },
   {
     id: "6bbcaa1cf4b881da0085f0e366e5b66c",
     title: "Pearl Lodge",
@@ -80,7 +80,7 @@ const relaxingHotels = [
     imageNumber: 5,
     image: relaxing5,
     type: "Villa",
-  },
+ group:"relaxing" },
   {
     id: "98bd98d66492245c2f643cb0a083933f",
     title: "Atlas Villa",
@@ -94,7 +94,7 @@ const relaxingHotels = [
     imageNumber: 6,
     image: relaxing6,
     type: "Resorts",
-  },
+ group:"relaxing" },
   {
     id: "c4a7d3c880a56e95e90c4d43e2e80ef2",
     title: "New Apollo",
@@ -108,7 +108,7 @@ const relaxingHotels = [
     imageNumber: 7,
     image: relaxing7,
     type: "Resorts",
-  },
+ group:"relaxing" },
   {
     id: "c74743859eb0e3dfb5db0ecc96c03844",
     title: "Ignite Hotel",
@@ -122,7 +122,7 @@ const relaxingHotels = [
     imageNumber: 8,
     image: relaxing8,
     type: "Apartment",
-  },
+ group:"relaxing" },
   {
     id: "2746ad1efc5fb9c0a57f825648941032",
     title: "Blue Jay Hotel",
@@ -136,7 +136,7 @@ const relaxingHotels = [
     imageNumber: 9,
     image: relaxing9,
     type: "Apartment",
-  },
+ group:"relaxing" },
   {
     id: "1cc6102bafe03f9fd6846f3a31b8aeea",
     title: "Tangerine Hotel",
@@ -150,7 +150,7 @@ const relaxingHotels = [
     imageNumber: 10,
     image: relaxing10,
     type: "Hotel",
-  },
+ group:"relaxing" },
   {
     id: "36bf15afadce0fa35224578f610a5c65",
     title: "Hotel Melanie",
@@ -164,7 +164,7 @@ const relaxingHotels = [
     imageNumber: 1,
     image: relaxing11,
     type: "Resorts",
-  },
+ group:"relaxing" },
   {
     id: "07ccd9a608397f8320a3495b3c91377f",
     title: "25 Hazel",
@@ -178,7 +178,7 @@ const relaxingHotels = [
     imageNumber: 2,
     image: relaxing2,
     type: "Cabin",
-  },
+ group:"relaxing" },
   {
     id: "630c974cf5442b523efc97023c503521",
     title: "Indigo",
@@ -192,7 +192,7 @@ const relaxingHotels = [
     imageNumber: 3,
     image: relaxing3,
     type: "Resorts",
-  },
+ group:"relaxing" },
   {
     id: "cf967e638a497fabc98b1b0b5f7198dc",
     title: "Gaia",
@@ -206,7 +206,7 @@ const relaxingHotels = [
     imageNumber: 4,
     image: relaxing4,
     type: "Hotel",
-  },
+ group:"relaxing" },
   {
     id: "985867e5f2f651ae1e3744401020f546",
     title: "Jade Hotel",
@@ -220,7 +220,7 @@ const relaxingHotels = [
     imageNumber: 5,
     image: relaxing5,
     type: "Villa",
-  },
+ group:"relaxing" },
   {
     id: "6c104fa064d08732b0eb18f0711923f6",
     title: "Dritan Stay",
@@ -234,7 +234,7 @@ const relaxingHotels = [
     imageNumber: 6,
     image: relaxing6,
     type: "Cabin",
-  },
+ group:"relaxing" },
   {
     id: "7856beeca625fc828cd96ad918421608",
     title: "Ceilo",
@@ -248,7 +248,7 @@ const relaxingHotels = [
     imageNumber: 7,
     image: relaxing7,
     type: "Cabin",
-  },
+ group:"relaxing" },
   {
     id: "3afc4d1dbdb8f3ca434efc9f4b5b5a68",
     title: "Primrose High",
@@ -262,7 +262,7 @@ const relaxingHotels = [
     imageNumber: 8,
     image: relaxing8,
     type: "Cabin",
-  },
+ group:"relaxing" },
   {
     id: "27a38b662013897e387b021bf329df67",
     title: "Aether",
@@ -276,7 +276,7 @@ const relaxingHotels = [
     imageNumber: 9,
     image: relaxing9,
     type: "Resorts",
-  },
+ group:"relaxing" },
   {
     id: "f26c38802b79cf2203c2733225911a5d",
     title: "7 Mirrors Hotel",
@@ -290,7 +290,7 @@ const relaxingHotels = [
     imageNumber: 10,
     image: relaxing10,
     type: "Villa",
-  },
+ group:"relaxing" },
 ];
 
 export default relaxingHotels;
