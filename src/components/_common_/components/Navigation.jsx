@@ -63,7 +63,7 @@ const Navigation = (props) => {
   const [locationFocus, setLocationFocus] = useState(false);
 
   const [startDate, setStartDate] = useState(moment());
-  const [endDate, setEndDate] = useState(moment());
+  const [endDate, setEndDate] = useState(moment().add(2, 'days'));
   const [datesFocused, setDatesFocused] = useState();
 
   const [guestsFocused, setGuestsFocused] = useState(false);
@@ -72,7 +72,7 @@ const Navigation = (props) => {
   const [children, setChildren] = useState(0);
   const [rooms, setRooms] = useState(1);
 
-  const [guestsAmount, setGuestsAmount] = useState(guestString());
+  const [guestsAmount, setGuestsAmount] = useState(guestString(adults, children, rooms));
 
   const [type, setType] = useState("Hotel");
   const [typeFocused, setTypeFocused] = useState(false);
