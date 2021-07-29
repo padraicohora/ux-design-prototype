@@ -29,7 +29,7 @@ const Footer = (props) => {
   </section>
   <footer className="deneb_footer">
     <div className="widget_wrapper"
-         style={{ "background-image": "url(http://demo.tortoizthemes.com/deneb-html/deneb-ltr/assets/images/footer_bg.png)" }}>
+         style={{ backgroundImage: "url(http://demo.tortoizthemes.com/deneb-html/deneb-ltr/assets/images/footer_bg.png)" }}>
       <div className="container">
         <div className="row">
           <div className="col-lg-4 col-md-6 col-12">

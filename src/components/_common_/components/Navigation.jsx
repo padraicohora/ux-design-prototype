@@ -52,7 +52,10 @@ import adventureHotels from "../../../data/json/adventure";
 import romanceHotels from "../../../data/json/romantic";
 import AccommodationCard from "../../home/components/AccommodationCard";
 import locations from "../../../data/json/locations";
-
+export const guestString = (adults, children, rooms) =>
+    `${adults} Adults, ${
+        children > 0 ? children + " Children, " : ""
+    }${rooms} Rooms`;
 const Navigation = (props) => {
   const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
@@ -68,10 +71,7 @@ const Navigation = (props) => {
   let [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
   const [rooms, setRooms] = useState(1);
-  const guestString = () =>
-    `${adults} Adults, ${
-      children > 0 ? children + " Children, " : ""
-    }${rooms} Rooms`;
+
   const [guestsAmount, setGuestsAmount] = useState(guestString());
 
   const [type, setType] = useState("Hotel");
@@ -85,7 +85,18 @@ const Navigation = (props) => {
   const onSearch = (e) => {
     e.preventDefault();
     history.push(RESULTS);
-    showSearch();
+    dispatch({
+      type: "SUBMIT_SEARCH",
+      payload: {
+        location,
+        startDate,
+        endDate,
+        adults,
+        children,
+        rooms,
+        type
+      }
+    });
   };
 
   const goHome = () => {
@@ -106,8 +117,6 @@ const Navigation = (props) => {
     }
   }, [ location ]);
 
-
-
   const LocationList = () => searchLocations.slice(0,5).map(hotel => <AccommodationCard compact locationBased {...hotel} key={hotel.id}/>)
   const AccommodationList = () => searchAccommodations.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
   const RelatedList = () => searchRelated.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
@@ -123,12 +132,9 @@ const Navigation = (props) => {
               <NavItem>
                 <Button
                   color="transparent"
-                  // outline
                   onClick={showSearch}
-                  // style={{ width: 120 }}
                 >
                   <Icon svg={!searchOpen ? SEARCH_ICON : SEARCH_OFF_ICON} />
-                  {/*{searchOpen ? "Hide Search" : "Show Search"}*/}
                 </Button>
               </NavItem>
 
@@ -152,8 +158,8 @@ const Navigation = (props) => {
                   <Input
                     placeholder={`Enter a ${type} name or location`}
                     value={location}
-                    autocomplete="off"
-                    lpIgnore
+                    autoComplete="off"
+                    lpignore="true"
                     onFocus={() => setLocationFocus(true)}
                     onBlur={() => setLocationFocus(false)}
                     onChange={(e) => {
@@ -164,9 +170,9 @@ const Navigation = (props) => {
                 </InputGroup>
                 <Popover
                     hideArrow
-                    fade={false}
-                    trigger="legacy"
-                    isOpen={searchRelated.length !== 0 && popoverOpen}
+                    fade={true}
+                    trigger="focus"
+                    isOpen={location.length > 2 && searchRelated.length !== 0 && popoverOpen}
                     placement="bottom-start"
                     target="locationInput"
                     container={"div.search-collapse .container"}
@@ -174,11 +180,13 @@ const Navigation = (props) => {
                     innerClassName={"p-4"}
                     toggle={()=> setPopoverOpen(!popoverOpen)}
                 >
-
-
-                  <Container>
-                    <h4 className={"font-weight-bold justify-content-between align-items-center d-flex mt-2 mb-4"}>Showing results for "{location}"
-                      <span className={"small "}>40 results</span></h4>
+                  <Container className={"mb-2"}>
+                    <h4 className={"font-weight-bold justify-content-between align-items-center d-flex mt-2 mb-4"}>
+                      Showing results for "{location}"
+                      <span className={"small "}>
+                        {`${searchLocations.length + searchAccommodations.length + searchRelated.length} results`}
+                      </span>
+                    </h4>
                     <Row>
                       <Col sm={4}>
                         <h5 className={"d-flex align-items-center justify-content-between mb-4"}>Locations
@@ -187,7 +195,7 @@ const Navigation = (props) => {
                         <ul className={"list-group list-group-flush"}>
                           <LocationList/>
                         </ul>
-                        <Button color={"light"}>
+                        <Button color={"primary"} outline>
                           Show All
                         </Button>
                       </Col>
@@ -198,19 +206,20 @@ const Navigation = (props) => {
                         <ul className={"list-group list-group-flush"}>
                           <AccommodationList/>
                         </ul>
-                        <Button color={"light"}>
+                        <Button color={"primary"} outline>
                           Show All
                         </Button>
 
                       </Col>
                       <Col sm={4}>
-                        <h5 className={"d-flex align-items-center justify-content-between mb-4"}>Related
+                        <h5 className={"d-flex align-items-center justify-content-between mb-4"}>
+                          Related
                           <span className={"small mr-5"}>{`(${searchRelated.length})`}</span>
                         </h5>
                         <ul className={"list-group list-group-flush"}>
                           <RelatedList/>
                         </ul>
-                        <Button color={"light"}>
+                        <Button color={"primary"} outline>
                           Show All
                         </Button>
 
@@ -264,6 +273,7 @@ const Navigation = (props) => {
                     id={"guestsInput"}
                     placeholder="Guests"
                     value={guestsAmount}
+                    onChange={()=>null}
                     className={guestsFocused ? "border-primary" : null}
                   />
                   <Popover
@@ -378,6 +388,7 @@ const Navigation = (props) => {
                       className="nav-link border-left-0 form-control input pl-2"
                       caret
                       value={type}
+                      onChange={()=>null}
                       onFocus={() => setTypeFocused(true)}
                       onBlur={() => setTypeFocused(false)}
                     >
