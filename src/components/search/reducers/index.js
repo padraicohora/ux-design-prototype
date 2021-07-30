@@ -3,6 +3,7 @@ import locations from "../../../data/json/locations";
 import moment from "moment";
 import { getRandomInt } from "../../home/reducers";
 import _ from "lodash";
+import {directions} from "../components/Results";
 const initialState = {
   selectedAccommodation: null,
   selectedLocation: null,
@@ -19,19 +20,75 @@ const initialState = {
     label: "Price",
     filter: "price",
   },
+  direction:directions[0],
+  freeCancellationOnly:false
 };
 
-const sortByPrice = function (a, b, prop) {
+const sortByPrice = function (a, b, prop, highestFirst) {
   let nameA = parseFloat(a[prop].replace(',','.').replace('€',''));
   let nameB = parseFloat(b[prop].replace(',','.').replace('€',''));
-  console.log(`nameA ${nameA}`, a[prop])
-  console.log(`nameB ${nameB}`, b[prop])
-  if (nameA < nameB) {
-    return -1;
+  if(highestFirst === "desc"){
+    if (nameA > nameB) {
+      return -1;
+    }
+    if (nameA < nameB) {
+      return 1;
+    }
+  }else{
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
   }
-  if (nameA > nameB) {
-    return 1;
+
+
+  return 0;
+};
+
+const sortByRating = function (a, b, prop, highestFirst) {
+  let nameA = parseFloat(a[prop]);
+  let nameB = parseFloat(b[prop]);
+  if(highestFirst === "desc"){
+    if (nameA > nameB) {
+      return -1;
+    }
+    if (nameA < nameB) {
+      return 1;
+    }
+  }else{
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
   }
+
+
+  return 0;
+};
+
+const sortByReviews = function (a, b, prop, highestFirst) {
+  let nameA = parseInt(a[prop]);
+  let nameB = parseInt(b[prop]);
+  if(highestFirst === "desc"){
+    if (nameA > nameB) {
+      return -1;
+    }
+    if (nameA < nameB) {
+      return 1;
+    }
+  }else{
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+  }
+
 
   return 0;
 };
@@ -41,9 +98,6 @@ export default (state = initialState, action = {}) => {
     case "SUBMIT_SEARCH":
       let results = [];
       let accommodationDetail = null;
-      // if(state.selectedAccommodation){
-      //     accommodationDetail = state.selectedAccommodation
-      // }
 
       if (!state.selectedAccommodation) {
         accommodations.forEach((accommodation) => {
@@ -54,14 +108,14 @@ export default (state = initialState, action = {}) => {
           )
             results.push(accommodation);
         });
-        if (results.length < 2) {
-          const accommodationAmount = getRandomInt(2, 6);
-          let i = 0;
-          while (i < accommodationAmount) {
-            const randomIndex = getRandomInt(0, accommodations.length - 1);
-            results.push(accommodations[randomIndex]);
-            i++;
-          }
+      }
+      if (results.length < 2) {
+        const accommodationAmount = getRandomInt(2, 6);
+        let i = 0;
+        while (i < accommodationAmount) {
+          const randomIndex = getRandomInt(0, accommodations.length - 1);
+          results.push(accommodations[randomIndex]);
+          i++;
         }
       }
 
@@ -75,17 +129,20 @@ export default (state = initialState, action = {}) => {
         accommodationDetail,
       };
     case "SET_SEARCH_SORT":
-      // let results = [];
+      results = _.clone(state.results);
 
-      if (!_.isEmpty(state.results)) {
-          if(action.payload.filter === "price"){
-              results = state.results.sort((a, b) => {
-                  return sortByPrice(a, b, action.payload.filter);
-              });
-          }else{
-              results = state.results.sort((a, b) =>
-                  a[action.payload.filter] - b[action.payload.filter])
-          }
+      if(action.payload.filter === "price"){
+          results = results.sort((a, b) => {
+              return sortByPrice(a, b, "price", state.direction.filter);
+          });
+      }else if(action.payload.filter === "rating"){
+        results = results.sort((a, b) => {
+          return sortByRating(a, b, "rating", state.direction.filter);
+        });
+      }else{
+        results = results.sort((a, b) => {
+          return sortByReviews(a, b, "reviews", state.direction.filter);
+        });
       }
 
       return {
@@ -93,6 +150,39 @@ export default (state = initialState, action = {}) => {
         results,
           sortBy:action.payload
       };
+    case "SET_SEARCH_DIRECTION":
+      results = _.clone(state.results);
+
+      if(state.sortBy.filter === "price"){
+        results = state.results.sort((a, b) => {
+          return sortByPrice(a, b, "price", action.payload.filter);
+        });
+      }else if(state.sortBy.filter === "rating"){
+        results = results.sort((a, b) => {
+          return sortByRating(a, b, "rating", action.payload.filter);
+        });
+      }else{
+        results = results.sort((a, b) => {
+          return sortByReviews(a, b, "reviews", action.payload.filter);
+        });
+
+      }
+
+      return {
+        ...state,
+        results,
+        direction:action.payload
+      };
+    // case "SET_FREE_CANCELLATION":
+    //   results = _.clone(state.results).filter;
+    //
+    //   if()
+    //   freeCancelationResults = results
+    //   return {
+    //     ...state,
+    //     results,
+    //     direction:action.payload
+    //   };
     default: {
       return state;
     }

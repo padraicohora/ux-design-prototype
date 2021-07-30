@@ -27,6 +27,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {guestString} from "../../_common_/components/Navigation";
 import AccommodationCard from "../../home/components/AccommodationCard";
 export const dateFormat = "MMMM Do YYYY"
+export const directions = [
+    {
+        label: "Highest First",
+        filter: "desc",
+    },
+    {
+        label: "Lowest First",
+        filter: "asc",
+    }
+]
 const Results = (props) => {
     const dispatch = useDispatch();
     const { location,
@@ -37,6 +47,7 @@ const Results = (props) => {
         adults,
         children,
         rooms,
+        direction,
         type } = useSelector((state) => state.search);
 
     const setSortBy = (option) => dispatch({
@@ -44,8 +55,18 @@ const Results = (props) => {
         payload: option
     })
 
+    const setDirection = (option) => dispatch({
+        type:"SET_SEARCH_DIRECTION",
+        payload: directions[directions.findIndex(d => d.filter !== direction.filter)]
+    })
+    //
+    // const setFreeCancellationOnly = (option) => dispatch({
+    //     type:"SET_FREE_CANCELLATION",
+    //     payload: !freeCancellationOnly
+    // })
+
     const [freeCancellationOnly, setFreeCancellationOnly ] = useState(false);
-    const [direction, setDirection ] = useState("Descending");
+
 
     const SortByMenu = () => {
         const options = [
@@ -73,14 +94,25 @@ const Results = (props) => {
     }
 
     const List = () => {
+        let items;
         if(!_.isEmpty(results)){
-           return results.map((result)=>{
-               return <Col sm={"3"}><AccommodationCard {...result} key={result.id}/></Col>
-           })
+            if(freeCancellationOnly){
+                items = results.filter(item => item.freeCancellation !== true)
+                items = items.map((result)=>{
+                    return <Col sm={"3"}><AccommodationCard {...result} key={result.id}/></Col>
+                })
+            }else{
+                items = results.map((result)=>{
+                    return <Col sm={"3"}><AccommodationCard {...result} key={result.id}/></Col>  })
+            }
         }else{
-            return "No accommodation found"
+            items = "No accommodation found"
         }
+
+        return items
     }
+
+
 
     return <div>
         <div className={"bg-light search-heading"}>
@@ -109,11 +141,11 @@ const Results = (props) => {
                             </div>
                             <div className={"px-1"}>
                                 <Button size={"sm"} color={"primary"}
-                                        style={{width:108}}
+                                        style={{width:120}}
                                         className={"d-flex justify-content-between align-items-center"}
                                         outline
-                                        onClick={() => setDirection(direction === "Descending" ? "Ascending" : "Descending")}>
-                                    {direction} <Icon svg={direction === "Descending" ? ARROW_DOWN_ICON : ARROW_UP_ICON}/>
+                                        onClick={()=>setDirection()}>
+                                    {direction.label} <Icon svg={direction.filter === "desc" ? ARROW_DOWN_ICON : ARROW_UP_ICON}/>
                                 </Button>
                             </div>
                             <div className={"px-1"}>
@@ -122,6 +154,7 @@ const Results = (props) => {
                                     id="exampleCustomSwitch"
                                     name="customSwitch"
                                     onChange={(e)=>setFreeCancellationOnly(e.target.checked)}
+                                    // onChange={setFreeCancellationOnly}
                                     checked={freeCancellationOnly}
                                     label="Free Cancellation Only" />
                             </div>
