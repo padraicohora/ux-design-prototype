@@ -427,30 +427,7 @@ const Navigation = (props) => {
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
-                  {/*<Input*/}
-                  {/*    style={{minWidth:160}}*/}
-                  {/*    type="select"*/}
-                  {/*    className={"border-left-0"}*/}
-                  {/*  placeholder="Type"*/}
-                  {/*  defaultValue={type}*/}
-                  {/*  onFocus={() => setTypeFocused(true)}*/}
-                  {/*  onBlur={() => setTypeFocused(false)}*/}
-                  {/*>*/}
-                  {/*  <option>Hotel</option>*/}
-                  {/*  <option>Resorts</option>*/}
-                  {/*  <option>Apartment</option>*/}
-                  {/*  <option>Villa</option>*/}
-                  {/*  <option>Cabin</option>*/}
-                  {/*</Input>*/}
 
-                  {/*<UncontrolledDropdown setActiveFromChild>*/}
-                  {/*  <DropdownToggle tag="a" className="nav-link" caret>*/}
-                  {/*    Dropdown*/}
-                  {/*  </DropdownToggle>*/}
-                  {/*  <DropdownMenu>*/}
-                  {/*    <DropdownItem tag="a" href="/blah" active>Link</DropdownItem>*/}
-                  {/*  </DropdownMenu>*/}
-                  {/*</UncontrolledDropdown>*/}
                 </InputGroup>
               </FormGroup>
             </div>

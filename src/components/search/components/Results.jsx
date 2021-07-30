@@ -3,7 +3,9 @@ import React, {useState} from "react";
 import {
     Badge,
     Button,
-    Container, CustomInput,
+    Col,
+    Container,
+    CustomInput,
     DropdownItem,
     DropdownMenu,
     DropdownToggle,
@@ -11,7 +13,7 @@ import {
     FormGroup,
     InputGroup,
     InputGroupAddon,
-    InputGroupText,
+    InputGroupText, Row,
     UncontrolledButtonDropdown
 } from "reactstrap";
 import Icon from "../../_common_/components/Icon";
@@ -20,24 +22,31 @@ import {
     ARROW_DOWN_ICON, ARROW_UP_ICON,
     PLACE
 } from "../../_common_/constants/icons";
-import {useSelector} from "react-redux";
+import _ from "lodash";
+import {useDispatch, useSelector} from "react-redux";
 import {guestString} from "../../_common_/components/Navigation";
+import AccommodationCard from "../../home/components/AccommodationCard";
 export const dateFormat = "MMMM Do YYYY"
 const Results = (props) => {
+    const dispatch = useDispatch();
     const { location,
+        results,
         startDate,
+        sortBy,
         endDate,
         adults,
         children,
         rooms,
         type } = useSelector((state) => state.search);
 
-    const [sortBy, setSortBy ] = useState({
-        label:"Price",
-        filter:"price",
-    });
+    const setSortBy = (option) => dispatch({
+        type:"SET_SEARCH_SORT",
+        payload: option
+    })
+
     const [freeCancellationOnly, setFreeCancellationOnly ] = useState(false);
     const [direction, setDirection ] = useState("Descending");
+
     const SortByMenu = () => {
         const options = [
             {
@@ -55,11 +64,22 @@ const Results = (props) => {
         ]
         return options.map(option => (
             <DropdownItem
+                key={option.filter}
                 disabled={sortBy === option.filter}
                 onClick={()=>setSortBy(option)}>
                 {option.label}
             </DropdownItem>
         ))
+    }
+
+    const List = () => {
+        if(!_.isEmpty(results)){
+           return results.map((result)=>{
+               return <Col sm={"3"}><AccommodationCard {...result} key={result.id}/></Col>
+           })
+        }else{
+            return "No accommodation found"
+        }
     }
 
     return <div>
@@ -108,7 +128,13 @@ const Results = (props) => {
                         </div>
                     </div>
                 </div>
-
+            </Container>
+        </div>
+        <div>
+            <Container className={"position-relative"}>
+                <Row>
+                    <List/>
+                </Row>
 
             </Container>
         </div>
