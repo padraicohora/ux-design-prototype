@@ -8,10 +8,9 @@ import "../styles/index.scss";
 import "normalize.css";
 import {HOME} from "./home/constants";
 import Home from "./home/components/Home";
-import {ASSIST_RESULTS, ASSIST_WIZARD} from "./assist/constants";
+import {ASSIST_RESULTS, ASSIST_WIZARD, ASSISTANT} from "./assist/constants";
 import {RESULTS} from "./search/constants";
-import AssistantWizard from "./assist/components/AssitantWizard";
-import AssistantResults from "./assist/components/AssitantResults";
+import Assistant from "./assist/components/Assistant";
 import Results from "./search/components/Results";
 import {COMPARISON} from "./comparison/constants";
 import Comparison from "./comparison/components/Comparison";
@@ -31,8 +30,7 @@ const PublicRoutes = () => (
     <Navigation/>
     <Switch>
         <Route exact path={HOME} component={Home}/>
-        <Route exact path={ASSIST_WIZARD} component={AssistantWizard}/>
-        <Route exact path={ASSIST_RESULTS} component={AssistantResults}/>
+        <Route exact path={ASSISTANT} component={Assistant}/>
         <Route exact path={RESULTS} component={Results}/>
         <Route exact path={COMPARISON} component={Comparison}/>
         <Route exact path={BOOKING} component={Booking}/>

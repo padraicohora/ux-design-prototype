@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Container, Jumbotron } from "reactstrap";
+import {Button, Collapse, Container, Jumbotron} from "reactstrap";
 import { useHistory } from "react-router-dom";
 import { TOGGLE_SEARCH_BAR } from "../constants";
 import { RESULTS } from "../../search/constants";
-import { ASSIST_WIZARD } from "../../assist/constants";
+import { ASSISTANT} from "../../assist/constants";
 import ExploreSlider from "./ExploreSlider";
 import relaxingHotels from "../../../data/json/relaxing";
 import adventureHotels from "../../../data/json/adventure";
 import romanceHotels from "../../../data/json/romantic";
+import AssistantWizard from "./AssistantWizard";
 
 const Home = () => {
   const dispatch = useDispatch();
   const { searchOpen } = useSelector((state) => state.home);
+
   useEffect(() => {
     if (!searchOpen) {
       dispatch({ type: TOGGLE_SEARCH_BAR });
@@ -27,8 +29,9 @@ const Home = () => {
   };
 
   const startAssistant = () => {
-    history.push(ASSIST_WIZARD);
-    if (searchOpen) dispatch({ type: TOGGLE_SEARCH_BAR });
+    // history.push(ASSISTANT);
+    dispatch({ type: "SHOW_BOOK_ASSIST_WIZARD", payload:true })
+    // if (searchOpen) dispatch({ type: TOGGLE_SEARCH_BAR });
   };
 
   const scrollDown = () => {

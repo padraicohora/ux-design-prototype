@@ -21,7 +21,7 @@
   align-items: center;
   box-shadow: $box-shadow-sm;
   position: relative;
-  z-index: 2;
+  z-index: 999999;
 }
 
 .search-collapse{
@@ -30,6 +30,15 @@
   background-color: $gray-200;
   top:60px;
   box-shadow: $box-shadow;
+}
+
+.assistant-collapse{
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  top:60px;
+  //box-shadow: $box-shadow;
+  z-index: 99999;
 }
 
 .account-avatar{
@@ -110,7 +119,47 @@
   animation-timing-function:linear;
 }
 
+.step-success {
+  .step-circle {
+    &::before {
+      color: $gray-600;
+    }
+  }
+  .step-text {
+    color: $gray-600;
+  }
+}
 
+li.step {
+  width:20%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
 
+.step-content {
+  width: auto;
+  min-width: auto;
+  max-width: none;
+  z-index: 1;
+}
+
+.step-circle:before{
+  display:none;
+}
+
+.step-success:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 1.25rem;
+  left: auto;
+  width: 100%;
+  height: 2px;
+  transform: translate(50%, -50%);
+  color: $gray-400;
+  background-color: $gray-400;
+  z-index: 0;
+}
 
 

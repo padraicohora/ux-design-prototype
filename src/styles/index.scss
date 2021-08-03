@@ -6,6 +6,7 @@
 // This is contains the styles from Bootstrap
 // as well as any required Acquis BI styles created in the components library
 @import "../../node_modules/bootstrap/scss/bootstrap";
+@import '~bootstrap-steps/scss/bootstrap-steps';
 
 // mixins
 @import 'mixins';

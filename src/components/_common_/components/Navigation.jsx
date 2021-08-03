@@ -52,6 +52,7 @@ import adventureHotels from "../../../data/json/adventure";
 import romanceHotels from "../../../data/json/romantic";
 import AccommodationCard from "../../home/components/AccommodationCard";
 import locations from "../../../data/json/locations";
+import AssistantWizard from "../../home/components/AssistantWizard";
 export const guestString = (adults, children, rooms) =>
     `${adults} Adults, ${
         children > 0 ? children + " Children, " : ""
@@ -444,6 +445,7 @@ const Navigation = (props) => {
           </Form>
         </Container>
       </Collapse>
+      <AssistantWizard/>
     </div>
   );
 };
