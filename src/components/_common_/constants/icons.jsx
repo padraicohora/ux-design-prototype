@@ -42,9 +42,21 @@ import { Phone } from "@styled-icons/material/Phone"
 import { Facebook } from "@styled-icons/boxicons-logos/Facebook"
 import { Twitter } from "@styled-icons/boxicons-logos/Twitter"
 import { Instagram } from "@styled-icons/boxicons-logos/Instagram"
+import { ChevronForwardCircle } from "@styled-icons/ionicons-outline/ChevronForwardCircle"
+import { ChevronBackCircle } from "@styled-icons/ionicons-outline/ChevronBackCircle"
+import { CheckmarkCircle } from "@styled-icons/ionicons-outline/CheckmarkCircle"
+import { ArrowBackCircle } from "@styled-icons/ionicons-outline/ArrowBackCircle"
+import { HatWizard } from "@styled-icons/fa-solid/HatWizard"
+
 
 // material-outlined
 import { AccessTime } from "@styled-icons/material-outlined/AccessTime";
+
+export const CIRCLE_CHEVRON_FORWARD = <ChevronForwardCircle />;
+export const CIRCLE_CHEVRON_BACK = <ChevronBackCircle />;
+export const CIRCLE_CHECK = <CheckmarkCircle />;
+export const CIRCLE_BACK = <ArrowBackCircle />;
+export const HAT_WIZARD = <HatWizard />;
 
 export const DASHBOARD_ICON = <Dashboard />;
 

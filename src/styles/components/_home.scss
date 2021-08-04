@@ -37,6 +37,7 @@
   width: 100%;
   background-color: white;
   top:60px;
+  height:1000px;
   //box-shadow: $box-shadow;
   z-index: 99999;
 }
@@ -162,4 +163,27 @@ li.step {
   z-index: 0;
 }
 
+.wizardButtons{
+  button:disabled{
+    opacity: 0.2;
+  }
+}
+
+.min-w-7rem{
+  min-width:7rem;
+}
+
+button.icon-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span.svg-icon{
+    line-height:14px!important;
+    padding:0 5px;
+    svg{
+      height:14px!important;
+    }
+  }
+}
 
