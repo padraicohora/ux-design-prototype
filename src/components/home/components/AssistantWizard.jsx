@@ -1,6 +1,6 @@
 import propTypes from "prop-types";
 import React, { useState } from "react";
-import {Button, Col, Collapse, Container, Jumbotron, Row} from "reactstrap";
+import {Button, Card, Col, Collapse, Container, Jumbotron, Row} from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import classnames from "classnames";
 import Icon from "../../_common_/components/Icon";
@@ -41,6 +41,9 @@ const AssistantWizard = (props) => {
     toggleAssistant()
   };
 
+  const selectStaytype = (option) => {
+    console.log(`selectStaytype`, option)
+  }
 
 
   const steps = [
@@ -103,29 +106,27 @@ const AssistantWizard = (props) => {
             <Row>
               <Col sm={2} />
               <Col sm={8} className={"d-flex align-items-center justify-content-center"}>
-                {steps.indexOf(wizardStep) === 0 && <Welcome/>}
-                {steps.indexOf(wizardStep) === 1 && <Dates/>}
-                {steps.indexOf(wizardStep) === 2 && <StayType/>}
-                {steps.indexOf(wizardStep) === 3 && <Accommodation/>}
-                {steps.indexOf(wizardStep) === 4 && <Location/>}
-                {steps.indexOf(wizardStep) === 5 && <Personalise/>}
+                {steps.indexOf(wizardStep) === 0 && <Welcome wizardStep={wizardStep}/>}
+                {steps.indexOf(wizardStep) === 1 && <Dates wizardStep={wizardStep}/>}
+                {steps.indexOf(wizardStep) === 2 && <StayType wizardStep={wizardStep} onClick={selectStaytype}/>}
+                {steps.indexOf(wizardStep) === 3 && <Accommodation wizardStep={wizardStep}/>}
+                {steps.indexOf(wizardStep) === 4 && <Location wizardStep={wizardStep}/>}
+                {steps.indexOf(wizardStep) === 5 && <Personalise wizardStep={wizardStep}/>}
               </Col>
               <Col sm={2} />
             </Row>
           </Container>
         </div>
       </div>
-      <div className={"d-flex justify-content-center py-4 wizardButtons"}>
+      <div className={"d-flex justify-content-center py-4 wizardButtons h-25 align-items-baseline"}>
         {steps.indexOf(wizardStep) === 0 && <React.Fragment>
           <Button color={"dark"} size={"lg"} outline className={"mx-4 min-w-7rem icon-button"}
                   onClick={toggleAssistant}>
-            <Icon svg={CIRCLE_BACK}/>
             Cancel
           </Button>
           <Button color={"primary"} size={"lg"} className={"mx-4 min-w-7rem icon-button"} onClick={handleNext}
                  >
             Let's Begin
-            <Icon svg={CIRCLE_CHECK}/>
           </Button>
         </React.Fragment>}
 
@@ -158,55 +159,106 @@ const AssistantWizard = (props) => {
 };
 
 const Welcome = () => {
-  return <div>
-      <Container fluid className={"text-center position-relative"}>
-
-        <h1 className="font-weight-medium mb-2 display-4">
-          <Emoji symbol="🧙🏾‍♂️️" label="wizard"/> Greetings,
-        </h1>
-        <h2>I'm the Booking Wizard</h2>
-        <h5 className={"mb-4 px-5 mx-5 mt-3"}>
-          Please answer some simple questions, and I will work my magic to find the best match for you
-        </h5>
-        <div>
-
-        </div>
-      </Container>
-  </div>
+  return <WizardScreen
+      heading={<><Emoji symbol="🧙🏾‍♂️️" label="wizard"/> Greetings,</>}
+      subheading={"I'm the Booking Wizard"}
+      description={"Please answer some simple questions, and I will work my magic to find the best match for you"}
+  >
+    <strong>Tip:</strong> You can skip any question, but the more you answer the better I can assist you
+  </WizardScreen>
 }
 
-const Dates = () => {
+const Dates = (props) => {
+  return <WizardScreen
+      heading={<><Emoji symbol="📅" label="wizard"/> {props.wizardStep}</> }
+      subheading={ "When were you thinking of going?"}
+      // description={"If you dont have a planned then skip to the next question"}
+  >
+    date picker
+  </WizardScreen>
+}
+
+const StayType = (props) => {
+  const stayTypeOptions = [
+    {
+      icon:"⛳",
+      label:"Family Fun Holiday"
+    },
+    {
+      icon:"💋",
+      label:"Romantic Getaway"
+    },
+    {
+      icon:"🛀",
+      label:"Relaxing Break"
+    },
+    {
+      icon:"🛶",
+      label:"Adventure"
+    },
+    {
+      icon:"💼",
+      label:"Work Related"
+    },
+  ]
+  return <WizardScreen
+      heading={<><Emoji symbol="⛱️️" label="stay type"/> {props.wizardStep}</>}
+      subheading={<> What is the purpose of your stay?</>}
+      // description={"Or skip to the next question"}
+  >
+    <WizardOptions items={stayTypeOptions} onClick={props.onClick}/>
+  </WizardScreen>
+}
+
+const Accommodation = (props) => {
+  return <WizardScreen
+      heading={<><Emoji symbol="🏨" label="accommodation type"/> {props.wizardStep}</>}
+      subheading={<> What type of accommodation are you looking for?</>}
+      // description={"Skip this question if you are happy with these"}
+  >
+    {/*<WizardOptions items={} onClick={}/>*/}
+  </WizardScreen>
+}
+
+const Location = (props) => {
+  return <WizardScreen
+      heading={<><Emoji symbol="🌄" label="location"/> {props.wizardStep}</>}
+      subheading={<> Where would you like your location to be located?</>}
+  >
+    {/*<WizardOptions items={} onClick={}/>*/}
+  </WizardScreen>
+}
+
+const Personalise = (props) => {
+  return <WizardScreen
+      heading={<><Emoji symbol="❤️" label="important"/> {props.wizardStep}</>}
+      subheading={<> Finally, what is most important to you in a rented accommodation</>}
+  >
+    {/*<WizardOptions items={} onClick={}/>*/}
+  </WizardScreen>
+}
+
+const WizardOptions = ({ items, onClick }) => {
+  return items.map(item => (
+      <Card key={item.label} onClick={()=>onClick(item)}>
+        <Emoji symbol={item.icon} label={item.label}/>
+        {item.label}
+      </Card>
+  ))
+}
+
+const WizardScreen = ({children, heading, subheading, description}) => {
   return <div>
     <Container fluid className={"text-center position-relative"}>
-
-      <h1 className="font-weight-medium mb-2 display-4">
-        <Emoji symbol="🧙🏾‍♂️️" label="wizard"/> Greetings,
-      </h1>
-      <h2>I'm the Booking Wizard</h2>
-      <h5 className={"mb-4 px-5 mx-5 mt-3"}>
-        Please answer some simple questions below, and I will work my magic to find the best match for you
-      </h5>
-      <div>
-
-      </div>
+      {heading && <h1 className="font-weight-medium mb-2" style={{fontSize: "2.1rem"}}>
+        {heading}
+      </h1>}
+      {subheading && <h2 className={"text-nowrap"} style={{fontSize: "1.6rem"}}>{subheading}</h2>}
+      {description && <h5 className={" px-5 m-5"}>
+        {description}
+      </h5>}
+      <div className={"my-5"}>{children}</div>
     </Container>
   </div>
 }
-
-const StayType = () => {
-  return <div>StayType</div>
-}
-
-const Accommodation = () => {
-  return <div>Accommodation</div>
-}
-
-const Location = () => {
-  return <div>Location</div>
-}
-
-const Personalise = () => {
-  return <div>Personalise</div>
-}
-
 export default AssistantWizard;
