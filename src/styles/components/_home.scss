@@ -37,9 +37,11 @@
   width: 100%;
   background-color: white;
   top:60px;
-  height:1000px;
+  height:calc(100vh - 60px);
   //box-shadow: $box-shadow;
   z-index: 99999;
+  display:flex;
+  flex-direction: column;
 }
 
 .account-avatar{

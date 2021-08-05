@@ -97,7 +97,7 @@ const AssistantWizard = (props) => {
           </Row>
         </Container>
       </div>
-      <div>
+      <div className={"flex-fill d-flex align-items-center justify-content-center"}>
         <div className={"py-5"}>
           <Container>
             <Row>
