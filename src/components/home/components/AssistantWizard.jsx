@@ -1,28 +1,11 @@
-import propTypes from "prop-types";
-import React, { useState } from "react";
-import {
-  Button,
-  Card,
-  Col,
-  Collapse,
-  Container,
-  Jumbotron,
-  Row,
-} from "reactstrap";
-import { useDispatch, useSelector } from "react-redux";
+import React, {useState} from "react";
+import {Button, Card, Col, Collapse, Container, Row,} from "reactstrap";
+import {useDispatch, useSelector} from "react-redux";
 import classnames from "classnames";
 import Icon from "../../_common_/components/Icon";
 import {
-  CIRCLE_ARROW_BACK,
-  CIRCLE_BACK,
-  CIRCLE_BACKWARD,
-  CIRCLE_CHECK,
-  CIRCLE_CHEVRON_BACK,
-  CIRCLE_CHEVRON_FORWARD,
-  CIRCLE_FORWARD,
-  HAT_WIZARD,
+  CIRCLE_BACK, CIRCLE_CHECK, CIRCLE_CHEVRON_BACK, CIRCLE_CHEVRON_FORWARD,
 } from "../../_common_/constants/icons";
-import { HatWizard } from "@styled-icons/fa-solid/HatWizard";
 import Emoji from "../../_common_/components/Emoji";
 
 const AssistantWizard = (props) => {
@@ -30,6 +13,7 @@ const AssistantWizard = (props) => {
   const dispatch = useDispatch();
 
   const [wizardStep, setWizardStep] = useState("Welcome");
+  const [selectedPersonalisation, setSelectedPersonalisation] = useState([]);
 
   const toggleAssistant = () => {
     dispatch({ type: "SHOW_BOOK_ASSIST_WIZARD", payload: !wizardOpen });
@@ -63,6 +47,38 @@ const AssistantWizard = (props) => {
     "Personalise",
   ];
 
+  const personalisationOptions = [
+    {
+      icon: "🛏️",
+      label: "Comfort",
+    },
+    {
+      icon: "💶️",
+      label: "Low Cost",
+    },
+    {
+      icon: "📍",
+      label: "Location",
+    },
+    {
+      icon: "🛀",
+      label: "Amenities",
+    },
+    {
+      icon: "🤿",
+      label: "Attractions",
+    },
+    {
+      icon: "🍽️",
+      label: "Food and Beverages",
+    },
+    {
+      icon: "🏆",
+      label: "Highly Rated",
+    },
+
+  ];
+
   const WizardSteps = () =>
     steps.map((step, index) => {
       const active = steps.indexOf(wizardStep) === index;
@@ -85,6 +101,18 @@ const AssistantWizard = (props) => {
   const showNext = steps.indexOf(wizardStep) < steps.indexOf("Personalise");
   const showSubmit = steps.indexOf(wizardStep) === steps.indexOf("Personalise");
   const showPrevious = steps.indexOf(wizardStep) > steps.indexOf("Welcome");
+
+  function onSetSelectPersonalisation(option){
+    const options = selectedPersonalisation.slice();
+    const index = options.findIndex(o => o.label === option.label);
+    if(index >= 0){
+      options.splice(index, 1)
+    }else{
+      options.push(option)
+    }
+    console.log(`options`, options)
+    setSelectedPersonalisation(options)
+  }
 
   return (
     <Collapse
@@ -131,7 +159,7 @@ const AssistantWizard = (props) => {
               <Location wizardStep={wizardStep} />
             )}
             {steps.indexOf(wizardStep) === 5 && (
-              <Personalise wizardStep={wizardStep} />
+              <Personalise wizardStep={wizardStep} options={personalisationOptions} selection={selectedPersonalisation} onClick={onSetSelectPersonalisation}/>
             )}
           </Col>
           <Col sm={1} />
@@ -315,7 +343,7 @@ const Accommodation = (props) => {
           <Emoji symbol="🏨" label="accommodation type" /> {props.wizardStep}
         </>
       }
-      subheading={<> What type of accommodation are you looking for?</>}
+      subheading={<> What type are you looking for?</>}
     >
       <WizardOptions items={accommodationTypeOptions} onClick={props.onClick}/>
     </WizardScreen>
@@ -337,8 +365,8 @@ const Location = (props) => {
       label: "Urban",
     },
     {
-      icon: "🔥",
-      label: "Exotic",
+      icon: "✨",
+      label: "Unique",
     },
     {
       icon: "🏛️",
@@ -352,7 +380,7 @@ const Location = (props) => {
           <Emoji symbol="🌄" label="location" /> {props.wizardStep}
         </>
       }
-      subheading={<> Where would you like your location to be located?</>}
+      subheading={<> Where would you like stay?</>}
     >
       <WizardOptions items={locationTypeOptions} onClick={props.onClick}/>
     </WizardScreen>
@@ -360,6 +388,7 @@ const Location = (props) => {
 };
 
 const Personalise = (props) => {
+
   return (
     <WizardScreen
       heading={
@@ -371,25 +400,36 @@ const Personalise = (props) => {
         <> Finally, what is most important to you in a rented accommodation</>
       }
     >
-      {/*<WizardOptions items={} onClick={}/>*/}
+      <WizardOptions items={props.options} onClick={props.onClick} selection={props.selection}/>
     </WizardScreen>
   );
 };
 
-const WizardOptions = ({ items, onClick }) => {
-  return items.map((item) => (
-    <Card
-      key={item.label}
-      onClick={() => onClick(item)}
-      className={"wizard-card p-3"}
-      style={{width: `calc(${100 / items.length}% - ${(100 / items.length) / (items.length - 1)}%)`}}
-    >
-      <div className={"d-flex align-items-center justify-content-center flex-column flex-fill h5 mb-0"} style={{minHeight: "100px"}}>
-        <Emoji symbol={item.icon} label={item.label} className={"pb-2"}/>
-        {item.label}
-      </div>
-    </Card>
-  ));
+const WizardOptions = ({ items, onClick, selection = [] }) => {
+  console.log(`selection`, selection)
+  return items.map((item) => {
+    console.log(`selected`, selection.findIndex(s => s.label === item.label) >= 0)
+
+    console.log(`item`, item)
+    const cardClass = classnames("wizard-card p-3", {
+      "selected":selection.findIndex(s => s.label === item.label) >= 0,
+  })
+    return (<Card
+            key={item.label}
+            onClick={() => onClick(item)}
+            className={cardClass}
+            style={{
+              width: `calc(${100 / items.length}% - ${(100 / items.length) / (items.length - 1)}%)`
+            }}
+        >
+          <div
+              className={"d-flex align-items-center justify-content-center flex-column flex-fill h5 mb-0"}
+              style={{ minHeight: "100px" }}>
+            <Emoji symbol={item.icon} label={item.label} className={"pb-2"}/>
+            {item.label}
+          </div>
+        </Card>);
+  });
 };
 
 const WizardScreen = ({ children, heading, subheading, description }) => {
