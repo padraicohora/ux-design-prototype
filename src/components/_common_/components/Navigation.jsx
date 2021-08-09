@@ -112,7 +112,6 @@ const Navigation = (props) => {
 
 
   useEffect(() => {
-    console.log(`location`, location)
     if(location.length > 2){
       dispatch({type:"SEARCH_BY_LOCATION", payload:location})
     }
