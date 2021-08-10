@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
     Button,
     Card,
@@ -11,33 +11,38 @@ import {
     FormGroup,
     InputGroup,
     InputGroupAddon,
-    InputGroupText, Label,
+    InputGroupText,
+    Label,
     Row,
     UncontrolledDropdown
 } from "reactstrap";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import classnames from "classnames";
 import Icon from "../../_common_/components/Icon";
 import {
-    ACCOMMODATION_TYPE, CALENDAR,
-    CIRCLE_BACK,
-    CIRCLE_CHECK,
-    CIRCLE_CHEVRON_BACK,
-    CIRCLE_CHEVRON_FORWARD,
+    CALENDAR, CIRCLE_CHECK, CIRCLE_CHEVRON_BACK, CIRCLE_CHEVRON_FORWARD,
 } from "../../_common_/constants/icons";
 import Emoji from "../../_common_/components/Emoji";
 import DateRangePicker from "react-dates/esm/components/DateRangePicker";
 import moment from "moment";
+import {ASSISTANT} from "../../assist/constants";
+import {useHistory} from "react-router-dom";
 
 const AssistantWizard = (props) => {
-  const { wizardOpen } = useSelector((state) => state.assist);
+  const { wizardOpen, assistDate,
+      assistSeason,
+      assistHolidayType,
+      assistAccommodation,
+      assistLocation,
+      assistPersonalisation } = useSelector((state) => state.assist);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [wizardStep, setWizardStep] = useState("Welcome");
   const [selectedPersonalisation, setSelectedPersonalisation] = useState([]);
-  // const [selectedPersonalisation, setSelectedPersonalisation] = useState([]);
-  // const [selectedPersonalisation, setSelectedPersonalisation] = useState([]);
-  // const [selectedPersonalisation, setSelectedPersonalisation] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState([]);
+  const [selectedAccommodation, setSelectedAccommodation] = useState([]);
+  const [selectedStay, setSelectedStay] = useState([]);
 
   const toggleAssistant = () => {
     dispatch({ type: "SHOW_BOOK_ASSIST_WIZARD", payload: !wizardOpen });
@@ -54,12 +59,13 @@ const AssistantWizard = (props) => {
     setWizardStep(steps[current + 1]);
   };
 
+  const submitDisabled = () => {
+      return !(assistDate || assistSeason || assistHolidayType || assistAccommodation || assistLocation || assistPersonalisation)
+  }
   const handleSubmit = () => {
     toggleAssistant();
-  };
-
-  const selectStaytype = (option) => {
-    console.log(`selectStaytype`, option);
+    dispatch({ type: "SET_LOADING"})
+    history.push(ASSISTANT);
   };
 
   const steps = [
@@ -71,31 +77,17 @@ const AssistantWizard = (props) => {
     "Personalise",
   ];
 
-    const stayTypeOptions = [
-        { icon: "⛳", label: "Family Fun Holiday" },
-        { icon: "💋", label: "Romantic Getaway" },
-        { icon: "🛀", label: "Relaxing Break" },
-        { icon: "🛶", label: "Adventure" },
-        { icon: "💼", label: "Work Related" },
-    ];
+    const stayTypeOptions = [ { icon: "⛳", label: "Family Fun Holiday" },
+        { icon: "💋", label: "Romantic Getaway" }, { icon: "🛀", label: "Relaxing Break" },
+        { icon: "🛶", label: "Adventure" }, { icon: "💼", label: "Work Related" }, ];
 
-    const accommodationTypeOptions = [
-        { icon: "🛎️", label: "Hotel" },
-        { icon: "🏠", label: "Self Catering" },
-        { icon: "🏂", label: "Resorts" },
-        { icon: "🏰", label: "Mansion" },
-        { icon: "🛖", label: "Cabin" },
-    ];
+    const accommodationTypeOptions = [ { icon: "🛎️", label: "Hotel" },
+        { icon: "🏠", label: "Self Catering" }, { icon: "🏂", label: "Resorts" },
+        { icon: "🏰", label: "Mansion" }, { icon: "🛖", label: "Cabin" }, ];
 
-    const locationTypeOptions = [
-        { icon: "🌴", label: "Tropical" },
-        { icon: "🏖️", label: "Coastal" },
-        { icon: "🏙️", label: "Urban" },
-        { icon: "✨", label: "Unique" },
-        { icon: "🏛️", label: "Other" },
-    ];
-
-
+    const locationTypeOptions = [ { icon: "🌴", label: "Tropical" },
+        { icon: "🏖️", label: "Coastal" }, { icon: "🏙️", label: "Urban" },
+        { icon: "✨", label: "Unique" }, { icon: "🏛️", label: "Other" }, ];
 
   const personalisationOptions = [
     {
@@ -159,8 +151,44 @@ const AssistantWizard = (props) => {
     } else {
       options.push(option);
     }
-    console.log(`options`, options);
     setSelectedPersonalisation(options);
+      dispatch({ type: "SET_BOOK_ASSIST_PERSONALISATION", payload: options });
+  }
+
+  function onSetSelectLocation(option) {
+    const options = selectedLocation.slice();
+    const index = options.findIndex((o) => o.label === option.label);
+    if (index >= 0) {
+      options.splice(index, 1);
+    } else {
+      options.push(option);
+    }
+    setSelectedLocation(options);
+      dispatch({ type: "SET_BOOK_ASSIST_LOCATION", payload: options });
+  }
+
+  function onSetSelectedAccommodation(option) {
+    const options = selectedAccommodation.slice();
+    const index = options.findIndex((o) => o.label === option.label);
+    if (index >= 0) {
+      options.splice(index, 1);
+    } else {
+      options.push(option);
+    }
+    setSelectedAccommodation(options);
+      dispatch({ type: "SET_BOOK_ASSIST_ACCOMMODATION", payload: options });
+  }
+
+  function onSetSelectedStay(option) {
+    const options = selectedStay.slice();
+    const index = options.findIndex((o) => o.label === option.label);
+    if (index >= 0) {
+      options.splice(index, 1);
+    } else {
+      options.push(option);
+    }
+    setSelectedStay(options);
+      dispatch({ type: "SET_BOOK_ASSIST_HOLIDAY_TYPE", payload: options });
   }
 
   return (
@@ -194,7 +222,6 @@ const AssistantWizard = (props) => {
                   className={"mx-4 icon-button"}
                   onClick={toggleAssistant}
               >
-                  {/*<Icon svg={CIRCLE_BACK} />*/}
                   Close
               </Button>
           </div>)}
@@ -209,30 +236,27 @@ const AssistantWizard = (props) => {
               />
             )}
             {steps.indexOf(wizardStep) === 1 && (
-              <Dates wizardStep={wizardStep}
-                  // selection={}
-                  // onClick={}
-              />
+              <Dates wizardStep={wizardStep}/>
             )}
             {steps.indexOf(wizardStep) === 2 && (
-              <StayType wizardStep={wizardStep} onClick={selectStaytype}
-                  options={stayTypeOptions}
-                  // selection={selectedStay}
-                  //       onClick={onSetSelectedStay}
+              <StayType wizardStep={wizardStep}
+                        options={stayTypeOptions}
+                        selection={selectedStay}
+                        onClick={onSetSelectedStay}
               />
             )}
             {steps.indexOf(wizardStep) === 3 && (
               <Accommodation wizardStep={wizardStep}
                   options={accommodationTypeOptions}
-                  // selection={selectedAccommodation}
-                  // onClick={onSetSelectedAccommodation}
+                  selection={selectedAccommodation}
+                  onClick={onSetSelectedAccommodation}
               />
             )}
             {steps.indexOf(wizardStep) === 4 && (
               <Location wizardStep={wizardStep}
                         options={locationTypeOptions}
-                        // selection={selectedLocation}
-                        // onClick={onSetSelectLocation}
+                        selection={selectedLocation}
+                        onClick={onSetSelectLocation}
               />
             )}
             {steps.indexOf(wizardStep) === 5 && (
@@ -282,7 +306,7 @@ const AssistantWizard = (props) => {
                 size={"lg"}
                 className={"mx-4 min-w-7rem icon-button"}
                 onClick={handleSubmit}
-                disabled={!showSubmit}
+                disabled={!showSubmit || submitDisabled()}
             >
                 Submit
                 <Icon svg={CIRCLE_CHECK} />
@@ -339,29 +363,44 @@ const Welcome = () => {
 };
 
 const Dates = (props) => {
-
-    // const [startDate, setStartDate] = useState(moment());
-    // const [endDate, setEndDate] = useState(moment().add(2, 'days'));
+    const dispatch = useDispatch();
+    const { assistDate, assistSeason } = useSelector((state) => state.assist);
     const [startDate, setStartDate] = useState(moment());
     const [endDate, setEndDate] = useState(moment().add(2, 'days'));
     const [datesFocused, setDatesFocused] = useState();
     const setSearchDates = ({ startDate, endDate }) => {
         setStartDate(startDate);
         setEndDate(endDate);
+        // dispatch({
+        //     type: "SET_BOOK_ASSIST_DATE", payload: {startDate, endDate} });
     };
-
+    useEffect(() => {
+        // startDate && console.log(`startDate`, startDate.toString())
+        // endDate && console.log(`endDate`, endDate.toString())
+        // if(assistDate) {
+        //     console.log(`endDate`, assistDate.startDate.toString())
+        //     console.log(`endDate`, assistDate.endDate.toString())
+        // }
+        //
+        // if(assistDate && startDate.toString() !== assistDate.startDate.toString() && endDate.toString() !== assistDate.endDate.toString()) {
+            dispatch({
+                type: "SET_BOOK_ASSIST_DATE",
+                payload: {startDate, endDate}
+            });
+        // }
+    }, [ startDate, endDate ]);
     const when_its_hot = "When it's hot";
     const not_too_hot = "Not too hot";
+    const off_season = "Off season";
     const when_there_is_snow = "When there is snow";
-    const christmas = "Christmas";
+    const christmas_new_year = "Christmas and New Year";
     const [type, setType] = useState();
     const [typeFocused, setTypeFocused] = useState(false);
-    const [popoverOpen, setPopoverOpen] = useState(false);
 
-    const datepickerClass = classnames("flex-fill ", {
-        "focused":datesFocused,
-        "disabled":!type && !typeFocused
-    })
+    useEffect(() => {
+        dispatch({ type: "SET_BOOK_ASSIST_SEASON", payload: type });
+    }, [ type ]);
+
     const dropdownClass = classnames("nav-link form-control input pl-2", {
         "bg-light":!type && !typeFocused
     })
@@ -373,12 +412,12 @@ const Dates = (props) => {
         </>
       }
       subheading={"When were you thinking of going?"}
-      // description={"If you dont have a planned then skip to the next question"}
     >
         <div className={"d-flex flex-fill justify-content-center px-2 text-center"}>
             <FormGroup className="mb-2 mb-sm-0 px-3 text-left">
                 <Label className={"h5 font-weight-bold"}>Have a date?</Label>
                 <InputGroup
+                    style={{width:"240px"}}
                     className={`flex-fill ${datesFocused ? "focused" : null}`}
                 >
                     <InputGroupAddon addonType="prepend">
@@ -407,7 +446,7 @@ const Dates = (props) => {
             </FormGroup>
             <FormGroup className="mb-2 mb-sm-0 px-3 text-left">
                 <Label className={"h5 font-weight-bold"}>Or the season?</Label>
-                <UncontrolledDropdown setActiveFromChild>
+                <UncontrolledDropdown setActiveFromChild style={{width:"240px"}}>
                         <DropdownToggle
                             tag="Input"
                             className={dropdownClass}
@@ -433,16 +472,22 @@ const Dates = (props) => {
                                 {not_too_hot}
                             </DropdownItem>
                             <DropdownItem
+                                active={type === off_season}
+                                onClick={() => setType(off_season)}
+                            >
+                                {off_season}
+                            </DropdownItem>
+                            <DropdownItem
                                 active={type === when_there_is_snow}
                                 onClick={() => setType(when_there_is_snow)}
                             >
                                 {when_there_is_snow}
                             </DropdownItem>
                             <DropdownItem
-                                active={type === christmas}
-                                onClick={() => setType(christmas)}
+                                active={type === christmas_new_year}
+                                onClick={() => setType(christmas_new_year)}
                             >
-                                {christmas}
+                                {christmas_new_year}
                             </DropdownItem>
                         </DropdownMenu>
                     </UncontrolledDropdown>
@@ -464,7 +509,7 @@ const StayType = (props) => {
       subheading={<> What is the purpose of your stay?</>}
       // description={"Or skip to the next question"}
     >
-      <WizardOptions items={stayTypeOptions} onClick={props.onClick} />
+      <WizardOptions items={props.options} onClick={props.onClick} selection={props.selection}/>
     </WizardScreen>
   );
 };
@@ -480,7 +525,7 @@ const Accommodation = (props) => {
       }
       subheading={<> What type are you looking for?</>}
     >
-      <WizardOptions items={accommodationTypeOptions} onClick={props.onClick} />
+      <WizardOptions items={props.options} onClick={props.onClick} selection={props.selection}/>
     </WizardScreen>
   );
 };
@@ -496,7 +541,7 @@ const Location = (props) => {
       }
       subheading={<> Where would you like stay?</>}
     >
-      <WizardOptions items={locationTypeOptions} onClick={props.onClick} />
+      <WizardOptions items={props.options} onClick={props.onClick} selection={props.selection}/>
     </WizardScreen>
   );
 };

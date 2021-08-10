@@ -19,28 +19,32 @@ import {BOOKING} from "./booking/constants";
 import Navigation from "./_common_/components/Navigation";
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import Footer from "./_common_/components/Footer";
+import {useSelector} from "react-redux";
+import Loader from "./_common_/components/Loader";
 
 // const Login = lazy(() => import("./auth/Login"));
 // const Recover = lazy(() => import("./auth/Recover"));
 // const Signup = lazy(() => import("./auth/Signup"));
 // const PrivateRoutes = lazy(() => import("./PrivateRoutes"));
 
-const PublicRoutes = () => (
-<BrowserRouter>
-    <Navigation/>
-    <Switch>
-        <Route exact path={HOME} component={Home}/>
-        <Route exact path={ASSISTANT} component={Assistant}/>
-        <Route exact path={RESULTS} component={Results}/>
-        <Route exact path={COMPARISON} component={Comparison}/>
-        <Route exact path={BOOKING} component={Booking}/>
-        {/*<PrivateRoute path={SECURE} component={PrivateRoutes} />*/}
-        <Redirect to={HOME}/>
-    </Switch>
-    <Footer/>
-{/*<AccountModal open={open}/>*/}
-</BrowserRouter>
-);
+const PublicRoutes = () => {
+    const { loading } = useSelector((state) => state.home);
+    return <BrowserRouter>
+        {!loading && <Navigation/>}
+        <Switch>
+            <Route exact path={HOME} component={Home}/>
+            <Route exact path={ASSISTANT} component={Assistant}/>
+            <Route exact path={RESULTS} component={Results}/>
+            <Route exact path={COMPARISON} component={Comparison}/>
+            <Route exact path={BOOKING} component={Booking}/>
+            {/*<PrivateRoute path={SECURE} component={PrivateRoutes} />*/}
+            <Redirect to={HOME}/>
+        </Switch>
+        {loading && <Loader className="position-absolute vh-100 col-sm-12 col-xl-12 app-loader"/>}
+        <Footer/>
+        {/*<AccountModal open={open}/>*/}
+    </BrowserRouter>;
+};
 
 const AccountModal = ({open}) => {
     const [modal, setModal] = useState(open);

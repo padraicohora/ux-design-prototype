@@ -3,7 +3,11 @@ import accommodations from "../../../data/json/accommodations";
 import locations from "../../../data/json/locations";
 
 const initialState = {
-    searchOpen: false, searchLocations: [], searchAccommodations: [], searchRelated: [],
+    searchOpen: false,
+    searchLocations: [],
+    searchAccommodations: [],
+    searchRelated: [],
+    loading: false
 };
 
 export function getRandomInt(min, max) {
@@ -61,6 +65,17 @@ export default (state = initialState, action = {}) => {
                 ...state, searchLocations, searchAccommodations, searchRelated
             };
         }
+        case "SET_LOADING":{
+            return {
+                ...state, loading: true,
+            };
+        }
+        case "UNSET_LOADING":{
+            return {
+                ...state, loading: false,
+            };
+        }
+
         default: {
             return state;
         }
