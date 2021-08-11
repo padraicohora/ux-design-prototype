@@ -52,15 +52,20 @@ const AccommodationCard = ({
                                        className={"card-title flex-fill text-truncate"}>
                                 {locationBased ? city  : title}
                             </CardTitle>
-                            <CardSubtitle
-                                tag="span"
-                                className=" text-secondary card-subtitle align-items-center d-flex">
+
+                            <div className={"align-items-center d-flex text-truncate"}>
+                                <CardSubtitle tag="span"
+                                              className="text-secondary card-subtitle align-items-center d-flex flex-fill mb-0 text-truncate">
                                 {!locationBased && <Icon svg={PIN_DROP}/>}
-                                <span className={"flex-fill text-truncate"}>{locationBased ? country : location}</span>
+                                <span className={"flex-fill text-truncate"}>{locationBased ? country
+                                    : location}</span>
                             </CardSubtitle>
+                                <div className={"card-price text-dark"}>{price}</div>
+                            </div>
+
+
                         </div>
 
-                        <div className={"card-price text-dark"}>{price}</div>
                     </div>
 
                     <div className={"card-info d-flex align-items-center"}>

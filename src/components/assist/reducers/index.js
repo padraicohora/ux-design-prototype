@@ -12,11 +12,14 @@ const initialState = {
 export default (state = initialState, action = {}) => {
     switch (action.type) {
         case "SHOW_BOOK_ASSIST_WIZARD":
-            const _state = action.payload === false ? initialState : {}
+            return {
+                ...initialState,
+                wizardOpen: action.payload,
+            };
+        case "SUBMIT_ASSISTANT":
             return {
                 ...state,
-                wizardOpen: action.payload,
-                ..._state
+                wizardOpen: false,
             };
         case "SET_BOOK_ASSIST_DATE":
             return {

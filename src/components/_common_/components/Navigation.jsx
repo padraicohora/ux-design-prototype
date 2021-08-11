@@ -85,7 +85,6 @@ const Navigation = (props) => {
   const showSearch = () => dispatch({ type: TOGGLE_SEARCH_BAR });
   const onSearch = (e) => {
     e.preventDefault();
-    history.push(RESULTS);
     dispatch({
       type: "SUBMIT_SEARCH",
       payload: {
@@ -98,6 +97,8 @@ const Navigation = (props) => {
         type
       }
     });
+    dispatch({ type: "SET_LOADING"})
+    history.push(RESULTS);
   };
 
   const goHome = () => {

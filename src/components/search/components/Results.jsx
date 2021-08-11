@@ -1,5 +1,5 @@
 import propTypes from "prop-types";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Badge,
     Button,
@@ -49,6 +49,13 @@ const Results = (props) => {
         rooms,
         direction,
         type } = useSelector((state) => state.search);
+    const { loading } = useSelector((state) => state.home);
+
+    useEffect(() => {
+
+        let timer1 = setTimeout(() => dispatch({ type: "UNSET_LOADING"}),  1400);
+        return () => clearTimeout(timer1);
+    }, [loading]);
 
     const setSortBy = (option) => dispatch({
         type:"SET_SEARCH_SORT",
@@ -119,8 +126,13 @@ const Results = (props) => {
             <Container className={"position-relative"}>
                 <div className={"d-flex flex-column"}>
                     <div className={"my-3"}>
-                        Results for
-                        <strong className={"pl-1"}>{location}</strong> between <strong>{`${startDate.format(dateFormat)} - ${endDate.format(dateFormat)}`}</strong> for <strong>{guestString(adults, children, rooms)}</strong><small className={"pl-1"}>{`(${"125"} results)`}</small>
+                        Results for&nbsp;
+                        <strong className={"pl-1"}>{location}</strong>
+                        &nbsp;between&nbsp;
+                        <strong>{`${startDate.format(dateFormat)} - ${endDate.format(dateFormat)}`}</strong>
+                        &nbsp;for&nbsp;
+                        <strong>{guestString(adults, children, rooms)}</strong>
+                        <small className={"pl-1"}>{`(${results ? results.length : 0} results)`}</small>
                     </div>
                     <div className={"pr-3 flex-fill mb-3"}>
                         <div className={"d-flex align-items-center"}>

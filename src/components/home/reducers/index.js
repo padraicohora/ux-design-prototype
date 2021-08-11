@@ -22,6 +22,10 @@ export default (state = initialState, action = {}) => {
             return {
                 ...state, searchOpen: !state.searchOpen,
             };
+        case "HIDE_SEARCH_BAR":
+            return {
+                ...state, searchOpen: false,
+            };
         case "SUBMIT_SEARCH":
             return {
                 ...state, searchOpen: false,
@@ -63,6 +67,11 @@ export default (state = initialState, action = {}) => {
             }
             return {
                 ...state, searchLocations, searchAccommodations, searchRelated
+            };
+        }
+        case "SUBMIT_ASSISTANT":{
+            return {
+                ...state, loading: true,
             };
         }
         case "SET_LOADING":{

@@ -63,8 +63,7 @@ const AssistantWizard = (props) => {
       return !(assistDate || assistSeason || assistHolidayType || assistAccommodation || assistLocation || assistPersonalisation)
   }
   const handleSubmit = () => {
-    toggleAssistant();
-    dispatch({ type: "SET_LOADING"})
+    dispatch({ type: "SUBMIT_ASSISTANT"})
     history.push(ASSISTANT);
   };
 
