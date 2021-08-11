@@ -31,15 +31,16 @@ const PublicRoutes = () => {
     const { loading } = useSelector((state) => state.home);
     return <BrowserRouter>
         {!loading && <Navigation/>}
-        <Switch>
-            <Route exact path={HOME} component={Home}/>
-            <Route exact path={ASSISTANT} component={Assistant}/>
-            <Route exact path={RESULTS} component={Results}/>
-            <Route exact path={COMPARISON} component={Comparison}/>
-            <Route exact path={BOOKING} component={Booking}/>
+        <Home />
+        {/*<Switch>*/}
+        {/*    <Route exact path={HOME} component={Home}/>*/}
+            {/*<Route exact path={ASSISTANT} component={Assistant}/>*/}
+            {/*<Route exact path={RESULTS} component={Results}/>*/}
+            {/*<Route exact path={COMPARISON} component={Comparison}/>*/}
+            {/*<Route exact path={BOOKING} component={Booking}/>*/}
             {/*<PrivateRoute path={SECURE} component={PrivateRoutes} />*/}
-            <Redirect to={HOME}/>
-        </Switch>
+            {/*<Redirect to={HOME}/>*/}
+        {/*</Switch>*/}
         {loading && <Loader className="position-absolute vh-100 col-sm-12 col-xl-12 app-loader"/>}
         <Footer/>
         {/*<AccountModal open={open}/>*/}
