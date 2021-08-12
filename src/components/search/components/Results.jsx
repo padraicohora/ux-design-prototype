@@ -26,6 +26,8 @@ import _ from "lodash";
 import {useDispatch, useSelector} from "react-redux";
 import {guestString} from "../../_common_/components/Navigation";
 import AccommodationCard from "../../home/components/AccommodationCard";
+import {Redirect} from "react-router-dom";
+import {HOME} from "../../home/constants";
 export const dateFormat = "MMMM Do YYYY"
 export const directions = [
     {
@@ -52,7 +54,6 @@ const Results = (props) => {
     const { loading } = useSelector((state) => state.home);
 
     useEffect(() => {
-
         let timer1 = setTimeout(() => dispatch({ type: "UNSET_LOADING"}),  1400);
         return () => clearTimeout(timer1);
     }, [loading]);
@@ -113,7 +114,7 @@ const Results = (props) => {
                     return <Col sm={"3"}><AccommodationCard {...result} key={result.id}/></Col>  })
             }
         }else{
-            items = "No accommodation found"
+            return <Redirect to={HOME} />
         }
 
         return items

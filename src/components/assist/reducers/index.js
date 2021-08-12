@@ -1,3 +1,5 @@
+import accommodations from "../../../data/json/accommodations";
+import {getRandomInt} from "../../home/reducers";
 
 const initialState = {
     wizardOpen:false,
@@ -7,6 +9,7 @@ const initialState = {
     assistAccommodation:null,
     assistLocation:null,
     assistPersonalisation:null,
+    results: null,
 };
 
 export default (state = initialState, action = {}) => {
@@ -17,9 +20,17 @@ export default (state = initialState, action = {}) => {
                 wizardOpen: action.payload,
             };
         case "SUBMIT_ASSISTANT":
+            let results = [];
+            let i = 0;
+            while (i < 10) {
+                const randomIndex = getRandomInt(0, accommodations.length - 1);
+                results.push(accommodations[randomIndex]);
+                i++;
+            }
             return {
                 ...state,
                 wizardOpen: false,
+                results,
             };
         case "SET_BOOK_ASSIST_DATE":
             return {
