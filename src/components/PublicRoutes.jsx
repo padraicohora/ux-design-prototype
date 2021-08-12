@@ -29,7 +29,7 @@ import Loader from "./_common_/components/Loader";
 
 const PublicRoutes = () => {
     const { loading } = useSelector((state) => state.home);
-    return <BrowserRouter>
+    return <BrowserRouter basename={"/ux-design-prototype"}>
         {!loading && <Navigation/>}
         <Home />
         {/*<Switch>*/}
