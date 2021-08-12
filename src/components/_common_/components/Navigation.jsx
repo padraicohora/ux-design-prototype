@@ -441,6 +441,11 @@ const Navigation = (props) => {
               >
                 Search
               </Button>
+              {/*<Link*/}
+              {/*  to={RESULTS}*/}
+              {/*>*/}
+              {/*  Search*/}
+              {/*</Link>*/}
             </div>
           </Form>
         </Container>

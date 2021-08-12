@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {BrowserRouter, Redirect, Route, Switch,} from "react-router-dom";
+import {BrowserRouter, HashRouter, Redirect, Route, Switch,} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -21,30 +21,32 @@ import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import Footer from "./_common_/components/Footer";
 import {useSelector} from "react-redux";
 import Loader from "./_common_/components/Loader";
+import PrivateRoute from "./_common_/components/PrivateRoute";
 
 // const Login = lazy(() => import("./auth/Login"));
 // const Recover = lazy(() => import("./auth/Recover"));
 // const Signup = lazy(() => import("./auth/Signup"));
 // const PrivateRoutes = lazy(() => import("./PrivateRoutes"));
 
+console.log(`process.env.PUBLIC_URL`, _process)
+console.log(`url`, url)
 const PublicRoutes = () => {
     const { loading } = useSelector((state) => state.home);
-    return <BrowserRouter basename={"/ux-design-prototype"}>
+    return <HashRouter>
         {!loading && <Navigation/>}
-        <Home />
-        {/*<Switch>*/}
-        {/*    <Route exact path={HOME} component={Home}/>*/}
-            {/*<Route exact path={ASSISTANT} component={Assistant}/>*/}
-            {/*<Route exact path={RESULTS} component={Results}/>*/}
-            {/*<Route exact path={COMPARISON} component={Comparison}/>*/}
-            {/*<Route exact path={BOOKING} component={Booking}/>*/}
+        <Switch>
+            <Route exact path={HOME} component={Home}/>
+            <Route exact path={ASSISTANT} component={Assistant}/>
+            <Route exact path={RESULTS} component={Results}/>
+            <Route exact path={COMPARISON} component={Comparison}/>
+            <Route exact path={BOOKING} component={Booking}/>
             {/*<PrivateRoute path={SECURE} component={PrivateRoutes} />*/}
-            {/*<Redirect to={HOME}/>*/}
-        {/*</Switch>*/}
+            <Redirect to={HOME}/>
+        </Switch>
         {loading && <Loader className="position-absolute vh-100 col-sm-12 col-xl-12 app-loader"/>}
         <Footer/>
         {/*<AccountModal open={open}/>*/}
-    </BrowserRouter>;
+    </HashRouter>;
 };
 
 const AccountModal = ({open}) => {
