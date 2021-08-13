@@ -9,15 +9,10 @@ const AssistantCard = ({
     title,
     location,
     rating,
-    subText,
     price,
     type,
     reviews,
-    compact,
-    locationBased,
-    city,
-    country,
-    accomodations
+    assistant
 }) => {
 
     function calculateRating(rating) {
@@ -31,67 +26,62 @@ const AssistantCard = ({
         if (number > 95 && number <= 100) return "Unbelievable"
     }
 
-    const rootClass = classnames("accommodation-card", {
-        compact,
-        locationBased,
-        "p-4" : !compact,
+    const rootClass = classnames("accommodation-card p-4", {
+        assistant,
     })
     const cardClass = classnames( {
-        compact,
-        locationBased,
-        "my-2" : !compact,
+        assistant,
     })
     return (
         <div className={rootClass}>
             <Card className={cardClass}>
-                <CardImg top width="100%" src={image} alt="Card image cap"/>
+                <div className={"image-wrapper"}>
+                    <CardImg top width="100%" src={image} alt="Card image cap"/>
+                </div>
                 <CardBody>
                     <div className={"card-heading align-items-center d-flex"}>
                         <div className={"d-flex flex-fill flex-column text-truncate"}>
                             <CardTitle tag="span"
                                        className={"card-title flex-fill text-truncate"}>
-                                {locationBased ? city  : title}
+                                {title}
                             </CardTitle>
-
                             <div className={"align-items-center d-flex text-truncate"}>
                                 <CardSubtitle tag="span"
                                               className="text-secondary card-subtitle align-items-center d-flex flex-fill mb-0 text-truncate">
-                                {!locationBased && <Icon svg={PIN_DROP}/>}
-                                <span className={"flex-fill text-truncate"}>{locationBased ? country
-                                    : location}</span>
-                            </CardSubtitle>
+                                    <Icon svg={PIN_DROP}/>
+                                    <span className={"flex-fill text-truncate"}>
+                                        {location}
+                                    </span>
+                                </CardSubtitle>
                                 <div className={"card-price text-dark"}>{price}</div>
                             </div>
-
-
                         </div>
-
+                        <div>
+                            <div className={"d-flex align-items-center rating"}>
+                                <div className={"mx-2"}>
+                                    <small
+                                        className={"card-rating card-rating font-weight-bolder p-2 rounded-circle small"}>
+                                        {rating}
+                                    </small>
+                                </div>
+                                <div className={"d-flex flex-column "}>
+                                <span className={"mb-0 text-secondary rating-text"}>
+                                    {calculateRating(rating)}
+                                </span>
+                                    <small
+                                        className={"text-muted rating-text"}>{`${reviews} reviews`}</small>
+                                </div>
+                            </div>
+                            <div className={"card-price text-dark"}>{price}</div>
+                        </div>
                     </div>
 
                     <div className={"card-info d-flex align-items-center"}>
                         <CardText className={"mb-0 flex-fill"}>
-                            {locationBased && <small>
-                                {`${accomodations} accommodations`}
-                            </small>}
                             <Badge color={"primary"} pill>
                                 {type}
                             </Badge>
                         </CardText>
-                        <div className={"d-flex align-items-center rating"}>
-                            <div className={"mx-2"}>
-                                <small
-                                    className={"card-rating card-rating font-weight-bolder p-2 rounded-circle small"}>
-                                    {rating}
-                                </small>
-                            </div>
-                            {!compact && <div className={"d-flex flex-column "}>
-                                <span className={"mb-0 text-secondary rating-text"}>
-                                    {calculateRating(rating)}
-                                </span>
-                                <small
-                                    className={"text-muted rating-text"}>{`${reviews} reviews`}</small>
-                            </div>}
-                        </div>
 
                     </div>
                 </CardBody>

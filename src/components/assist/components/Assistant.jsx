@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import _ from "lodash";
 import {useDispatch, useSelector} from "react-redux";
 import {HOME, TOGGLE_SEARCH_BAR} from "../../home/constants";
-import {Button, Col, Container, DropdownToggle, UncontrolledButtonDropdown} from "reactstrap";
+import {Button, Col, Container, DropdownToggle, Row, UncontrolledButtonDropdown} from "reactstrap";
 import {dateFormat} from "../../search/components/Results";
 import {guestString} from "../../_common_/components/Navigation";
 import AssistantCard from "./AssistantCard";
@@ -38,7 +38,7 @@ const Assistant = (props) => {
         let items;
         if(!_.isEmpty(results)){
                 items = results.map((result)=>{
-                    return <Col sm={"12"}><AssistantCard {...result} key={result.id} compact/></Col>  })
+                    return <Col sm={"12"}><AssistantCard {...result} key={result.id} assistant/></Col>  })
         }else{
             // items = "No accommodation found"
             // history.push(HOME);
@@ -66,11 +66,13 @@ const Assistant = (props) => {
                 </div>
             </Container>
         </div>
-        <div>
-            <h1 className={"text-center"}>Top Results</h1>
-            {/*<AssistantCard />*/}
-            <List />
-        </div>
+        <Container>
+            <h2 className={"text-center my-5"}>Top Results</h2>
+            <Row>
+                <List />
+            </Row>
+
+        </Container>
         </div>
 }
 

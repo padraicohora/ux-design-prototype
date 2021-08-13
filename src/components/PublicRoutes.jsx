@@ -35,7 +35,7 @@ const PublicRoutes = () => {
 
             <Redirect to={HOME}/>
         </Switch>
-        {loading && <Loader className="position-absolute vh-100 col-sm-12 col-xl-12 app-loader"/>}
+        {loading && <Loader className="vh-100 col-sm-12 col-xl-12 app-loader"/>}
         <Footer/>
     </HashRouter>;
 };

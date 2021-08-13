@@ -47,7 +47,7 @@ const sortByPrice = function (a, b, prop, highestFirst) {
   return 0;
 };
 
-const sortByRating = function (a, b, prop, highestFirst) {
+export const sortByRating = function (a, b, prop, highestFirst) {
   let nameA = parseFloat(a[prop]);
   let nameB = parseFloat(b[prop]);
   if(highestFirst === "desc"){

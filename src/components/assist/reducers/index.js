@@ -1,5 +1,6 @@
 import accommodations from "../../../data/json/accommodations";
 import {getRandomInt} from "../../home/reducers";
+import {sortByRating} from "../../search/reducers";
 
 const initialState = {
     wizardOpen:false,
@@ -21,12 +22,21 @@ export default (state = initialState, action = {}) => {
             };
         case "SUBMIT_ASSISTANT":
             let results = [];
+            let indexes = [];
             let i = 0;
             while (i < 10) {
                 const randomIndex = getRandomInt(0, accommodations.length - 1);
+                if(indexes.includes(randomIndex)) {
+                    console.log(`indexes includes`, randomIndex, indexes)
+                    return
+                }
                 results.push(accommodations[randomIndex]);
+                indexes.push(randomIndex)
                 i++;
             }
+            results = results.sort((a, b) => {
+                return sortByRating(a, b, "rating", "desc");
+            })
             return {
                 ...state,
                 wizardOpen: false,
