@@ -7,15 +7,12 @@ import {dateFormat} from "../../search/components/Results";
 import {guestString} from "../../_common_/components/Navigation";
 import AssistantCard from "./AssistantCard";
 import {Redirect, useHistory} from "react-router-dom";
+import Emoji from "../../_common_/components/Emoji";
 
 const Assistant = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    useEffect(() => {
-        dispatch({ type: "HIDE_SEARCH_BAR" });
-        let timer1 = setTimeout(() => dispatch({ type: "UNSET_LOADING"}),  1400);
-        return () => clearTimeout(timer1);
-    }, [ ]);
+
     const { wizardOpen, assistDate, results,
         assistSeason,
         assistHolidayType,
@@ -23,15 +20,14 @@ const Assistant = (props) => {
         assistLocation,
         assistPersonalisation } = useSelector((state) => state.assist);
 
-    const renderHolidayType = () => assistHolidayType
-        ? assistHolidayType.map(type => <span>{type.label}</span>) : null;
-    const renderAccommodation = () => assistAccommodation ? assistAccommodation.map(type => type.label) : null;
-    const renderLocation = () => assistLocation ? assistLocation.map(type => type.label) : null;
+    useEffect(() => {
+        dispatch({ type: "HIDE_SEARCH_BAR" });
+        let timer1 = setTimeout(() => dispatch({ type: "UNSET_LOADING"}),  1400);
+        return () => clearTimeout(timer1);
+    }, [wizardOpen ]);
 
     const startAssistant = () => {
-        // history.push(ASSISTANT);
         dispatch({ type: "SHOW_BOOK_ASSIST_WIZARD", payload:true })
-        // if (searchOpen) dispatch({ type: TOGGLE_SEARCH_BAR });
     };
 
     const List = () => {
@@ -40,29 +36,37 @@ const Assistant = (props) => {
                 items = results.map((result)=>{
                     return <Col sm={"12"}><AssistantCard {...result} key={result.id} assistant/></Col>  })
         }else{
-            // items = "No accommodation found"
-            // history.push(HOME);
             return <Redirect to={HOME} />
         }
 
         return items
     }
 
+    function renderDates(){
+        if(assistDate && assistDate.startDate && assistDate.endDate){
+            return <>{`from ${assistDate.startDate.format(dateFormat)} to ${assistDate.endDate.format(dateFormat)}`}</>}
+        if(assistSeason){
+            return `${_.lowerFirst(assistSeason)}`
+
+        }
+        return null
+    }
+
     return <div>
         <div className={"bg-light search-heading"}>
             <Container className={"position-relative"}>
                 <div className={"d-flex align-items-center justify-content-between"}>
-                    <div className={"my-3 flex-fill"}>
-                        Results for&nbsp;
-                        <strong className={"pl-1"}>{renderHolidayType()}</strong>
-                        <strong className={"pl-1"}>{renderAccommodation()}</strong>
-                        <strong className={"pl-1"}>{renderLocation()}</strong>
-                        {assistDate && assistDate.startDate && assistDate.endDate && <>&nbsp;between&nbsp;
-                            <strong>{`${assistDate.startDate.format(dateFormat)} - ${assistDate.endDate.format(dateFormat)}`}</strong></>}
-                        {assistSeason && <>
-                            <strong>{assistSeason}</strong></>}
+                    <div className={"my-3 py-3 flex-fill d-flex"}>
+                        <Emoji symbol="🧙🏾‍♂️️" label="wizard" className={"display-4  mb-0 px-4"}/>
+                        <div className={"speech-bubble"}>
+                            <p>Here are the best {assistAccommodation.label} in an {assistLocation.label} setting for your {assistHolidayType.label} {renderDates()}. I made sure to include accommodations that {assistPersonalisation.description}</p>
+                            <p className={"mb-0"}>Want to start again? <a href={"#"} onClick={(e) => {
+                                e.preventDefault();
+                                startAssistant();
+                            }}>Restart the booking assistant</a></p>
+                        </div>
                     </div>
-                    <Button onClick={startAssistant}>Reset</Button>
+
                 </div>
             </Container>
         </div>

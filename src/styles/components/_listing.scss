@@ -194,8 +194,8 @@
     background-color: $light;
 
     .card-title {
-      font-size: 24px;
-      margin-bottom: 1rem
+      font-size: 22px;
+      margin-bottom: 7px;
     }
 
     .card-text .badge-primary {
@@ -204,11 +204,11 @@
     }
 
     .card-subtitle {
-      font-size: 21px;
+      font-size: 18px;
       margin-bottom: 0;
 
       svg {
-        height: 14px;
+        height: 22px;
         margin-right: 3px;
       }
     }
@@ -219,9 +219,9 @@
     }
 
     .card-price {
-      font-size: 16px;
+      //font-size: 16px;
       align-self: flex-end !important;
-      display: none !important;
+      //display: none !important;
     }
     .image-wrapper{
       width: 100%;

@@ -53,10 +53,9 @@ const AssistantCard = ({
                                         {location}
                                     </span>
                                 </CardSubtitle>
-                                <div className={"card-price text-dark"}>{price}</div>
                             </div>
                         </div>
-                        <div>
+                        <div className={"d-flex flex-column"}>
                             <div className={"d-flex align-items-center rating"}>
                                 <div className={"mx-2"}>
                                     <small
@@ -72,7 +71,7 @@ const AssistantCard = ({
                                         className={"text-muted rating-text"}>{`${reviews} reviews`}</small>
                                 </div>
                             </div>
-                            <div className={"card-price text-dark"}>{price}</div>
+                            <div className={"card-price text-dark mt-2"}>{price}</div>
                         </div>
                     </div>
 

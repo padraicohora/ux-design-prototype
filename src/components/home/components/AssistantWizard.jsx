@@ -92,30 +92,37 @@ const AssistantWizard = (props) => {
     {
       icon: "🛏️",
       label: "Comfort",
+        description: "is very comfortable and luxurious"
     },
     {
       icon: "💶️",
       label: "Low Cost",
+        description: "is low cost and relatively inexpensive"
     },
     {
       icon: "📍",
       label: "Location",
+        description: "is centrally located and close to local attractions"
     },
     {
       icon: "🛀",
       label: "Amenities",
+        description: "has excellent amenities and provisions"
     },
     {
       icon: "🤿",
       label: "Attractions",
+        description: "is surrounded by awesome attractions"
     },
     {
       icon: "🍽️",
       label: "Food and Beverages",
+        description: "has a highly rated restaurant and bar"
     },
     {
       icon: "🏆",
       label: "Highly Rated",
+        description: "is highly ratings and reviews"
     },
   ];
 
@@ -129,7 +136,7 @@ const AssistantWizard = (props) => {
         "step-success": success,
       });
       return (
-        <li className={stepClass} onClick={() => setWizardStep(step)}>
+        <li className={stepClass} onClick={() => (active || success) && setWizardStep(step)}>
           <div className="step-content">
             <span className="step-circle">{index + 1}</span>
             <span className="step-text">{step}</span>
@@ -142,52 +149,46 @@ const AssistantWizard = (props) => {
   const showSubmit = steps.indexOf(wizardStep) === steps.indexOf("Personalise");
   const showPrevious = steps.indexOf(wizardStep) > steps.indexOf("Welcome");
 
+  const nextDisabled = ()=> {
+
+      if(steps.indexOf(wizardStep) === 1 && !((assistDate && assistDate.startDate && assistDate.endDate) || assistSeason)){
+          return true
+      }
+      if(steps.indexOf(wizardStep) === 2 && !assistHolidayType){
+          return true
+      }
+      if(steps.indexOf(wizardStep) === 3 && !assistAccommodation){
+          return true
+      }
+      if(steps.indexOf(wizardStep) === 4 && !assistLocation){
+          return true
+      }
+      if(steps.indexOf(wizardStep) === 5 && !assistPersonalisation){
+          return true
+      }
+      return false
+  }
+
   function onSetSelectPersonalisation(option) {
-    const options = selectedPersonalisation.slice();
-    const index = options.findIndex((o) => o.label === option.label);
-    if (index >= 0) {
-      options.splice(index, 1);
-    } else {
-      options.push(option);
-    }
-    setSelectedPersonalisation(options);
-      dispatch({ type: "SET_BOOK_ASSIST_PERSONALISATION", payload: options });
+    setSelectedPersonalisation(option);
+      dispatch({ type: "SET_BOOK_ASSIST_PERSONALISATION", payload: option });
   }
 
   function onSetSelectLocation(option) {
-    const options = selectedLocation.slice();
-    const index = options.findIndex((o) => o.label === option.label);
-    if (index >= 0) {
-      options.splice(index, 1);
-    } else {
-      options.push(option);
-    }
-    setSelectedLocation(options);
-      dispatch({ type: "SET_BOOK_ASSIST_LOCATION", payload: options });
+
+    setSelectedLocation(option);
+      dispatch({ type: "SET_BOOK_ASSIST_LOCATION", payload: option });
   }
 
   function onSetSelectedAccommodation(option) {
-    const options = selectedAccommodation.slice();
-    const index = options.findIndex((o) => o.label === option.label);
-    if (index >= 0) {
-      options.splice(index, 1);
-    } else {
-      options.push(option);
-    }
-    setSelectedAccommodation(options);
-      dispatch({ type: "SET_BOOK_ASSIST_ACCOMMODATION", payload: options });
+
+    setSelectedAccommodation(option);
+      dispatch({ type: "SET_BOOK_ASSIST_ACCOMMODATION", payload: option });
   }
 
   function onSetSelectedStay(option) {
-    const options = selectedStay.slice();
-    const index = options.findIndex((o) => o.label === option.label);
-    if (index >= 0) {
-      options.splice(index, 1);
-    } else {
-      options.push(option);
-    }
-    setSelectedStay(options);
-      dispatch({ type: "SET_BOOK_ASSIST_HOLIDAY_TYPE", payload: options });
+    setSelectedStay(option);
+      dispatch({ type: "SET_BOOK_ASSIST_HOLIDAY_TYPE", payload: option });
   }
 
   return (
@@ -235,7 +236,7 @@ const AssistantWizard = (props) => {
               />
             )}
             {steps.indexOf(wizardStep) === 1 && (
-              <Dates wizardStep={wizardStep}/>
+              <Dates wizardStep={wizardStep} />
             )}
             {steps.indexOf(wizardStep) === 2 && (
               <StayType wizardStep={wizardStep}
@@ -318,7 +319,7 @@ const AssistantWizard = (props) => {
                 outlines
                 className={"mx-4 min-w-7rem icon-button"}
                 onClick={handleNext}
-                disabled={!showNext}
+                disabled={!showNext || nextDisabled()}
             >
                 Next
                 <Icon svg={CIRCLE_CHEVRON_FORWARD} />
@@ -353,10 +354,10 @@ const Welcome = () => {
         "Please answer some simple questions, and I will work my magic to find the best match for you"
       }
     >
-      <span className={"flex-fill"}>
-        <strong>Tip:</strong> You can skip any question, but the more you answer
-        the better I can assist you
-      </span>
+      {/*<span className={"flex-fill"}>*/}
+      {/*  <strong>Tip:</strong> You can skip any question, but the more you answer*/}
+      {/*  the better I can assist you*/}
+      {/*</span>*/}
     </WizardScreen>
   );
 };
@@ -364,8 +365,8 @@ const Welcome = () => {
 const Dates = (props) => {
     const dispatch = useDispatch();
     const { assistDate, assistSeason } = useSelector((state) => state.assist);
-    const [startDate, setStartDate] = useState(moment());
-    const [endDate, setEndDate] = useState(moment().add(2, 'days'));
+    const [startDate, setStartDate] = useState(assistDate && assistDate.startDate);
+    const [endDate, setEndDate] = useState(assistDate && assistDate.endDate);
     const [datesFocused, setDatesFocused] = useState();
     const setSearchDates = ({ startDate, endDate }) => {
         setStartDate(startDate);
@@ -382,6 +383,7 @@ const Dates = (props) => {
         // }
         //
         // if(assistDate && startDate.toString() !== assistDate.startDate.toString() && endDate.toString() !== assistDate.endDate.toString()) {
+        if(endDate && startDate)
             dispatch({
                 type: "SET_BOOK_ASSIST_DATE",
                 payload: {startDate, endDate}
@@ -389,15 +391,18 @@ const Dates = (props) => {
         // }
     }, [ startDate, endDate ]);
     const when_its_hot = "When it's hot";
-    const not_too_hot = "Not too hot";
-    const off_season = "Off season";
+    const not_too_hot = "When it's not too hot";
+    const off_season = "When it's off season";
     const when_there_is_snow = "When there is snow";
-    const christmas_new_year = "Christmas and New Year";
-    const [type, setType] = useState();
+    const christmas_new_year = "At Christmas and New Year";
+    const [type, setType] = useState(assistSeason);
     const [typeFocused, setTypeFocused] = useState(false);
 
     useEffect(() => {
-        dispatch({ type: "SET_BOOK_ASSIST_SEASON", payload: type });
+        if(type !== assistSeason){
+            dispatch({ type: "SET_BOOK_ASSIST_SEASON", payload: type });
+        }
+
     }, [ type ]);
 
     const dropdownClass = classnames("nav-link form-control input pl-2", {
@@ -569,7 +574,7 @@ const Personalise = (props) => {
 const WizardOptions = ({ items, onClick, selection = [] }) => {
   return items.map((item) => {
     const cardClass = classnames("wizard-card p-3", {
-      selected: selection.findIndex((s) => s.label === item.label) >= 0,
+      selected: selection.label === item.label,
     });
     return (
       <Card

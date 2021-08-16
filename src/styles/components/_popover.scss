@@ -1,5 +1,4 @@
 .popover {
-  border: 0;
   border-radius: $border-radius;
   border: 1px solid rgba(0, 0, 0, 0.15);
   //box-shadow: $shadow-float;
@@ -23,4 +22,26 @@
   max-height: 70vh;
   overflow: hidden;
   box-shadow: $box-shadow-lg, 26px 3rem 60rem 60rem rgba(0, 0, 0, 0.18);
+}
+
+.speech-bubble{
+  position: relative;
+  max-width: 80%;
+  background-color: #fff;
+  padding: 1.125em 1.5em;
+  font-size: 1.1rem;
+  border-radius: 1rem;
+  box-shadow:	0 0.125rem 0.5rem rgba(0, 0, 0, .3), 0 0.0625rem 0.125rem rgba(0, 0, 0, .2);
+  &:before{
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: -1rem;
+    border: .75rem solid transparent;
+    border-top: none;
+    border-bottom-color: #fff;
+    transform: rotate(-90deg);
+    filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
+  }
 }
