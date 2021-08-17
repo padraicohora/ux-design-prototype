@@ -8,6 +8,7 @@ import {guestString} from "../../_common_/components/Navigation";
 import AssistantCard from "./AssistantCard";
 import {Redirect, useHistory} from "react-router-dom";
 import Emoji from "../../_common_/components/Emoji";
+import {ensureNonNull} from "../../_common_/Utils";
 
 const Assistant = (props) => {
     const dispatch = useDispatch();
@@ -59,7 +60,7 @@ const Assistant = (props) => {
                     <div className={"my-3 py-3 flex-fill d-flex"}>
                         <Emoji symbol="🧙🏾‍♂️️" label="wizard" className={"display-4  mb-0 px-4"}/>
                         <div className={"speech-bubble"}>
-                            <p>Here are the best {assistAccommodation.label} in an {assistLocation.label} setting for your {assistHolidayType.label} {renderDates()}. I made sure to include accommodations that {assistPersonalisation.description}</p>
+                            <p>Here are the best {ensureNonNull(assistAccommodation).label} in an {ensureNonNull(assistLocation).label} setting for your {ensureNonNull(assistHolidayType).label} {renderDates()}. I made sure to include accommodations that {ensureNonNull(assistPersonalisation).description}</p>
                             <p className={"mb-0"}>Want to start again? <a href={"#"} onClick={(e) => {
                                 e.preventDefault();
                                 startAssistant();
