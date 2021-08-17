@@ -165,7 +165,6 @@
   min-width: unset;
   max-width: none;
   width: 100%;
-  overflow: hidden;
   margin-bottom: 2rem;
   border-radius: 10px;
 
@@ -225,9 +224,10 @@
     }
     .image-wrapper{
       width: 100%;
-      padding-bottom: 25%;
       position: relative;
       flex: 1 1 40%;
+      background-position: center;
+      background-size: cover;
     }
     .assistant-price{
       position: absolute;
@@ -255,14 +255,62 @@
       z-index: 2;
     }
 
-    //.card-rating {
-    //  //position: absolute;
-    //  //right: 10px;
-    //  //top: 0;
-    //  line-height: 1.3 !important;
-    //  font-size: 10px;
-    //  background-color: #edd5f7 !important;
-    //  color: #424f65;
-    //}
+    .card-rating {
+      background-color: #edd5f7 !important;
+      color: #424f65;
+    }
+
+  }
+
+  .assistant-rating {
+    position: absolute;
+    color: white;
+    width: 38px;
+    top: 5px;
+    left: 5px;
+    z-index: 10;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0.15rem 0.25rem rgba(0, 0, 0, 0.15);
+    background-color: silver;
+    span{
+      font-size: 25px;
+      font-weight: 600;
+    }
+    &.top-result{
+      &:before{
+        content: "⭐";
+        font-size: 21px;
+        position: absolute;
+        right: 38px;
+        bottom: -20px;
+      }
+      &:after{
+        content: "⭐";
+        position: absolute;
+        font-size: 21px;
+        left: -27px;
+        top: -13px;
+      }
+      span{
+        background-color: gold;
+        &:before{
+          content: "⭐";
+          position: absolute;
+          font-size: 21px;
+          top: -33px;
+          left: 6px;
+        }
+        &:after{
+          content: "⭐";
+          position: absolute;
+          font-size: 21px;
+          top: -20px;
+          right: -21px;
+        }
+      }
+    }
   }
 }

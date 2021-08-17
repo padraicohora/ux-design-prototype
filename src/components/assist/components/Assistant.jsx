@@ -20,6 +20,7 @@ const Assistant = (props) => {
         assistAccommodation,
         assistLocation,
         assistPersonalisation } = useSelector((state) => state.assist);
+    const assistState = useSelector((state) => state.assist);
 
     useEffect(() => {
         dispatch({ type: "HIDE_SEARCH_BAR" });
@@ -34,8 +35,8 @@ const Assistant = (props) => {
     const List = () => {
         let items;
         if(!_.isEmpty(results)){
-                items = results.map((result)=>{
-                    return <Col sm={"12"}><AssistantCard {...result} key={result.id} assistant/></Col>  })
+                items = results.map((result, index)=>{
+                    return <Col sm={"12"}><AssistantCard {...result} key={result.id} assistant number={index}/></Col>  })
         }else{
             return <Redirect to={HOME} />
         }
@@ -44,10 +45,13 @@ const Assistant = (props) => {
     }
 
     function renderDates(){
-        if(assistDate && assistDate.startDate && assistDate.endDate){
-            return <>{`from ${assistDate.startDate.format(dateFormat)} to ${assistDate.endDate.format(dateFormat)}`}</>}
+        if(assistDate && assistDate.startDate && assistDate.endDate) {
+            return <>from <strong>{assistDate.startDate.format(dateFormat)}</strong> to <strong>{assistDate.endDate.format(dateFormat)}</strong></>
+        }
         if(assistSeason){
-            return `${_.lowerFirst(assistSeason)}`
+            return <strong>
+            {_.lowerFirst(assistSeason)}
+            </strong>
 
         }
         return null
@@ -60,7 +64,7 @@ const Assistant = (props) => {
                     <div className={"my-3 py-3 flex-fill d-flex"}>
                         <Emoji symbol="🧙🏾‍♂️️" label="wizard" className={"display-4  mb-0 px-4"}/>
                         <div className={"speech-bubble"}>
-                            <p>Here are the best {ensureNonNull(assistAccommodation).label} in an {ensureNonNull(assistLocation).label} setting for your {ensureNonNull(assistHolidayType).label} {renderDates()}. I made sure to include accommodations that {ensureNonNull(assistPersonalisation).description}</p>
+                            <p>Here are the best <strong>{ensureNonNull(assistAccommodation).label}</strong> in an <strong>{ensureNonNull(assistLocation).label}</strong> setting for your <strong>{ensureNonNull(assistHolidayType).label}</strong> {renderDates()}. I made sure to include accommodations that <strong>{ensureNonNull(assistPersonalisation).description}</strong></p>
                             <p className={"mb-0"}>Want to start again? <a href={"#"} onClick={(e) => {
                                 e.preventDefault();
                                 startAssistant();

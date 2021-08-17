@@ -80,13 +80,13 @@ const AssistantWizard = (props) => {
         { icon: "💋", label: "Romantic Getaway" }, { icon: "🛀", label: "Relaxing Break" },
         { icon: "🛶", label: "Adventure" }, { icon: "💼", label: "Work Related" }, ];
 
-    const accommodationTypeOptions = [ { icon: "🛎️", label: "Hotel" },
-        { icon: "🏠", label: "Self Catering" }, { icon: "🏂", label: "Resorts" },
-        { icon: "🏰", label: "Mansion" }, { icon: "🛖", label: "Cabin" }, ];
+    const accommodationTypeOptions = [ { icon: "🛎️", label: "Hotels" },
+        { icon: "🏠", label: "Self Catering Stays" }, { icon: "🏂", label: "Resorts" },
+        { icon: "🏰", label: "Mansions" }, { icon: "🛖", label: "Cabins" }, ];
 
     const locationTypeOptions = [ { icon: "🌴", label: "Tropical" },
         { icon: "🏖️", label: "Coastal" }, { icon: "🏙️", label: "Urban" },
-        { icon: "✨", label: "Unique" }, { icon: "🏛️", label: "Other" }, ];
+        { icon: "✨", label: "Unique" }, { icon: "🏛️", label: "Cultural" }, ];
 
   const personalisationOptions = [
     {

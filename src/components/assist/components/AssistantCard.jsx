@@ -23,7 +23,8 @@ const AssistantCard = ({
     price,
     type,
     reviews,
-    assistant
+    assistant,
+    number
 }) => {
 
     const { wizardOpen, assistDate, results,
@@ -55,7 +56,7 @@ const AssistantCard = ({
         </>
     }
 
-    const rootClass = classnames("accommodation-card p-4", {
+    const rootClass = classnames("accommodation-card p-4 position-relative", {
         assistant,
     })
     const cardClass = classnames( {
@@ -63,12 +64,14 @@ const AssistantCard = ({
     })
     return (
         <div className={rootClass}>
+            <div className={`assistant-rating ${number === 0 && "top-result"}`} style={{backgroundColor: number === 0 ? "gold" : "silver"}}><span>{number+1}</span></div>
             <Card className={cardClass}>
-                <div className={"image-wrapper"}>
-                    <CardImg top width="100%" src={image} alt="Card image cap"/>
+                <div className={"image-wrapper"} style={{backgroundImage:`url(${image})`}}>
+
+                    {/*<CardImg top width="100%" src={image} alt="Card image cap"/>*/}
                 </div>
-                <CardBody className={"p-4"}>
-                    <div className={"card-heading align-items-center d-flex "}>
+                <CardBody className={"p-4 ml-3"}>
+                    <div className={"card-heading align-items-center d-flex mt-2"}>
                         <div className={"d-flex flex-fill flex-column"}>
                             <CardTitle tag="span"
                                        className={"card-title flex-fill text-truncate"}>
