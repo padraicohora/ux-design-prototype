@@ -60,10 +60,11 @@ const AssistantWizard = (props) => {
   };
 
   const submitDisabled = () => {
-      return !(assistDate || assistSeason || assistHolidayType || assistAccommodation || assistLocation || assistPersonalisation)
+      return !assistPersonalisation
   }
   const handleSubmit = () => {
-    dispatch({ type: "SUBMIT_ASSISTANT"})
+    dispatch({ type: "SUBMIT_ASSISTANT"});
+
     history.push(ASSISTANT);
   };
 

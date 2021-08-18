@@ -21,6 +21,7 @@ import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import Footer from "./_common_/components/Footer";
 import {useSelector} from "react-redux";
 import Loader from "./_common_/components/Loader";
+import DetailModal from "./detail/components/DetailModal";
 
 const PublicRoutes = () => {
     const { loading } = useSelector((state) => state.home);
@@ -35,6 +36,7 @@ const PublicRoutes = () => {
 
             <Redirect to={HOME}/>
         </Switch>
+        <DetailModal/>
         {loading && <Loader className="vh-100 col-sm-12 col-xl-12 app-loader"/>}
         <Footer/>
     </HashRouter>;

@@ -54,6 +54,7 @@
     "react-i18next": "^11.11.1",
     "react-idle-timer": "^4.6.4",
     "react-popper": "^2.2.5",
+    "react-rainbow-components": "^1.26.0",
     "react-redux": "^7.2.2",
     "react-render-html": "^0.6.0",
     "react-router-dom": "^5.2.0",

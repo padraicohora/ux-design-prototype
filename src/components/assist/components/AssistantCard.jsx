@@ -11,7 +11,7 @@ import React from "react";
 import Icon from "../../_common_/components/Icon";
 import {PIN_DROP} from "../../_common_/constants/icons";
 import classnames from "classnames";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {ensureNonNull} from "../../_common_/Utils";
 import TextTruncate from 'react-text-truncate';
 
@@ -24,7 +24,8 @@ const AssistantCard = ({
     type,
     reviews,
     assistant,
-    number
+    number,
+    onOpen
 }) => {
 
     const { wizardOpen, assistDate, results,
@@ -116,7 +117,10 @@ const AssistantCard = ({
                                 element="span"
                                 truncateText="…"
                                 text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                                textTruncateChild={<a href="#">Read on</a>}
+                                textTruncateChild={<a href="#" onClick={(e)=> {
+                                    e.preventDefault();
+                                    onOpen()
+                                }}>Read on</a>}
                             />
                         </CardText>
                     </div>

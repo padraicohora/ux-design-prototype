@@ -5,6 +5,7 @@ import bookingReducers from "../components/booking/reducers";
 import comparisonReducers from "../components/comparison/reducers";
 import homeReducers from "../components/home/reducers";
 import searchReducers from "../components/search/reducers";
+import detailReducers from "../components/detail/reducers";
 import {TOGGLE_SEARCH_BAR} from "../components/home/constants";
 
 // console.log(`homeReducers`, homeReducers({
@@ -18,6 +19,7 @@ const reducers = {
     comparison: comparisonReducers,
     home: homeReducers,
     search: searchReducers,
+    detail: detailReducers,
 };
 
 // const rootReducer = combineReducers(reducers);

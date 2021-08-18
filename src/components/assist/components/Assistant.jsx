@@ -20,7 +20,12 @@ const Assistant = (props) => {
         assistAccommodation,
         assistLocation,
         assistPersonalisation } = useSelector((state) => state.assist);
-    const assistState = useSelector((state) => state.assist);
+
+    const { panelOpen } = useSelector((state) => state.detail);
+
+    const togglePanel = (accommodation) => {
+        dispatch({ type: "SHOW_DETAIL_PANEL", payload: accommodation });
+    };
 
     useEffect(() => {
         dispatch({ type: "HIDE_SEARCH_BAR" });
@@ -29,14 +34,14 @@ const Assistant = (props) => {
     }, [wizardOpen ]);
 
     const startAssistant = () => {
-        dispatch({ type: "SHOW_BOOK_ASSIST_WIZARD", payload:true })
+        dispatch({ type: "RESTART_BOOK_ASSIST_WIZARD", payload:true })
     };
 
     const List = () => {
         let items;
         if(!_.isEmpty(results)){
                 items = results.map((result, index)=>{
-                    return <Col sm={"12"}><AssistantCard {...result} key={result.id} assistant number={index}/></Col>  })
+                    return <Col sm={"12"}><AssistantCard {...result} key={result.id} assistant number={index} onOpen={() => togglePanel(result)}/></Col>  })
         }else{
             return <Redirect to={HOME} />
         }

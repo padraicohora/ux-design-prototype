@@ -21,6 +21,11 @@ export default (state = initialState, action = {}) => {
                 ..._state,
                 wizardOpen: action.payload,
             };
+        case "RESTART_BOOK_ASSIST_WIZARD":
+            return {
+                initialState,
+                wizardOpen: true,
+        };
         case "SUBMIT_ASSISTANT":
             let results = [];
             let indexes = [];
