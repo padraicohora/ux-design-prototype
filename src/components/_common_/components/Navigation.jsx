@@ -121,7 +121,7 @@ const Navigation = (props) => {
   const LocationList = () => searchLocations.slice(0,5).map(hotel => <AccommodationCard compact locationBased {...hotel} key={hotel.id}/>)
   const AccommodationList = () => searchAccommodations.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
   const RelatedList = () => searchRelated.slice(0,5).map(hotel => <AccommodationCard compact {...hotel} key={hotel.id}/>)
-
+  const { wizardOpen} = useSelector((state) => state.assist);
   return (
     <div className={"sticky-top"}>
       <Navbar color="white" light expand="md" className={"header-navigation"}>
@@ -134,6 +134,7 @@ const Navigation = (props) => {
                 <Button
                   color="transparent"
                   onClick={showSearch}
+                  disabled={wizardOpen}
                 >
                   <Icon svg={!searchOpen ? SEARCH_ICON : SEARCH_OFF_ICON} />
                 </Button>
@@ -438,6 +439,7 @@ const Navigation = (props) => {
                 color={"primary"}
                 className={"w-100"}
                 onClick={onSearch}
+
               >
                 Search
               </Button>

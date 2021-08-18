@@ -19,6 +19,7 @@ const ExploreSlider = ({theme, items, onViewMore}) => {
             <Container className={"d-flex align-items-center mt-5 mb-3"}>
                 <h3 className={"flex-fill font-weight-medium mb-0"} ref={heading}>{theme}</h3>
                 <Button color={"light"}
+                        disabled={true}
                         onClick={onViewMore}>
                     Show All
                 </Button>

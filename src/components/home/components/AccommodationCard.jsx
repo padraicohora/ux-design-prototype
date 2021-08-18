@@ -3,23 +3,26 @@ import React from "react";
 import Icon from "../../_common_/components/Icon";
 import {PIN_DROP} from "../../_common_/constants/icons";
 import classnames from "classnames";
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
 
-const AccommodationCard = ({
-    image,
-    title,
-    location,
-    rating,
-    subText,
-    price,
-    type,
-    reviews,
-    compact,
-    locationBased,
-    city,
-    country,
-    accomodations
-}) => {
-
+const AccommodationCard = (props) => {
+    const {
+        image,
+        title,
+        location,
+        rating,
+        subText,
+        price,
+        type,
+        reviews,
+        compact,
+        locationBased,
+        city,
+        country,
+        accomodations
+    } = props;
+    const dispatch = useDispatch();
+    const { panelOpen, accommodation } = useSelector((state) => state.detail, shallowEqual);
     function calculateRating(rating) {
         const number = parseFloat(rating) * 10;
         if (number <= 70) return "Okay"
@@ -41,9 +44,14 @@ const AccommodationCard = ({
         locationBased,
         "my-2" : !compact,
     })
+
+    const togglePanel = () => {
+        dispatch({ type: "SHOW_DETAIL_PANEL", payload: panelOpen ? null : props });
+    };
+
     return (
         <div className={rootClass}>
-            <Card className={cardClass}>
+            <Card className={cardClass} onClick={togglePanel}>
                 <CardImg top width="100%" src={image} alt="Card image cap"/>
                 <CardBody>
                     <div className={"card-heading align-items-center d-flex"}>
