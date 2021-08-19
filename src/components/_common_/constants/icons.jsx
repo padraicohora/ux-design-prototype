@@ -47,6 +47,11 @@ import { ChevronBackCircle } from "@styled-icons/ionicons-outline/ChevronBackCir
 import { CheckmarkCircle } from "@styled-icons/ionicons-outline/CheckmarkCircle"
 import { ArrowBackCircle } from "@styled-icons/ionicons-outline/ArrowBackCircle"
 import { HatWizard } from "@styled-icons/fa-solid/HatWizard"
+import { NightShelter } from "@styled-icons/material-rounded/NightShelter"
+import { Image } from "@styled-icons/material-outlined/Image"
+import { Info } from "@styled-icons/material-outlined/Info"
+import { Reviews } from "@styled-icons/material-outlined/Reviews"
+import { LocalOffer } from "@styled-icons/material/LocalOffer"
 
 
 // material-outlined
@@ -104,3 +109,8 @@ export const PHONE = <Phone />;
 export const FACEBOOK = <Facebook />;
 export const TWITTER = <Twitter />;
 export const INSTAGRAM = <Instagram />;
+export const NIGHT_SHELTER = <NightShelter />;
+export const IMAGE = <Image />;
+export const INFO = <Info />;
+export const REVIEWS = <Reviews />;
+export const LOCAL_OFFER = <LocalOffer />;

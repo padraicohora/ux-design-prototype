@@ -1,7 +1,31 @@
 .detail-modal{
   width: auto!important;
   min-width: 750px!important;
-  #drawer-header-1{
+  > h1{
    font-family: 'Poppins', sans-serif;
+  }
+  > div{
+    padding-left: 0;
+  }
+  .list-group-item{
+    border-radius: 0 $border-radius-lg $border-radius-lg 0 ;
+    color:$secondary;
+    &.active{
+      color: white;
+    }
+  }
+
+}
+
+.star-rating{
+  font-size: 18px;
+  position: relative;
+  &:before{
+    content: "⭐";
+    position: absolute;
+    font-size: 45px;
+    z-index: -1;
+    top: -17px;
+    left: -2px;
   }
 }

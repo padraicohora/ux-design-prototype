@@ -5,6 +5,17 @@ import {PIN_DROP} from "../../_common_/constants/icons";
 import classnames from "classnames";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 
+export function calculateRating(rating) {
+    const number = parseFloat(rating) * 10;
+    if (number <= 70) return "Okay"
+    if (number > 70 && number <= 75) return "Good"
+    if (number > 75 && number <= 80) return "Very Good"
+    if (number > 80 && number <= 85) return "Great"
+    if (number > 85 && number <= 90) return "Excellent"
+    if (number > 90 && number <= 95) return "Excellent"
+    if (number > 95 && number <= 100) return "Unbelievable"
+}
+
 const AccommodationCard = (props) => {
     const {
         image,
@@ -23,16 +34,6 @@ const AccommodationCard = (props) => {
     } = props;
     const dispatch = useDispatch();
     const { panelOpen, accommodation } = useSelector((state) => state.detail, shallowEqual);
-    function calculateRating(rating) {
-        const number = parseFloat(rating) * 10;
-        if (number <= 70) return "Okay"
-        if (number > 70 && number <= 75) return "Good"
-        if (number > 75 && number <= 80) return "Very Good"
-        if (number > 80 && number <= 85) return "Great"
-        if (number > 85 && number <= 90) return "Excellent"
-        if (number > 90 && number <= 95) return "Excellent"
-        if (number > 95 && number <= 100) return "Unbelievable"
-    }
 
     const rootClass = classnames("accommodation-card", {
         compact,
