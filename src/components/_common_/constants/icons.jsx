@@ -52,6 +52,8 @@ import { Image } from "@styled-icons/material-outlined/Image"
 import { Info } from "@styled-icons/material-outlined/Info"
 import { Reviews } from "@styled-icons/material-outlined/Reviews"
 import { LocalOffer } from "@styled-icons/material/LocalOffer"
+import { Bookmark } from "@styled-icons/material-rounded/Bookmark"
+import { BookmarkBorder } from "@styled-icons/material-rounded/BookmarkBorder"
 
 
 // material-outlined
@@ -114,3 +116,5 @@ export const IMAGE = <Image />;
 export const INFO = <Info />;
 export const REVIEWS = <Reviews />;
 export const LOCAL_OFFER = <LocalOffer />;
+export const BOOKMARK = <Bookmark />;
+export const BOOKMARK_BORDER = <BookmarkBorder />;

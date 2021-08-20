@@ -23,6 +23,7 @@ import {useSelector} from "react-redux";
 import Loader from "./_common_/components/Loader";
 import DetailModal from "./detail/components/DetailModal";
 
+
 const PublicRoutes = () => {
     const { loading } = useSelector((state) => state.home);
     return <HashRouter>
@@ -36,7 +37,8 @@ const PublicRoutes = () => {
 
             <Redirect to={HOME}/>
         </Switch>
-        <DetailModal/>
+            <DetailModal/>
+
         {loading && <Loader className="vh-100 col-sm-12 col-xl-12 app-loader"/>}
         <Footer/>
     </HashRouter>;

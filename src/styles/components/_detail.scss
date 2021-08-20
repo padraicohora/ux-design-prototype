@@ -10,8 +10,86 @@
   .list-group-item{
     border-radius: 0 $border-radius-lg $border-radius-lg 0 ;
     color:$secondary;
+    border-color: transparent;
+    margin: 5px 0;
     &.active{
       color: white;
+      border-color: $primary;
+    }
+  }
+
+  .card-subtitle{
+    font-size: 17px;
+  }
+  .card-price{
+    display: flex;
+    align-items: center;
+    .price{
+      font-weight: bold;
+      font-size: 21px;
+    }
+  }
+
+  .image-wrapper{
+    min-height: 330px;
+    background-position: center;
+    background-repeat: no-repeat;
+    &.lightbox-image{
+      position: relative;
+      &:hover{
+        &:before{
+          content: " ";
+          position: absolute;
+          z-index: 1;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.15);
+        }
+        &:after{
+          content: "🔎";
+          position: absolute;
+          font-size: 45px;
+          z-index: 2;
+          transform: translate(50%, 50%);
+          top: 30%;
+          right: 50%;
+
+          transform-origin: center;
+        }
+      }
+    }
+  }
+
+  .thumbnail{
+    width: 22%;
+    height: 80px;
+    display: inline-flex;
+    margin: 1.2%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    &.lightbox-image{
+      position: relative;
+      &:hover{
+        &:before{
+          content: " ";
+          position: absolute;
+          z-index: 1;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.25);
+        }
+        &:after{
+          content: "🔎";
+          position: absolute;
+          font-size: 15px;
+          z-index: 2;
+          transform: translate(50%, 50%);
+          top: 30%;
+          right: 50%;
+
+          transform-origin: center;
+        }
+      }
     }
   }
 
@@ -28,4 +106,9 @@
     top: -17px;
     left: -2px;
   }
+}
+
+.ReactModalPortal{
+  position: relative;
+  z-index: 99999;
 }
