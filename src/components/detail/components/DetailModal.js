@@ -41,11 +41,48 @@ import classnames from "classnames";
 
 const extra = ["Excellent Staff", "Cosy "]
 
+const PhotoSection = ({images, outsideIndex}) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [photoIndex, setPhotoIndex] = useState(0)
+  useEffect(()=> {
+    if(outsideIndex){
+      setIsOpen(!isOpen);
+      setPhotoIndex(outsideIndex);
+    }
+  }, [outsideIndex])
+  useEffect(()=> {
+    if(!isOpen){
+      setPhotoIndex(0);
+    }
+  }, [isOpen])
+  const Thumbnails = () => images.map((image, index) => {
+    return <div className={"thumbnail lightbox-image"}
+                style={{ backgroundImage: `url(${image})` }}
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                  setPhotoIndex(index)}}/>
+  })
+  return <section id={"photos"}>Photos
+    <div >
+      <Thumbnails />
+    </div>
+    {isOpen && (
+        <Lightbox
+            mainSrc={images[photoIndex]}
+            nextSrc={images[(photoIndex + 1) % images.length]}
+            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+            onCloseRequest={() => setIsOpen(false )}
+            onMovePrevRequest={() => setPhotoIndex((photoIndex + images.length - 1) % images.length)}
+            onMoveNextRequest={() => setPhotoIndex( (photoIndex + 1) % images.length)}
+        />
+    )}
+  </section>
+}
+
 const DetailModal = () => {
   const [bookmarkActive, setBookmarkActive] = useState()
   const [mainImage, setMainImage] = useState()
   const [extraIndex, setExtraIndex] = useState(getRandomInt(0, extra.length - 1))
-  const [isOpen, setIsOpen] = useState(false)
   const [photoIndex, setPhotoIndex] = useState(0)
 
   const { images } = useSelector(
@@ -139,34 +176,8 @@ const DetailModal = () => {
     "active": bookmarkActive
   })
 
-  const PhotoSection = () => {
 
 
-    const Thumbnails = () => images.map((image, index) => {
-      return <div className={"thumbnail lightbox-image"}
-                  style={{ backgroundImage: `url(${image})` }}
-                  onClick={() => {
-                    setIsOpen(!isOpen);
-                    setPhotoIndex(index)}}/>
-    })
-
-    return <section id={"photos"}>Photos
-
-      <div >
-        <Thumbnails />
-      </div>
-      {isOpen && (
-          <Lightbox
-              mainSrc={images[photoIndex]}
-              nextSrc={images[(photoIndex + 1) % images.length]}
-              prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-              onCloseRequest={() => setIsOpen(false )}
-              onMovePrevRequest={() => setPhotoIndex((photoIndex + images.length - 1) % images.length)}
-              onMoveNextRequest={() => setPhotoIndex( (photoIndex + 1) % images.length)}
-          />
-      )}
-    </section>
-  }
   const ScrollSections = () =><>
     <section id={"overview"}>
       <div className={"card-heading d-flex"}>
@@ -222,19 +233,14 @@ const DetailModal = () => {
       <div className={"image-wrapper lightbox-image"}
            style={{backgroundImage:`url(${mainImage})`}}
            onClick={() => {
-             setIsOpen(!isOpen);
              setPhotoIndex(images.findIndex(_image => _image === mainImage))
            }}/>
-
-
-
       <div className={"card-price text-dark flex-fill"}>
         <Button color={"primary"} className={"rounded-pill mr-2"} size={"sm"}>View Offers</Button> from <span className={"price ml-2"}>{price}</span>
       </div>
-
     </section>
-
-    <PhotoSection/>
+    {console.log(`photoIndex`, photoIndex)}
+    <PhotoSection images={images} outsideIndex={photoIndex}/>
 
     <section id={"info"}>
       Info
