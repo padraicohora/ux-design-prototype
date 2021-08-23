@@ -3,7 +3,8 @@ import Scrollspy from "react-scrollspy";
 import { NavHashLink } from "react-router-hash-link";
 import { useLocation, useHistory } from "react-router-dom";
 import {
-  Badge, Button,
+  Alert, Badge,
+  Button,
   CardSubtitle,
   CardText,
   CardTitle,
@@ -38,6 +39,7 @@ import Icon from "../../_common_/components/Icon";
 import {calculateRating} from "../../home/components/AccommodationCard";
 import {getRandomInt} from "../../home/reducers";
 import classnames from "classnames";
+import {toast} from "react-toastify";
 
 const extra = ["Excellent Staff", "Cosy "]
 
@@ -123,6 +125,16 @@ const DetailModal = () => {
     }
 
   }, [ panelOpen ]);
+
+  useEffect(() => {
+    if(bookmarkActive){
+      toast(<Alert color="secondary">
+        <h5>Bookmarked</h5>
+        {title} has been added to you bookmark list found in your account page.
+      </Alert>)
+    }
+
+  }, [ bookmarkActive ]);
 
   const closePanel = () => {
     dispatch({ type: "SHOW_DETAIL_PANEL", payload: null });
@@ -228,7 +240,13 @@ const DetailModal = () => {
         </CardText>
 
 
-        <Button className={bookmarkClass} size={"sm"} color={"light"} onClick={()=> setBookmarkActive(!bookmarkActive)}><Icon svg={bookmarkActive ? BOOKMARK : BOOKMARK_BORDER}/></Button>
+        <Button className={bookmarkClass}
+                size={"sm"}
+                color={"light"}
+                onClick={()=> {
+                  setBookmarkActive(!bookmarkActive);
+                }}>
+          <Icon svg={bookmarkActive ? BOOKMARK : BOOKMARK_BORDER}/></Button>
       </div>
       <div className={"image-wrapper lightbox-image"}
            style={{backgroundImage:`url(${mainImage})`}}

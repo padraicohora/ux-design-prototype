@@ -1,5 +1,6 @@
 .Toastify {
   .Toastify__close-button {
+    display: none;
     svg {
       fill: $secondary !important;
     }
@@ -10,9 +11,16 @@
   }
 
   .Toastify__toast {
+    padding: 0;
     background: white !important;
     color: $secondary !important;
-
+    &-body{
+      padding: 0;
+      .alert{
+        margin-bottom: 0;
+        border-radius: 4px;
+      }
+    }
     @include media-breakpoint-only(xs) {
       margin: 4vh auto;
       max-width: 80%;

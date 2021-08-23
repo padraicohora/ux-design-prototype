@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styles/index.scss";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "normalize.css";
 import {HOME} from "./home/constants";
 import Home from "./home/components/Home";
@@ -23,7 +24,6 @@ import {useSelector} from "react-redux";
 import Loader from "./_common_/components/Loader";
 import DetailModal from "./detail/components/DetailModal";
 
-
 const PublicRoutes = () => {
     const { loading } = useSelector((state) => state.home);
     return <HashRouter>
@@ -41,6 +41,15 @@ const PublicRoutes = () => {
 
         {loading && <Loader className="vh-100 col-sm-12 col-xl-12 app-loader"/>}
         <Footer/>
+        <ToastContainer
+            position="bottom-left"
+            autoClose={5000}
+            // autoClose={false}
+            closeOnClick
+            pauseOnFocusLoss
+            draggable={true}
+            pauseOnHover
+        />
     </HashRouter>;
 };
 
