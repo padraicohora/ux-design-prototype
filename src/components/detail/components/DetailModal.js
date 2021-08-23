@@ -38,6 +38,7 @@ import {
 import Icon from "../../_common_/components/Icon";
 import {calculateRating} from "../../home/components/AccommodationCard";
 import {getRandomInt} from "../../home/reducers";
+import map from "../../../assets/map.jpg"
 import classnames from "classnames";
 import {toast} from "react-toastify";
 
@@ -64,8 +65,9 @@ const PhotoSection = ({images, outsideIndex}) => {
                   setIsOpen(!isOpen);
                   setPhotoIndex(index)}}/>
   })
-  return <section id={"photos"}>Photos
-    <div >
+  return <section id={"photos"}>
+    <h5 className={"text-muted"}>Photos</h5>
+    <div style={{margin: "0 -10px"}}>
       <Thumbnails />
     </div>
     {isOpen && (
@@ -146,6 +148,14 @@ const DetailModal = () => {
     setExtraIndex(getRandomInt(0, extra.length - 1))
   };
 
+  const showMap = () =>{
+    const resetLocation = {
+      ...browserLocation,
+      hash:"#info"
+    }
+    history.push(resetLocation)
+  }
+
   const navItems = [
     {
       label: "Overview",
@@ -188,85 +198,102 @@ const DetailModal = () => {
     "active": bookmarkActive
   })
 
-
-
   const ScrollSections = () =><>
     <section id={"overview"}>
-      <div className={"card-heading d-flex"}>
-        <div className={"d-flex flex-fill flex-column text-truncate"}>
-          <h3 className={"flex-fill text-truncate"}>
-            {title}
-          </h3>
+      <h5 className={"text-muted px-3"}>Overview</h5>
+      <div className={"py-3 rounded shadow mb-4"}>
+        <div className={"card-heading d-flex px-3"}>
+          <div className={"d-flex flex-fill flex-column text-truncate"}>
+            <h3 className={"flex-fill text-truncate"}>
+              {title}
+            </h3>
 
-          <div className={"align-items-center d-flex"}>
-            <span className="text-secondary card-subtitle align-items-center d-flex flex-fill mb-0 ">
-              {!locationBased && <Icon svg={PIN_DROP}/>}
-              <span className={"flex-fill"}>{location}</span>
-            </span>
+            <div className={"align-items-center d-flex"}>
+              <span className="text-secondary card-subtitle align-items-center d-flex flex-fill mb-0 ">
+                {!locationBased && <Icon svg={PIN_DROP}/>}
+                <span className={"flex-fill"}>{location}</span>
+              </span>
+            </div>
+            <NavHashLink
+                to={`#info`}
+                className={"m-0 mt-1 p-0 text-primary small text-decoration-none"}>
+              Show on map
+            </NavHashLink>
 
           </div>
-
-        </div>
-        <div className={"card-info d-flex align-items-center justify-content-end"}>
-          <div className={"d-flex align-items-center rating"}>
-            <div className={"mx-2"}>
-              <small
-                  className={"card-rating card-rating font-weight-bolder p-2 rounded-circle small star-rating"}>
-                {rating}
-              </small>
+          <div className={"card-info d-flex flex-column align-items-end justify-content-end"}>
+            <div className={"d-flex align-items-center rating"}>
+              <div className={"mx-2"}>
+                <small
+                    className={"card-rating card-rating font-weight-bolder p-2 rounded-circle small star-rating"}>
+                  {rating}
+                </small>
+              </div>
+              <div className={"d-flex flex-column "}>
+              <span className={"mb-0 text-secondary rating-text"}>
+                  {calculateRating(rating)}
+              </span>
+                <small
+                    className={"text-muted rating-text"}>{`${reviews} reviews`}</small>
+              </div>
             </div>
-            <div className={"d-flex flex-column "}>
-                                <span className={"mb-0 text-secondary rating-text"}>
-                                    {calculateRating(rating)}
-                                </span>
-              <small
-                  className={"text-muted rating-text"}>{`${reviews} reviews`}</small>
-            </div>
+            <NavHashLink
+                to={`#reviews`}
+                className={"m-0 mt-1 p-0 text-primary small text-decoration-none text-right"}>
+              Show reviews
+            </NavHashLink>
           </div>
         </div>
-      </div>
-      <div className={" align-items-center d-flex my-3"}>
+        <div className={" align-items-center d-flex my-3 px-3"}>
 
-        <CardText className={"mb-0 flex-fill"}>
-          <Badge color={"grey"} pill>
-            {type}
-          </Badge>
-          <Badge color={"grey"} className={"ml-2 text-capitalize"} pill>
-            {group}
-          </Badge>
-          <Badge color={"grey"} className={"ml-2 text-capitalize"} pill>
-            {extra[extraIndex]}
-          </Badge>
-        </CardText>
+          <CardText className={"mb-0 flex-fill"}>
+            <Badge color={"grey"} pill>
+              {type}
+            </Badge>
+            <Badge color={"grey"} className={"ml-2 text-capitalize"} pill>
+              {group}
+            </Badge>
+            <Badge color={"grey"} className={"ml-2 text-capitalize"} pill>
+              {extra[extraIndex]}
+            </Badge>
+          </CardText>
 
-
-        <Button className={bookmarkClass}
-                size={"sm"}
-                color={"light"}
-                onClick={()=> {
-                  setBookmarkActive(!bookmarkActive);
-                }}>
-          <Icon svg={bookmarkActive ? BOOKMARK : BOOKMARK_BORDER}/></Button>
-      </div>
-      <div className={"image-wrapper lightbox-image"}
-           style={{backgroundImage:`url(${mainImage})`}}
-           onClick={() => {
-             setPhotoIndex(images.findIndex(_image => _image === mainImage))
-           }}/>
-      <div className={"card-price text-dark flex-fill"}>
-        <Button color={"primary"} className={"rounded-pill mr-2"} size={"sm"}>View Offers</Button> from <span className={"price ml-2"}>{price}</span>
+          <Button className={bookmarkClass}
+                  color={"light"}
+                  size={"sm"}
+                  onClick={() => {
+                    setBookmarkActive(!bookmarkActive);
+                  }}>
+            <Icon svg={bookmarkActive ? BOOKMARK : BOOKMARK_BORDER}/></Button>
+        </div>
+        <div className={"image-wrapper lightbox-image"}
+             style={{ backgroundImage: `url(${mainImage})` }}
+             onClick={() => {
+               setPhotoIndex(images.findIndex(_image => _image === mainImage));
+             }}/>
+        <div className={"card-price text-dark flex-fill pt-3 px-3 justify-content-between"}>
+        <span className={"price d-flex align-items-center"}>
+          <small className={"mr-2"}>From</small> {price}</span>
+          <Button color={"primary"}
+                  className={"rounded-pill mr-2"}>View Offers</Button>
+        </div>
       </div>
     </section>
-    {console.log(`photoIndex`, photoIndex)}
     <PhotoSection images={images} outsideIndex={photoIndex}/>
 
-    <section id={"info"}>
-      Info
+    <section id={"info"} className={"mb-2"}>
+      <h5 className={"text-muted"}>Info</h5>
+      <div className={"image-wrapper "}
+                    style={{ backgroundImage: `url(${map})` }}
+      >
+
+      </div>
     </section>
     <section id={"reviews"}>
-      reviews
+      <h5 className={"text-muted"}>reviews</h5>
     </section><section id={"deals"}>
-    deals
+    <h5 className={"text-muted"}
+        style={{marginBottom: "calc(100vh - 150px)"}}>deals</h5>
   </section>
 
   </>
