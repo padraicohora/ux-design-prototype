@@ -196,3 +196,14 @@ button.icon-button{
   height: 100vh;
   position: fixed;
 }
+
+.abs-center{
+  position: absolute;
+  transform: translate(50%, 50%);
+  top: 0;
+  left: 0;
+}
+
+.map-image svg{
+  height: 40px!important;
+}
