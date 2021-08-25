@@ -6,6 +6,9 @@ import {
   Alert,
   Badge,
   Button,
+  ButtonGroup,
+  Card,
+  CardBody,
   CardSubtitle,
   CardText,
   CardTitle,
@@ -15,6 +18,10 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
+  UncontrolledCollapse,
+  List,
+  Container,
+  Row, Col
 } from "reactstrap";
 import {
   Drawer,
@@ -26,17 +33,26 @@ import Lightbox from "react-image-lightbox";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { ensureNonNull } from "../../_common_/Utils";
 import {
-    ADD_CIRCLE,
-    BOOKMARK,
-    BOOKMARK_BORDER,
-    CALENDAR,
-    IMAGE,
-    INFO,
-    LOCAL_OFFER,
-    LOCATION_ICON,
-    NIGHT_SHELTER,
-    PIN_DROP,
-    REVIEWS,
+  AC_UNIT,
+  ADD_CIRCLE,
+  ADD_CIRCLE_SOLID,
+  BOOKMARK,
+  BOOKMARK_BORDER,
+  CALENDAR,
+  FITNESS_CENTER,
+  IMAGE,
+  INFO, LIQUOR,
+  LOCAL_OFFER,
+  LOCAL_PARKING,
+  LOCATION_ICON,
+  NIGHT_SHELTER,
+  PIN_DROP,
+  REMOVE_CIRCLE_SOLID,
+  RESTAURANT_MENU,
+  REVIEWS,
+  ROOM_SERVICE,
+  SPA,
+  WIFI,
 } from "../../_common_/constants/icons";
 import Icon from "../../_common_/components/Icon";
 import { calculateRating } from "../../home/components/AccommodationCard";
@@ -222,14 +238,14 @@ const DetailModal = () => {
     active: bookmarkActive,
   });
 
-    const ScrollSections = () => (
-        <>
-            <section id={"overview"}>
-                <h5 className={"text-muted px-3"}>Overview</h5>
-                <div className={"py-3 rounded shadow-sm mb-4"}>
-                    <div className={"card-heading d-flex px-3"}>
-                        <div className={"d-flex flex-fill flex-column text-truncate"}>
-                            <h3 className={"flex-fill text-truncate"}>{title}</h3>
+  const ScrollSections = () => (
+    <>
+      <section id={"overview"}>
+        <h5 className={"text-muted px-3"}>Overview</h5>
+        <div className={"py-3 rounded shadow-sm mb-4"}>
+          <div className={"card-heading d-flex px-3"}>
+            <div className={"d-flex flex-fill flex-column text-truncate"}>
+              <h3 className={"flex-fill text-truncate"}>{title}</h3>
 
               <div className={"align-items-center d-flex"}>
                 <span className="text-secondary card-subtitle align-items-center d-flex flex-fill mb-0 ">
@@ -306,7 +322,10 @@ const DetailModal = () => {
           </div>
           <div
             className={"image-wrapper lightbox-image"}
-            style={{ backgroundImage: `url(${mainImage})`, backgroundSize: "cover", }}
+            style={{
+              backgroundImage: `url(${mainImage})`,
+              backgroundSize: "cover",
+            }}
             onClick={() => {
               setPhotoIndex(images.findIndex((_image) => _image === mainImage));
             }}
@@ -330,105 +349,271 @@ const DetailModal = () => {
       <section id={"location"} className={"mb-4"}>
         <h5 className={"text-muted my-2"}>Location</h5>
         <div
-          className={"image-wrapper "}
+          className={"image-wrapper position-relative"}
           style={{ backgroundImage: `url(${map})`, backgroundSize: "cover" }}
-        />
-      </section>
-
-      <section id={"info"} className={"mb-2"}>
-        <h5 className={"text-muted my-2"}>Info</h5>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-        <div className="sl-box__block clearfix">
-          <div className="all-amenities__group mb-gutter"><h5
-              className="block mt-0 mb-gutter-three-quarters font-small fw-normal">Hotel
-            facilities</h5>
-            <ul className="unordered-list m-0" itemScope="itemscope"
-                itemType="https://schema.org/Accommodation">
-              <li className="unordered-list__item" itemProp="amenityFeature">24-hour reception</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Airport shuttle</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Breakfast</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Business centre</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Car park</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Cashless payment</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Computer with
-                Internet
-              </li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Concierge</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Conference rooms</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Doctor on site</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Free WiFi</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Free WiFi in public
-                areas
-              </li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Gym</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Hand sanitizer
-                provided
-              </li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Hotel bar</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Hotel safe</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Laundry service</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Lift</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">New safety protocols
-              </li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Non-smoking rooms</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Online check in/check
-                out
-              </li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Restaurant</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Room service</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Safe distance</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Temperature screening
-              </li>
-              <li className="unordered-list__item" itemProp="amenityFeature">WiFi in public areas
-              </li>
-            </ul>
-          </div>
-          <div className="all-amenities__group mb-gutter"><h5
-              className="block mt-0 mb-gutter-three-quarters font-small fw-normal">Room
-            facilities</h5>
-            <ul className="unordered-list m-0" itemScope="itemscope"
-                itemType="https://schema.org/Accommodation">
-              <li className="unordered-list__item" itemProp="amenityFeature">Air conditioning</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Bathtub (upon
-                inquiry)
-              </li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Cable TV</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Central heating</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Desk</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Electric kettle</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Free WiFi (rooms)</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Fridge</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Hairdryer</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Ironing board</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Safe</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Satellite TV</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Shower</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Telephone</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">Television</li>
-              <li className="unordered-list__item" itemProp="amenityFeature">WiFi</li>
-            </ul>
-          </div>
-          <div className="all-amenities__group mb-gutter"><h5
-              className="block mt-0 mb-gutter-three-quarters font-small fw-normal">Accessibility</h5>
-            <ul className="unordered-list m-0" itemScope="itemscope"
-                itemType="https://schema.org/Accommodation">
-              <li className="unordered-list__item" itemProp="amenityFeature">Wheelchair accessible
-              </li>
-            </ul>
-          </div>
-          <div className="all-amenities__group mb-gutter"><h5
-              className="block mt-0 mb-gutter-three-quarters font-small fw-normal">For children</h5>
-            <ul className="unordered-list m-0" itemScope="itemscope"
-                itemType="https://schema.org/Accommodation">
-              <li className="unordered-list__item" itemProp="amenityFeature">Cot</li>
-            </ul>
-          </div>
+        >
+          <Icon svg={LOCATION_ICON} className={"map-pin-icon"} />
+          <h4 className={"map-address"}><Badge color={"light"} className={"text-body"}>{location}</Badge></h4>
+          <ButtonGroup className={"map-controls-button"} vertical>
+            <Button size={"sm"} color={"light"}><Icon svg={ADD_CIRCLE_SOLID}/></Button>
+            <Button size={"sm"} color={"light"}><Icon svg={REMOVE_CIRCLE_SOLID}/></Button>
+          </ButtonGroup>
         </div>
       </section>
-      <section id={"reviews"}>
-        <h5 className={"text-muted my-2"}>reviews</h5>
+
+      <section id={"info"} className={"mb-4"}>
+        <h5 className={"text-muted my-2"}>Info</h5>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+
+
+        <Container className={"pl-0 pr-3 highlight-features"}>
+          <h6 className="font-weight-bold text-muted">
+            Highlighted Features
+          </h6>
+          <Row className={"py-2 align-items-center"}>
+            <Col xs="3" className={"pb-3"}>
+              <div className={"d-flex align-items-center my-2"}>
+                <Icon svg={WIFI}/>
+                <div>
+                  <span>Free Wifi in Rooms</span>
+                </div>
+              </div>
+            </Col>
+            <Col xs="3" className={"pb-3"}>
+              <div className={"d-flex align-items-center my-2"}>
+                <Icon svg={SPA}/>
+                <div>
+                  <span>Spa</span>
+                </div>
+              </div>
+            </Col>
+            <Col xs="3" className={"pb-3"}>
+              <div className={"d-flex align-items-center my-2"}>
+                <Icon svg={LOCAL_PARKING}/>
+                <div>
+                  <span>Car Parking</span>
+                </div>
+              </div>
+            </Col>
+            <Col xs="3" className={"pb-3"}>
+              <div className={"d-flex align-items-center my-2"}>
+                <Icon svg={AC_UNIT}/>
+                <div>
+                  <span>Climate control</span>
+                </div>
+              </div>
+            </Col>
+            <Col xs="3" className={"pb-3"}>
+              <div className={"d-flex align-items-center my-2"}>
+                <Icon svg={RESTAURANT_MENU}/>
+                <div>
+                  <span>Restaurant</span>
+                </div>
+              </div>
+            </Col>
+            <Col xs="3" className={"pb-3"}>
+              <div className={"d-flex align-items-center my-2"}>
+                <Icon svg={ROOM_SERVICE}/>
+                <div>
+                  <span>Room service</span>
+                </div>
+              </div>
+            </Col>
+            <Col xs="3" className={"pb-3"}>
+              <div className={"d-flex align-items-center  my-2"}>
+                <Icon svg={FITNESS_CENTER}/>
+                <div>
+                  <span>Fitness Center</span>
+                </div>
+              </div>
+            </Col>
+            <Col xs="3" className={"pb-3"}>
+              <div className={"d-flex align-items-center my-2"}>
+                <Icon svg={LIQUOR}/>
+                <div>
+                  <span>Bar</span>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        <UncontrolledCollapse toggler="#toggler">
+          <Container className={"px-0"}>
+            <Row>
+              <Col xs="4">
+                <h6 className="font-weight-bold text-muted">
+                Hotel facilities
+              </h6>
+                <List className={"pl-4"}>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    24-hour reception
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Airport shuttle
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Breakfast
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Business centre
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Car park
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Cashless payment
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Computer with Internet
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Concierge
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Conference rooms
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Doctor on site
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Free WiFi
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Free WiFi in public areas
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Gym
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Hand sanitizer provided
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Hotel bar
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Hotel safe
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Laundry service
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Lift
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    New safety protocols
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Non-smoking rooms
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Online check in/check out
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Restaurant
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Room service
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Safe distance
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Temperature screening
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    WiFi in public areas
+                  </li>
+                </List>
+              </Col>
+              <Col xs="4">
+                <h6 className="font-weight-bold text-muted">
+                  Room facilities
+                </h6>
+                <List className={"pl-4"}>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Air conditioning
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Bathtub (upon inquiry)
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Cable TV
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Central heating
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Desk
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Electric kettle
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Free WiFi (rooms)
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Fridge
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Hairdryer
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Ironing board
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Safe
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Satellite TV
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Shower
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Telephone
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Television
+                  </li>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    WiFi
+                  </li>
+                </List></Col>
+              <Col xs="4">
+                <h6 className="font-weight-bold text-muted">
+                  Accessibility
+                </h6>
+                <List className={"pl-4"}>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Wheelchair accessible
+                  </li>
+                </List>
+                <h6 className="font-weight-bold text-muted">
+                  For children
+                </h6>
+                <List className={"pl-4"}>
+                  <li className="unordered-list__item" itemProp="amenityFeature">
+                    Cot
+                  </li>
+                </List>
+              </Col>
+            </Row>
+          </Container>
+        </UncontrolledCollapse>
+        <a id="toggler" className={"mb-2 text-primary cursor-pointer"}>
+          + Show all features
+        </a>
+      </section>
+      <section id={"reviews"} className={"mb-4"}>
+        <h5 className={"text-muted my-2"}>Reviews</h5>
       </section>
       <section id={"deals"}>
         <h5
@@ -461,7 +646,7 @@ const DetailModal = () => {
       }
     >
       <div className={"d-flex"}>
-        <div className={"position-relative"} style={{ width: "140px" }}>
+        <div className={"position-relative"} style={{ width: "180px" }}>
           <Scrollspy
             items={["section-1", "section-2", "section-3"]}
             currentClassName="is-current"
@@ -470,7 +655,7 @@ const DetailModal = () => {
             {scrollspyItems}
           </Scrollspy>
         </div>
-        <div className={"flex-fill"} style={{marginLeft:"120px"}}>
+        <div className={"flex-fill"} style={{ marginLeft: "120px" }}>
           <ScrollSections />
         </div>
       </div>

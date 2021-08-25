@@ -1,5 +1,5 @@
 .detail-modal{
-  width: 750px!important;
+  width: 780px!important;
   > h1{
    font-family: 'Poppins', sans-serif;
   }
@@ -10,7 +10,8 @@
     border-radius: 0 $border-radius-lg $border-radius-lg 0 ;
     color:$secondary;
     border-color: transparent;
-    margin: 10px 0;
+    margin: 5px 0;
+    padding-left: 2.5rem;
     &.active{
       color: white;
       border-color: $primary;
@@ -34,7 +35,7 @@
   }
 
   .image-wrapper{
-    min-height: 330px;
+    min-height: 420px;
     background-position: center;
     background-repeat: no-repeat;
     &.lightbox-image{
@@ -75,7 +76,7 @@
 
   .thumbnail{
     width: 22%;
-    height: 80px;
+    height: 95px;
     display: inline-flex;
     margin: 1.2%;
     background-size: cover;
@@ -134,4 +135,42 @@
 .ReactModalPortal{
   position: relative;
   z-index: 99999;
+}
+
+.map-pin-icon{
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform:translate(-50%, -50%);
+  svg{
+    height: 40px!important;
+    color: $primary;
+  }
+}
+
+.map-controls-button{
+  svg{
+    color: $secondary;
+  }
+}
+
+.map-address {
+  display: inline-block;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.map-controls-button {
+  position: absolute;
+  top: calc(100% - 72px);
+  left: calc(100% - 52px);
+}
+
+.highlight-features{
+  svg{
+    height: 30px!important;
+    color: $body-color;
+    margin-right: 10px;
+  }
 }
