@@ -21,7 +21,8 @@ import {
   UncontrolledCollapse,
   List,
   Container,
-  Row, Col
+  Row,
+  Col,
 } from "reactstrap";
 import {
   Drawer,
@@ -41,7 +42,8 @@ import {
   CALENDAR,
   FITNESS_CENTER,
   IMAGE,
-  INFO, LIQUOR,
+  INFO,
+  LIQUOR,
   LOCAL_OFFER,
   LOCAL_PARKING,
   LOCATION_ICON,
@@ -238,6 +240,383 @@ const DetailModal = () => {
     active: bookmarkActive,
   });
 
+  const Reviews = () => (
+      <>
+        <div>
+          <div>
+            <div className="offer-dedicated-body-left">
+              <div className="tab-content" id="pills-tabContent">
+                <div
+                    className="tab-pane fade active show"
+                    id="pills-reviews"
+                    role="tabpanel"
+                    aria-labelledby="pills-reviews-tab"
+                >
+                  <div className="bg-white rounded  mb-4 clearfix graph-star-rating">
+                    <div className="graph-star-rating-header">
+                      <div className={"d-flex justify-content-between my-4"}>
+                        <strong className="text-black ">
+                          {/*<Icon svg={STAR}/>*/}
+                          {reviews} reviews</strong>
+                        <span className="text-black mb-4 mt-2">Rated {rating} out of 10</span>
+                      </div>
+
+                    </div>
+                    <div className="graph-star-rating-body">
+                      <div className="rating-list">
+                        <div className="rating-list-left text-black">5 Star</div>
+                        <div className="rating-list-center">
+                          <div className="progress">
+                            <div
+                                style={{ width: "56%" }}
+                                aria-valuemax={5}
+                                aria-valuemin={0}
+                                aria-valuenow={5}
+                                role="progressbar"
+                                className="progress-bar bg-primary"
+                            >
+                            </div>
+                          </div>
+                        </div>
+                        <div className="rating-list-right text-black">56%</div>
+                      </div>
+                      <div className="rating-list">
+                        <div className="rating-list-left text-black">4 Star</div>
+                        <div className="rating-list-center">
+                          <div className="progress">
+                            <div
+                                style={{ width: "23%" }}
+                                aria-valuemax={5}
+                                aria-valuemin={0}
+                                aria-valuenow={5}
+                                role="progressbar"
+                                className="progress-bar bg-primary"
+                            >
+                            </div>
+                          </div>
+                        </div>
+                        <div className="rating-list-right text-black">23%</div>
+                      </div>
+                      <div className="rating-list">
+                        <div className="rating-list-left text-black">3 Star</div>
+                        <div className="rating-list-center">
+                          <div className="progress">
+                            <div
+                                style={{ width: "11%" }}
+                                aria-valuemax={5}
+                                aria-valuemin={0}
+                                aria-valuenow={5}
+                                role="progressbar"
+                                className="progress-bar bg-primary"
+                            >
+                            </div>
+                          </div>
+                        </div>
+                        <div className="rating-list-right text-black">11%</div>
+                      </div>
+                      <div className="rating-list">
+                        <div className="rating-list-left text-black">2 Star</div>
+                        <div className="rating-list-center">
+                          <div className="progress">
+                            <div
+                                style={{ width: "2%" }}
+                                aria-valuemax={5}
+                                aria-valuemin={0}
+                                aria-valuenow={5}
+                                role="progressbar"
+                                className="progress-bar bg-primary"
+                            >
+                            </div>
+                          </div>
+                        </div>
+                        <div className="rating-list-right text-black">02%</div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div className="bg-white rounded  p-4 mb-4 restaurant-detailed-ratings-and-reviews">
+                    <a
+                        href="#"
+                        className="btn btn-outline-primary btn-sm float-right"
+                    >
+                      Top Rated
+                    </a>
+                    <h5 className="mb-1">All Ratings and Reviews</h5>
+                    <div className="reviews-members pt-4 pb-4">
+                      <div className="media">
+                        <a href="#">
+                          <img
+                              alt="Generic placeholder image"
+                              src="http://bootdey.com/img/Content/avatar/avatar1.png"
+                              className="mr-3 rounded-pill"
+                          />
+                        </a>
+                        <div className="media-body">
+                          <div className="reviews-members-header">
+                        <span className="star-rating float-right">
+                          <a href="#">
+                            <i className="icofont-ui-rating active" />
+                          </a>
+                          <a href="#">
+                            <i className="icofont-ui-rating active" />
+                          </a>
+                          <a href="#">
+                            <i className="icofont-ui-rating active" />
+                          </a>
+                          <a href="#">
+                            <i className="icofont-ui-rating active" />
+                          </a>
+                          <a href="#">
+                            <i className="icofont-ui-rating" />
+                          </a>
+                        </span>
+                            <h6 className="mb-1">
+                              <a className="text-black" href="#">
+                                Singh Osahan
+                              </a>
+                            </h6>
+                            <p className="text-gray">Tue, 20 Mar 2020</p>
+                          </div>
+                          <div className="reviews-members-body">
+                            <p>
+                              Contrary to popular belief, Lorem Ipsum is not simply
+                              random text. It has roots in a piece of classical
+                              Latin literature from 45 BC, making it over 2000 years
+                              old. Richard McClintock, a Latin professor at
+                              Hampden-Sydney College in Virginia, looked up one of
+                              the more obscure Latin words, consectetur, from a
+                              Lorem Ipsum passage, and going through the cites of
+                              the word in classical literature, discovered the
+                              undoubtable source. Lorem Ipsum comes from sections{" "}
+                            </p>
+                          </div>
+                          <div className="reviews-members-footer">
+                            <a className="total-like" href="#">
+                              <i className="icofont-thumbs-up" /> 856M
+                            </a>{" "}
+                            <a className="total-like" href="#">
+                              <i className="icofont-thumbs-down" /> 158K
+                            </a>
+                            <span className="total-like-user-main ml-2" dir="rtl">
+                          <a
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title
+                              href="#"
+                              data-original-title="Gurdeep Osahan"
+                          >
+                            <img
+                                alt="Generic placeholder image"
+                                src="http://bootdey.com/img/Content/avatar/avatar5.png"
+                                className="total-like-user rounded-pill"
+                            />
+                          </a>
+                          <a
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title
+                              href="#"
+                              data-original-title="Gurdeep Singh"
+                          >
+                            <img
+                                alt="Generic placeholder image"
+                                src="http://bootdey.com/img/Content/avatar/avatar2.png"
+                                className="total-like-user rounded-pill"
+                            />
+                          </a>
+                          <a
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title
+                              href="#"
+                              data-original-title="Askbootstrap"
+                          >
+                            <img
+                                alt="Generic placeholder image"
+                                src="http://bootdey.com/img/Content/avatar/avatar3.png"
+                                className="total-like-user rounded-pill"
+                            />
+                          </a>
+                          <a
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title
+                              href="#"
+                              data-original-title="Osahan"
+                          >
+                            <img
+                                alt="Generic placeholder image"
+                                src="http://bootdey.com/img/Content/avatar/avatar4.png"
+                                className="total-like-user rounded-pill"
+                            />
+                          </a>
+                        </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                    <div className="reviews-members pt-4 pb-4">
+                      <div className="media">
+                        <a href="#">
+                          <img
+                              alt="Generic placeholder image"
+                              src="http://bootdey.com/img/Content/avatar/avatar6.png"
+                              className="mr-3 rounded-pill"
+                          />
+                        </a>
+                        <div className="media-body">
+                          <div className="reviews-members-header">
+                        <span className="star-rating float-right">
+                          <a href="#">
+                            <i className="icofont-ui-rating active" />
+                          </a>
+                          <a href="#">
+                            <i className="icofont-ui-rating active" />
+                          </a>
+                          <a href="#">
+                            <i className="icofont-ui-rating active" />
+                          </a>
+                          <a href="#">
+                            <i className="icofont-ui-rating active" />
+                          </a>
+                          <a href="#">
+                            <i className="icofont-ui-rating" />
+                          </a>
+                        </span>
+                            <h6 className="mb-1">
+                              <a className="text-black" href="#">
+                                Gurdeep Singh
+                              </a>
+                            </h6>
+                            <p className="text-gray">Tue, 20 Mar 2020</p>
+                          </div>
+                          <div className="reviews-members-body">
+                            <p>
+                              It is a long established fact that a reader will be
+                              distracted by the readable content of a page when
+                              looking at its layout. The point of using Lorem Ipsum
+                              is that it has a more-or-less normal distribution of
+                              letters, as opposed to using 'Content here, content
+                              here', making it look like readable English.
+                            </p>
+                          </div>
+                          <div className="reviews-members-footer">
+                            <a className="total-like" href="#">
+                              <i className="icofont-thumbs-up" /> 88K
+                            </a>{" "}
+                            <a className="total-like" href="#">
+                              <i className="icofont-thumbs-down" /> 1K
+                            </a>
+                            <span className="total-like-user-main ml-2" dir="rtl">
+                          <a
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title
+                              href="#"
+                              data-original-title="Gurdeep Osahan"
+                          >
+                            <img
+                                alt="Generic placeholder image"
+                                src="http://bootdey.com/img/Content/avatar/avatar5.png"
+                                className="total-like-user rounded-pill"
+                            />
+                          </a>
+                          <a
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title
+                              href="#"
+                              data-original-title="Gurdeep Singh"
+                          >
+                            <img
+                                alt="Generic placeholder image"
+                                src="http://bootdey.com/img/Content/avatar/avatar2.png"
+                                className="total-like-user rounded-pill"
+                            />
+                          </a>
+                          <a
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title
+                              href="#"
+                              data-original-title="Askbootstrap"
+                          >
+                            <img
+                                alt="Generic placeholder image"
+                                src="http://bootdey.com/img/Content/avatar/avatar3.png"
+                                className="total-like-user rounded-pill"
+                            />
+                          </a>
+                          <a
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title
+                              href="#"
+                              data-original-title="Osahan"
+                          >
+                            <img
+                                alt="Generic placeholder image"
+                                src="http://bootdey.com/img/Content/avatar/avatar4.png"
+                                className="total-like-user rounded-pill"
+                            />
+                          </a>
+                        </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                    <a
+                        className="text-center w-100 d-block mt-4 font-weight-bold"
+                        href="#"
+                    >
+                      See All Reviews
+                    </a>
+                  </div>
+                  <div className="bg-white rounded shadow-sm p-4 mb-5 rating-review-select-page">
+                    <h5 className="mb-4">Leave Comment</h5>
+                    <p className="mb-2">Rate the Place</p>
+                    <div className="mb-4">
+                  <span className="star-rating">
+                    <a href="#">
+                      <i className="icofont-ui-rating icofont-2x" />
+                    </a>
+                    <a href="#">
+                      <i className="icofont-ui-rating icofont-2x" />
+                    </a>
+                    <a href="#">
+                      <i className="icofont-ui-rating icofont-2x" />
+                    </a>
+                    <a href="#">
+                      <i className="icofont-ui-rating icofont-2x" />
+                    </a>
+                    <a href="#">
+                      <i className="icofont-ui-rating icofont-2x" />
+                    </a>
+                  </span>
+                    </div>
+                    <form>
+                      <div className="form-group">
+                        <label>Your Comment</label>
+                        <textarea className="form-control" defaultValue={""} />
+                      </div>
+                      <div className="form-group">
+                        <button className="btn btn-primary btn-sm" type="button">
+                          {" "}
+                          Submit Comment{" "}
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+  );
+
   const ScrollSections = () => (
     <>
       <section id={"overview"}>
@@ -353,10 +732,18 @@ const DetailModal = () => {
           style={{ backgroundImage: `url(${map})`, backgroundSize: "cover" }}
         >
           <Icon svg={LOCATION_ICON} className={"map-pin-icon"} />
-          <h4 className={"map-address"}><Badge color={"light"} className={"text-body"}>{location}</Badge></h4>
+          <h4 className={"map-address"}>
+            <Badge color={"light"} className={"text-body"}>
+              {location}
+            </Badge>
+          </h4>
           <ButtonGroup className={"map-controls-button"} vertical>
-            <Button size={"sm"} color={"light"}><Icon svg={ADD_CIRCLE_SOLID}/></Button>
-            <Button size={"sm"} color={"light"}><Icon svg={REMOVE_CIRCLE_SOLID}/></Button>
+            <Button size={"sm"} color={"light"}>
+              <Icon svg={ADD_CIRCLE_SOLID} />
+            </Button>
+            <Button size={"sm"} color={"light"}>
+              <Icon svg={REMOVE_CIRCLE_SOLID} />
+            </Button>
           </ButtonGroup>
         </div>
       </section>
@@ -373,15 +760,12 @@ const DetailModal = () => {
           culpa qui officia deserunt mollit anim id est laborum.
         </p>
 
-
         <Container className={"pl-0 pr-3 highlight-features"}>
-          <h6 className="font-weight-bold text-muted">
-            Highlighted Features
-          </h6>
+          <h6 className="font-weight-bold text-muted">Highlighted Features</h6>
           <Row className={"py-2 align-items-center"}>
             <Col xs="3" className={"pb-3"}>
               <div className={"d-flex align-items-center my-2"}>
-                <Icon svg={WIFI}/>
+                <Icon svg={WIFI} />
                 <div>
                   <span>Free Wifi in Rooms</span>
                 </div>
@@ -389,7 +773,7 @@ const DetailModal = () => {
             </Col>
             <Col xs="3" className={"pb-3"}>
               <div className={"d-flex align-items-center my-2"}>
-                <Icon svg={SPA}/>
+                <Icon svg={SPA} />
                 <div>
                   <span>Spa</span>
                 </div>
@@ -397,7 +781,7 @@ const DetailModal = () => {
             </Col>
             <Col xs="3" className={"pb-3"}>
               <div className={"d-flex align-items-center my-2"}>
-                <Icon svg={LOCAL_PARKING}/>
+                <Icon svg={LOCAL_PARKING} />
                 <div>
                   <span>Car Parking</span>
                 </div>
@@ -405,7 +789,7 @@ const DetailModal = () => {
             </Col>
             <Col xs="3" className={"pb-3"}>
               <div className={"d-flex align-items-center my-2"}>
-                <Icon svg={AC_UNIT}/>
+                <Icon svg={AC_UNIT} />
                 <div>
                   <span>Climate control</span>
                 </div>
@@ -413,7 +797,7 @@ const DetailModal = () => {
             </Col>
             <Col xs="3" className={"pb-3"}>
               <div className={"d-flex align-items-center my-2"}>
-                <Icon svg={RESTAURANT_MENU}/>
+                <Icon svg={RESTAURANT_MENU} />
                 <div>
                   <span>Restaurant</span>
                 </div>
@@ -421,7 +805,7 @@ const DetailModal = () => {
             </Col>
             <Col xs="3" className={"pb-3"}>
               <div className={"d-flex align-items-center my-2"}>
-                <Icon svg={ROOM_SERVICE}/>
+                <Icon svg={ROOM_SERVICE} />
                 <div>
                   <span>Room service</span>
                 </div>
@@ -429,7 +813,7 @@ const DetailModal = () => {
             </Col>
             <Col xs="3" className={"pb-3"}>
               <div className={"d-flex align-items-center  my-2"}>
-                <Icon svg={FITNESS_CENTER}/>
+                <Icon svg={FITNESS_CENTER} />
                 <div>
                   <span>Fitness Center</span>
                 </div>
@@ -437,7 +821,7 @@ const DetailModal = () => {
             </Col>
             <Col xs="3" className={"pb-3"}>
               <div className={"d-flex align-items-center my-2"}>
-                <Icon svg={LIQUOR}/>
+                <Icon svg={LIQUOR} />
                 <div>
                   <span>Bar</span>
                 </div>
@@ -450,157 +834,284 @@ const DetailModal = () => {
             <Row>
               <Col xs="4">
                 <h6 className="font-weight-bold text-muted">
-                Hotel facilities
-              </h6>
+                  Hotel facilities
+                </h6>
                 <List className={"pl-4"}>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     24-hour reception
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Airport shuttle
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Breakfast
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Business centre
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Car park
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Cashless payment
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Computer with Internet
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Concierge
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Conference rooms
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Doctor on site
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Free WiFi
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Free WiFi in public areas
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Gym
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Hand sanitizer provided
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Hotel bar
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Hotel safe
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Laundry service
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Lift
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     New safety protocols
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Non-smoking rooms
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Online check in/check out
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Restaurant
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Room service
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Safe distance
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Temperature screening
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     WiFi in public areas
                   </li>
                 </List>
               </Col>
               <Col xs="4">
-                <h6 className="font-weight-bold text-muted">
-                  Room facilities
-                </h6>
+                <h6 className="font-weight-bold text-muted">Room facilities</h6>
                 <List className={"pl-4"}>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Air conditioning
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Bathtub (upon inquiry)
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Cable TV
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Central heating
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Desk
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Electric kettle
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Free WiFi (rooms)
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Fridge
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Hairdryer
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Ironing board
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Safe
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Satellite TV
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Shower
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Telephone
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Television
                   </li>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     WiFi
                   </li>
-                </List></Col>
+                </List>
+              </Col>
               <Col xs="4">
-                <h6 className="font-weight-bold text-muted">
-                  Accessibility
-                </h6>
+                <h6 className="font-weight-bold text-muted">Accessibility</h6>
                 <List className={"pl-4"}>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Wheelchair accessible
                   </li>
                 </List>
-                <h6 className="font-weight-bold text-muted">
-                  For children
-                </h6>
+                <h6 className="font-weight-bold text-muted">For children</h6>
                 <List className={"pl-4"}>
-                  <li className="unordered-list__item" itemProp="amenityFeature">
+                  <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                  >
                     Cot
                   </li>
                 </List>
@@ -614,6 +1125,7 @@ const DetailModal = () => {
       </section>
       <section id={"reviews"} className={"mb-4"}>
         <h5 className={"text-muted my-2"}>Reviews</h5>
+        <Reviews />
       </section>
       <section id={"deals"}>
         <h5
@@ -625,6 +1137,7 @@ const DetailModal = () => {
       </section>
     </>
   );
+
 
   return (
     <Drawer
@@ -664,3 +1177,5 @@ const DetailModal = () => {
 };
 
 export default DetailModal;
+
+
