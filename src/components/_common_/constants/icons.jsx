@@ -64,7 +64,7 @@ import {RestaurantMenu} from "@styled-icons/material/RestaurantMenu";
 import {RoomService} from "@styled-icons/material/RoomService";
 import {FitnessCenter} from "@styled-icons/material/FitnessCenter";
 import {Liquor} from "@styled-icons/material/Liquor";
-
+import {StarRate} from "@styled-icons/material/StarRate";
 
 // material-outlined
 import {AccessTime} from "@styled-icons/material-outlined/AccessTime";
@@ -138,3 +138,4 @@ export const RESTAURANT_MENU = <RestaurantMenu/>;
 export const ROOM_SERVICE = <RoomService/>;
 export const FITNESS_CENTER = <FitnessCenter/>;
 export const LIQUOR = <Liquor/>;
+export const STAR_RATE = <StarRate/>;

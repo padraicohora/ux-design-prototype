@@ -170,8 +170,11 @@
 .highlight-features{
   svg{
     height: 30px!important;
-    color: $body-color;
+    color: $text-muted;
     margin-right: 10px;
+  }
+  span{
+    color: $secondary;
   }
 }
 
@@ -279,9 +282,9 @@
   object-fit: cover;
   box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075)!important;
 }
-.reviews-members .media .mr-3 {
-  width: 56px;
-  height: 56px;
+.reviews-members svg {
+  width: 40px!important;
+  height: 40px;
   object-fit: cover;
 }
 .rounded-pill {
@@ -310,8 +313,13 @@
 .restaurant-detailed-ratings-and-reviews hr {
   margin: 0 -24px;
 }
-.graph-star-rating-header .star-rating {
+.graph-star-rating-header {
   font-size: 17px;
+  svg{
+    bottom: 2px;
+    position: relative;
+    margin-right: 5px;
+  }
 }
 .progress {
   background: #f2f4f8 none repeat scroll 0 0;

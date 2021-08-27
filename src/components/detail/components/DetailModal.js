@@ -34,7 +34,7 @@ import Lightbox from "react-image-lightbox";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { ensureNonNull } from "../../_common_/Utils";
 import {
-  AC_UNIT,
+  AC_UNIT, ACCOUNT_CIRCLE,
   ADD_CIRCLE,
   ADD_CIRCLE_SOLID,
   BOOKMARK,
@@ -54,6 +54,7 @@ import {
   REVIEWS,
   ROOM_SERVICE,
   SPA,
+  STAR_RATE,
   WIFI,
 } from "../../_common_/constants/icons";
 import Icon from "../../_common_/components/Icon";
@@ -94,7 +95,7 @@ const PhotoSection = ({ images, outsideIndex }) => {
     });
   return (
     <section id={"photos"}>
-      <h5 className={"text-muted"}>Photos</h5>
+      <h4 className={"text-secondary pt-2"}>Photos</h4>
       <div style={{ margin: "0 -10px" }}>
         <Thumbnails />
       </div>
@@ -252,19 +253,28 @@ const DetailModal = () => {
                     role="tabpanel"
                     aria-labelledby="pills-reviews-tab"
                 >
+
                   <div className="bg-white rounded  mb-4 clearfix graph-star-rating">
                     <div className="graph-star-rating-header">
-                      <div className={"d-flex justify-content-between my-4"}>
-                        <strong className="text-black ">
-                          {/*<Icon svg={STAR}/>*/}
-                          {reviews} reviews</strong>
-                        <span className="text-black mb-4 mt-2">Rated {rating} out of 10</span>
-                      </div>
+
+                      {/*<div className={"d-flex justify-content-between my-4"}>*/}
+                      {/*  <strong className="text-black ">*/}
+                      {/*    /!*<Icon svg={STAR}/>*!/*/}
+                      {/*    {reviews} reviews</strong>*/}
+                      {/*  <span className="text-black mb-4 mt-2">Rated {rating} out of 10</span>*/}
+                      {/*</div>*/}
+
+                      <h6 className="font-weight-bold text-muted d-flex justify-content-between my-4">
+
+                        <span><Icon svg={STAR_RATE}/>
+                          <strong>{reviews} reviews</strong></span>
+                        <span className="mb-4 mt-2">Rated {rating} out of 10</span>
+                      </h6>
 
                     </div>
                     <div className="graph-star-rating-body">
                       <div className="rating-list">
-                        <div className="rating-list-left text-black">5 Star</div>
+                        <div className="rating-list-left">5 Star</div>
                         <div className="rating-list-center">
                           <div className="progress">
                             <div
@@ -278,10 +288,10 @@ const DetailModal = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="rating-list-right text-black">56%</div>
+                        <div className="rating-list-right">56%</div>
                       </div>
                       <div className="rating-list">
-                        <div className="rating-list-left text-black">4 Star</div>
+                        <div className="rating-list-left">4 Star</div>
                         <div className="rating-list-center">
                           <div className="progress">
                             <div
@@ -295,10 +305,10 @@ const DetailModal = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="rating-list-right text-black">23%</div>
+                        <div className="rating-list-right">23%</div>
                       </div>
                       <div className="rating-list">
-                        <div className="rating-list-left text-black">3 Star</div>
+                        <div className="rating-list-left">3 Star</div>
                         <div className="rating-list-center">
                           <div className="progress">
                             <div
@@ -312,10 +322,10 @@ const DetailModal = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="rating-list-right text-black">11%</div>
+                        <div className="rating-list-right">11%</div>
                       </div>
                       <div className="rating-list">
-                        <div className="rating-list-left text-black">2 Star</div>
+                        <div className="rating-list-left">2 Star</div>
                         <div className="rating-list-center">
                           <div className="progress">
                             <div
@@ -329,31 +339,25 @@ const DetailModal = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="rating-list-right text-black">02%</div>
+                        <div className="rating-list-right">02%</div>
                       </div>
                     </div>
 
                   </div>
-                  <div className="bg-white rounded  p-4 mb-4 restaurant-detailed-ratings-and-reviews">
+                  <div className="bg-white rounded mb-4 restaurant-detailed-ratings-and-reviews">
                     <a
                         href="#"
                         className="btn btn-outline-primary btn-sm float-right"
                     >
                       Top Rated
                     </a>
-                    <h5 className="mb-1">All Ratings and Reviews</h5>
-                    <div className="reviews-members pt-4 pb-4">
+                    <h6 className="font-weight-bold text-secondary mb-1">All Ratings and Reviews</h6>
+                    <div className="reviews-members py-4">
                       <div className="media">
-                        <a href="#">
-                          <img
-                              alt="Generic placeholder image"
-                              src="http://bootdey.com/img/Content/avatar/avatar1.png"
-                              className="mr-3 rounded-pill"
-                          />
-                        </a>
+                        <Icon svg={ACCOUNT_CIRCLE}/>
                         <div className="media-body">
                           <div className="reviews-members-header">
-                        <span className="star-rating float-right">
+                        <span className="float-right">
                           <a href="#">
                             <i className="icofont-ui-rating active" />
                           </a>
@@ -371,9 +375,8 @@ const DetailModal = () => {
                           </a>
                         </span>
                             <h6 className="mb-1">
-                              <a className="text-black" href="#">
+
                                 Singh Osahan
-                              </a>
                             </h6>
                             <p className="text-gray">Tue, 20 Mar 2020</p>
                           </div>
@@ -397,60 +400,60 @@ const DetailModal = () => {
                             <a className="total-like" href="#">
                               <i className="icofont-thumbs-down" /> 158K
                             </a>
-                            <span className="total-like-user-main ml-2" dir="rtl">
-                          <a
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title
-                              href="#"
-                              data-original-title="Gurdeep Osahan"
-                          >
-                            <img
-                                alt="Generic placeholder image"
-                                src="http://bootdey.com/img/Content/avatar/avatar5.png"
-                                className="total-like-user rounded-pill"
-                            />
-                          </a>
-                          <a
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title
-                              href="#"
-                              data-original-title="Gurdeep Singh"
-                          >
-                            <img
-                                alt="Generic placeholder image"
-                                src="http://bootdey.com/img/Content/avatar/avatar2.png"
-                                className="total-like-user rounded-pill"
-                            />
-                          </a>
-                          <a
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title
-                              href="#"
-                              data-original-title="Askbootstrap"
-                          >
-                            <img
-                                alt="Generic placeholder image"
-                                src="http://bootdey.com/img/Content/avatar/avatar3.png"
-                                className="total-like-user rounded-pill"
-                            />
-                          </a>
-                          <a
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title
-                              href="#"
-                              data-original-title="Osahan"
-                          >
-                            <img
-                                alt="Generic placeholder image"
-                                src="http://bootdey.com/img/Content/avatar/avatar4.png"
-                                className="total-like-user rounded-pill"
-                            />
-                          </a>
-                        </span>
+                        {/*    <span className="total-like-user-main ml-2" dir="rtl">*/}
+                        {/*  <a*/}
+                        {/*//       data-toggle="tooltip"*/}
+                        {/*//       data-placement="top"*/}
+                        {/*//       title*/}
+                        {/*//       href="#"*/}
+                        {/*      data-original-title="Gurdeep Osahan"*/}
+                        {/*  >*/}
+                        {/*    <img*/}
+                        {/*        alt="Generic placeholder image"*/}
+                        {/*        src="http://bootdey.com/img/Content/avatar/avatar5.png"*/}
+                        {/*        className="total-like-user rounded-pill"*/}
+                        {/*    />*/}
+                        {/*  </a>*/}
+                        {/*  <a*/}
+                        {/*//       data-toggle="tooltip"*/}
+                        {/*//       data-placement="top"*/}
+                        {/*//       title*/}
+                        {/*//       href="#"*/}
+                        {/*      data-original-title="Gurdeep Singh"*/}
+                        {/*  >*/}
+                        {/*    <img*/}
+                        {/*        alt="Generic placeholder image"*/}
+                        {/*        src="http://bootdey.com/img/Content/avatar/avatar2.png"*/}
+                        {/*        className="total-like-user rounded-pill"*/}
+                        {/*    />*/}
+                        {/*  </a>*/}
+                        {/*  <a*/}
+                        {/*      data-toggle="tooltip"*/}
+                        {/*      data-placement="top"*/}
+                        {/*      title*/}
+                        {/*      href="#"*/}
+                        {/*      data-original-title="Askbootstrap"*/}
+                        {/*  >*/}
+                        {/*    <img*/}
+                        {/*        alt="Generic placeholder image"*/}
+                        {/*        src="http://bootdey.com/img/Content/avatar/avatar3.png"*/}
+                        {/*        className="total-like-user rounded-pill"*/}
+                        {/*    />*/}
+                        {/*  </a>*/}
+                        {/*  <a*/}
+                        {/*      data-toggle="tooltip"*/}
+                        {/*      data-placement="top"*/}
+                        {/*      title*/}
+                        {/*      href="#"*/}
+                        {/*      data-original-title="Osahan"*/}
+                        {/*  >*/}
+                        {/*    <img*/}
+                        {/*        alt="Generic placeholder image"*/}
+                        {/*        src="http://bootdey.com/img/Content/avatar/avatar4.png"*/}
+                        {/*        className="total-like-user rounded-pill"*/}
+                        {/*    />*/}
+                        {/*  </a>*/}
+                        {/*</span>*/}
                           </div>
                         </div>
                       </div>
@@ -458,16 +461,10 @@ const DetailModal = () => {
                     <hr />
                     <div className="reviews-members pt-4 pb-4">
                       <div className="media">
-                        <a href="#">
-                          <img
-                              alt="Generic placeholder image"
-                              src="http://bootdey.com/img/Content/avatar/avatar6.png"
-                              className="mr-3 rounded-pill"
-                          />
-                        </a>
+                        <Icon svg={ACCOUNT_CIRCLE}/>
                         <div className="media-body">
                           <div className="reviews-members-header">
-                        <span className="star-rating float-right">
+                        <span className="float-right">
                           <a href="#">
                             <i className="icofont-ui-rating active" />
                           </a>
@@ -508,60 +505,60 @@ const DetailModal = () => {
                             <a className="total-like" href="#">
                               <i className="icofont-thumbs-down" /> 1K
                             </a>
-                            <span className="total-like-user-main ml-2" dir="rtl">
-                          <a
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title
-                              href="#"
-                              data-original-title="Gurdeep Osahan"
-                          >
-                            <img
-                                alt="Generic placeholder image"
-                                src="http://bootdey.com/img/Content/avatar/avatar5.png"
-                                className="total-like-user rounded-pill"
-                            />
-                          </a>
-                          <a
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title
-                              href="#"
-                              data-original-title="Gurdeep Singh"
-                          >
-                            <img
-                                alt="Generic placeholder image"
-                                src="http://bootdey.com/img/Content/avatar/avatar2.png"
-                                className="total-like-user rounded-pill"
-                            />
-                          </a>
-                          <a
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title
-                              href="#"
-                              data-original-title="Askbootstrap"
-                          >
-                            <img
-                                alt="Generic placeholder image"
-                                src="http://bootdey.com/img/Content/avatar/avatar3.png"
-                                className="total-like-user rounded-pill"
-                            />
-                          </a>
-                          <a
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title
-                              href="#"
-                              data-original-title="Osahan"
-                          >
-                            <img
-                                alt="Generic placeholder image"
-                                src="http://bootdey.com/img/Content/avatar/avatar4.png"
-                                className="total-like-user rounded-pill"
-                            />
-                          </a>
-                        </span>
+                        {/*    <span className="total-like-user-main ml-2" dir="rtl">*/}
+                        {/*  <a*/}
+                        {/*      data-toggle="tooltip"*/}
+                        {/*      data-placement="top"*/}
+                        {/*      title*/}
+                        {/*      href="#"*/}
+                        {/*      data-original-title="Gurdeep Osahan"*/}
+                        {/*  >*/}
+                        {/*//     <img*/}
+                        {/*//         alt="Generic placeholder image"*/}
+                        {/*//         src="http://bootdey.com/img/Content/avatar/avatar5.png"*/}
+                        {/*//         className="total-like-user rounded-pill"*/}
+                        {/*//     />*/}
+                        {/*//   </a>*/}
+                        {/*//   <a*/}
+                        {/*//       data-toggle="tooltip"*/}
+                        {/*//       data-placement="top"*/}
+                        {/*//       title*/}
+                        {/*//       href="#"*/}
+                        {/*      data-original-title="Gurdeep Singh"*/}
+                        {/*  >*/}
+                        {/*    <img*/}
+                        {/*        alt="Generic placeholder image"*/}
+                        {/*        src="http://bootdey.com/img/Content/avatar/avatar2.png"*/}
+                        {/*        className="total-like-user rounded-pill"*/}
+                        {/*    />*/}
+                        {/*  </a>*/}
+                        {/*  <a*/}
+                        {/*      data-toggle="tooltip"*/}
+                        {/*      data-placement="top"*/}
+                        {/*      title*/}
+                        {/*      href="#"*/}
+                        {/*      data-original-title="Askbootstrap"*/}
+                        {/*  >*/}
+                        {/*    <img*/}
+                        {/*        alt="Generic placeholder image"*/}
+                        {/*        src="http://bootdey.com/img/Content/avatar/avatar3.png"*/}
+                        {/*        className="total-like-user rounded-pill"*/}
+                        {/*    />*/}
+                        {/*  </a>*/}
+                        {/*  <a*/}
+                        {/*      data-toggle="tooltip"*/}
+                        {/*      data-placement="top"*/}
+                        {/*      title*/}
+                        {/*      href="#"*/}
+                        {/*      data-original-title="Osahan"*/}
+                        {/*  >*/}
+                        {/*    <img*/}
+                        {/*        alt="Generic placeholder image"*/}
+                        {/*        src="http://bootdey.com/img/Content/avatar/avatar4.png"*/}
+                        {/*        className="total-like-user rounded-pill"*/}
+                        {/*    />*/}
+                        {/*  </a>*/}
+                        {/*</span>*/}
                           </div>
                         </div>
                       </div>
@@ -574,41 +571,6 @@ const DetailModal = () => {
                       See All Reviews
                     </a>
                   </div>
-                  <div className="bg-white rounded shadow-sm p-4 mb-5 rating-review-select-page">
-                    <h5 className="mb-4">Leave Comment</h5>
-                    <p className="mb-2">Rate the Place</p>
-                    <div className="mb-4">
-                  <span className="star-rating">
-                    <a href="#">
-                      <i className="icofont-ui-rating icofont-2x" />
-                    </a>
-                    <a href="#">
-                      <i className="icofont-ui-rating icofont-2x" />
-                    </a>
-                    <a href="#">
-                      <i className="icofont-ui-rating icofont-2x" />
-                    </a>
-                    <a href="#">
-                      <i className="icofont-ui-rating icofont-2x" />
-                    </a>
-                    <a href="#">
-                      <i className="icofont-ui-rating icofont-2x" />
-                    </a>
-                  </span>
-                    </div>
-                    <form>
-                      <div className="form-group">
-                        <label>Your Comment</label>
-                        <textarea className="form-control" defaultValue={""} />
-                      </div>
-                      <div className="form-group">
-                        <button className="btn btn-primary btn-sm" type="button">
-                          {" "}
-                          Submit Comment{" "}
-                        </button>
-                      </div>
-                    </form>
-                  </div>
                 </div>
               </div>
             </div>
@@ -620,11 +582,11 @@ const DetailModal = () => {
   const ScrollSections = () => (
     <>
       <section id={"overview"}>
-        <h5 className={"text-muted px-3"}>Overview</h5>
+        <h4 className={"text-secondary px-3 mb-0 mt-3"}>Overview</h4>
         <div className={"py-3 rounded shadow-sm mb-4"}>
           <div className={"card-heading d-flex px-3"}>
             <div className={"d-flex flex-fill flex-column text-truncate"}>
-              <h3 className={"flex-fill text-truncate"}>{title}</h3>
+              <h2 className={"flex-fill text-truncate"}>{title}</h2>
 
               <div className={"align-items-center d-flex"}>
                 <span className="text-secondary card-subtitle align-items-center d-flex flex-fill mb-0 ">
@@ -726,7 +688,7 @@ const DetailModal = () => {
       <PhotoSection images={images} outsideIndex={photoIndex} />
 
       <section id={"location"} className={"mb-4"}>
-        <h5 className={"text-muted my-2"}>Location</h5>
+        <h4 className={"text-secondary my-2 pt-3 pb-2"}>Location</h4>
         <div
           className={"image-wrapper position-relative"}
           style={{ backgroundImage: `url(${map})`, backgroundSize: "cover" }}
@@ -749,7 +711,7 @@ const DetailModal = () => {
       </section>
 
       <section id={"info"} className={"mb-4"}>
-        <h5 className={"text-muted my-2"}>Info</h5>
+        <h4 className={"text-secondary my-2"}>Info</h4>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -1124,16 +1086,16 @@ const DetailModal = () => {
         </a>
       </section>
       <section id={"reviews"} className={"mb-4"}>
-        <h5 className={"text-muted my-2"}>Reviews</h5>
+        <h4 className={"text-secondary my-2 pt-3"}>Reviews</h4>
         <Reviews />
       </section>
       <section id={"deals"}>
-        <h5
-          className={"text-muted mt-2"}
+        <h4
+          className={"text-secondary mt-2"}
           style={{ marginBottom: "calc(100vh - 150px)" }}
         >
-          deals
-        </h5>
+          Deals
+        </h4>
       </section>
     </>
   );
