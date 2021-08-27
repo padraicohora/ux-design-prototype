@@ -22,7 +22,7 @@ import {
   List,
   Container,
   Row,
-  Col,
+  Col, UncontrolledTooltip,
 } from "reactstrap";
 import {
   Drawer,
@@ -34,7 +34,8 @@ import Lightbox from "react-image-lightbox";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { ensureNonNull } from "../../_common_/Utils";
 import {
-  AC_UNIT, ACCOUNT_CIRCLE,
+  AC_UNIT,
+  ACCOUNT_CIRCLE,
   ADD_CIRCLE,
   ADD_CIRCLE_SOLID,
   BOOKMARK,
@@ -54,7 +55,8 @@ import {
   REVIEWS,
   ROOM_SERVICE,
   SPA,
-  STAR_RATE,
+  STAR_RATE, THUMB_DOWN,
+  THUMB_UP,
   WIFI,
 } from "../../_common_/constants/icons";
 import Icon from "../../_common_/components/Icon";
@@ -63,6 +65,7 @@ import { getRandomInt } from "../../home/reducers";
 import map from "../../../assets/map.jpg";
 import classnames from "classnames";
 import { toast } from "react-toastify";
+import {reviewData} from "../../../data/json/reviews"
 
 const extra = ["Excellent Staff", "Cosy "];
 
@@ -241,6 +244,76 @@ const DetailModal = () => {
     active: bookmarkActive,
   });
 
+  console.log(`reviewData`, reviewData)
+  const MemberReviews = () => {
+    let top = [];
+    let collapseItems = [];
+    reviewData.forEach((review, index) => {
+      const item = <>
+        <div className="reviews-members py-4" key={review.id}>
+          <div className="media mr-2">
+            <img src={review.avatar}/>
+            <div className="media-body">
+              <div className="reviews-members-header d-flex justify-content-between">
+                <div>
+                  <h6 className="mb-1 font-weight-bold">
+                    {review.author}
+                  </h6>
+                  <p className="font-weight-bold small text-secondary mb-1">{review.date}</p>
+                </div>
+                {index === 0 && <Badge color={"primary"} className="align-self-start">
+                  Top Rated
+                </Badge>}
+              </div>
+              <div className="reviews-members-body">
+                <p>
+                  {review.content}
+                </p>
+              </div>
+              <div
+                  className="align-items-center d-flex justify-content-between reviews-members-footer">
+                <div>
+                <span className={"text-muted"}>
+                  {review.useful} found this useful
+                </span>
+                </div>
+                <div>
+                  <Icon svg={THUMB_UP} className={"text-secondary"} id={`thumbs_up_${review.id}`}/>
+                  <UncontrolledTooltip placement="right" target={`thumbs_up_${review.id}`}>
+                    Mark as helpful
+                  </UncontrolledTooltip>
+                  <Icon svg={THUMB_DOWN} className={"text-secondary"} id={`thumbs_down_${review.id}`}/>
+                  <UncontrolledTooltip placement="right" target={`thumbs_down_${review.id}`}>
+                    Mark as unhelpful
+                  </UncontrolledTooltip>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr/>
+      </>
+      if(index <= 1 ) {
+        top.push(item)
+      }else{
+        collapseItems.push(item)
+      }
+    })
+
+      return <>
+        {top}
+        <UncontrolledCollapse toggler="#reviewToggler">
+          <Container className={"px-0"}>
+            {collapseItems}
+          </Container>
+        </UncontrolledCollapse>
+        <a id="reviewToggler" className={"mb-2 text-primary cursor-pointer"}>
+          + More Reviews
+        </a>
+      </>
+    };
+
+
   const Reviews = () => (
       <>
         <div>
@@ -345,120 +418,10 @@ const DetailModal = () => {
 
                   </div>
                   <div className="bg-white rounded mb-4 restaurant-detailed-ratings-and-reviews">
-                    <a
-                        href="#"
-                        className="btn btn-outline-primary btn-sm float-right"
-                    >
-                      Top Rated
-                    </a>
                     <h6 className="font-weight-bold text-secondary mb-1">All Ratings and Reviews</h6>
-                    <div className="reviews-members py-4">
-                      <div className="media">
-                        <Icon svg={ACCOUNT_CIRCLE}/>
-                        <div className="media-body">
-                          <div className="reviews-members-header">
-                        <span className="float-right">
-                          <a href="#">
-                            <i className="icofont-ui-rating active" />
-                          </a>
-                          <a href="#">
-                            <i className="icofont-ui-rating active" />
-                          </a>
-                          <a href="#">
-                            <i className="icofont-ui-rating active" />
-                          </a>
-                          <a href="#">
-                            <i className="icofont-ui-rating active" />
-                          </a>
-                          <a href="#">
-                            <i className="icofont-ui-rating" />
-                          </a>
-                        </span>
-                            <h6 className="mb-1">
 
-                                Singh Osahan
-                            </h6>
-                            <p className="text-gray">Tue, 20 Mar 2020</p>
-                          </div>
-                          <div className="reviews-members-body">
-                            <p>
-                              Contrary to popular belief, Lorem Ipsum is not simply
-                              random text. It has roots in a piece of classical
-                              Latin literature from 45 BC, making it over 2000 years
-                              old. Richard McClintock, a Latin professor at
-                              Hampden-Sydney College in Virginia, looked up one of
-                              the more obscure Latin words, consectetur, from a
-                              Lorem Ipsum passage, and going through the cites of
-                              the word in classical literature, discovered the
-                              undoubtable source. Lorem Ipsum comes from sections{" "}
-                            </p>
-                          </div>
-                          <div className="reviews-members-footer">
-                            <a className="total-like" href="#">
-                              <i className="icofont-thumbs-up" /> 856M
-                            </a>{" "}
-                            <a className="total-like" href="#">
-                              <i className="icofont-thumbs-down" /> 158K
-                            </a>
-                        {/*    <span className="total-like-user-main ml-2" dir="rtl">*/}
-                        {/*  <a*/}
-                        {/*//       data-toggle="tooltip"*/}
-                        {/*//       data-placement="top"*/}
-                        {/*//       title*/}
-                        {/*//       href="#"*/}
-                        {/*      data-original-title="Gurdeep Osahan"*/}
-                        {/*  >*/}
-                        {/*    <img*/}
-                        {/*        alt="Generic placeholder image"*/}
-                        {/*        src="http://bootdey.com/img/Content/avatar/avatar5.png"*/}
-                        {/*        className="total-like-user rounded-pill"*/}
-                        {/*    />*/}
-                        {/*  </a>*/}
-                        {/*  <a*/}
-                        {/*//       data-toggle="tooltip"*/}
-                        {/*//       data-placement="top"*/}
-                        {/*//       title*/}
-                        {/*//       href="#"*/}
-                        {/*      data-original-title="Gurdeep Singh"*/}
-                        {/*  >*/}
-                        {/*    <img*/}
-                        {/*        alt="Generic placeholder image"*/}
-                        {/*        src="http://bootdey.com/img/Content/avatar/avatar2.png"*/}
-                        {/*        className="total-like-user rounded-pill"*/}
-                        {/*    />*/}
-                        {/*  </a>*/}
-                        {/*  <a*/}
-                        {/*      data-toggle="tooltip"*/}
-                        {/*      data-placement="top"*/}
-                        {/*      title*/}
-                        {/*      href="#"*/}
-                        {/*      data-original-title="Askbootstrap"*/}
-                        {/*  >*/}
-                        {/*    <img*/}
-                        {/*        alt="Generic placeholder image"*/}
-                        {/*        src="http://bootdey.com/img/Content/avatar/avatar3.png"*/}
-                        {/*        className="total-like-user rounded-pill"*/}
-                        {/*    />*/}
-                        {/*  </a>*/}
-                        {/*  <a*/}
-                        {/*      data-toggle="tooltip"*/}
-                        {/*      data-placement="top"*/}
-                        {/*      title*/}
-                        {/*      href="#"*/}
-                        {/*      data-original-title="Osahan"*/}
-                        {/*  >*/}
-                        {/*    <img*/}
-                        {/*        alt="Generic placeholder image"*/}
-                        {/*        src="http://bootdey.com/img/Content/avatar/avatar4.png"*/}
-                        {/*        className="total-like-user rounded-pill"*/}
-                        {/*    />*/}
-                        {/*  </a>*/}
-                        {/*</span>*/}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <hr />
+                    <MemberReviews/>
+
                     <div className="reviews-members pt-4 pb-4">
                       <div className="media">
                         <Icon svg={ACCOUNT_CIRCLE}/>
@@ -1082,7 +1045,7 @@ const DetailModal = () => {
           </Container>
         </UncontrolledCollapse>
         <a id="toggler" className={"mb-2 text-primary cursor-pointer"}>
-          + Show all features
+          + All features
         </a>
       </section>
       <section id={"reviews"} className={"mb-4"}>

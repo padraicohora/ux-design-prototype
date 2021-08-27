@@ -65,6 +65,8 @@ import {RoomService} from "@styled-icons/material/RoomService";
 import {FitnessCenter} from "@styled-icons/material/FitnessCenter";
 import {Liquor} from "@styled-icons/material/Liquor";
 import {StarRate} from "@styled-icons/material/StarRate";
+import {ThumbUp} from "@styled-icons/material/ThumbUp";
+import {ThumbDown} from "@styled-icons/material/ThumbDown";
 
 // material-outlined
 import {AccessTime} from "@styled-icons/material-outlined/AccessTime";
@@ -139,3 +141,5 @@ export const ROOM_SERVICE = <RoomService/>;
 export const FITNESS_CENTER = <FitnessCenter/>;
 export const LIQUOR = <Liquor/>;
 export const STAR_RATE = <StarRate/>;
+export const THUMB_DOWN = <ThumbDown/>;
+export const THUMB_UP = <ThumbUp/>;
