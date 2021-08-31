@@ -38,6 +38,7 @@ import {
   ACCOUNT_CIRCLE,
   ADD_CIRCLE,
   ADD_CIRCLE_SOLID,
+  BED,
   BOOKMARK,
   BOOKMARK_BORDER,
   CALENDAR,
@@ -55,17 +56,23 @@ import {
   REVIEWS,
   ROOM_SERVICE,
   SPA,
-  STAR_RATE, THUMB_DOWN,
-  THUMB_UP,
+  STAR_RATE,
+  THUMB_DOWN,
+  THUMB_UP, USERS,
   WIFI,
 } from "../../_common_/constants/icons";
 import Icon from "../../_common_/components/Icon";
 import { calculateRating } from "../../home/components/AccommodationCard";
 import { getRandomInt } from "../../home/reducers";
 import map from "../../../assets/map.jpg";
+import classicDouble from "../../../assets/rooms/classic-double.jpg";
+import familyRoom from "../../../assets/rooms/family-room.jpg";
+import superiorRoom from "../../../assets/rooms/superior-double.jpg";
+import twinRoom from "../../../assets/rooms/twin-room.jpg";
 import classnames from "classnames";
 import { toast } from "react-toastify";
 import {reviewData} from "../../../data/json/reviews"
+import {BOOKING} from "../../booking/constants";
 
 const extra = ["Excellent Staff", "Cosy "];
 
@@ -228,6 +235,10 @@ const DetailModal = () => {
     },
   ];
 
+  const openBooking = (items) => {
+    console.log(`items`, items.deal)
+    closePanel()
+  }
   const scrollspyItems = navItems.map((item) => (
     <NavHashLink
       to={`#${item.id}`}
@@ -244,7 +255,6 @@ const DetailModal = () => {
     active: bookmarkActive,
   });
 
-  console.log(`reviewData`, reviewData)
   const MemberReviews = () => {
     let top = [];
     let collapseItems = [];
@@ -312,7 +322,6 @@ const DetailModal = () => {
         </a>
       </>
     };
-
 
   const Reviews = () => (
       <>
@@ -541,6 +550,52 @@ const DetailModal = () => {
         </div>
       </>
   );
+
+  const Deals = () => {
+    const dealData = [
+      {
+        title:"Economy Double Room",
+        bed: "French bed",
+        person: 2,
+        image: classicDouble
+      },
+      {
+        title:"Classic Double/Twin Room",
+        bed: "Double bed, Twin bed",
+        person: 2,
+        image: twinRoom
+      },
+      {
+        title:"Superior Double Room",
+        bed: "Queen bed",
+        person: 2,
+        image: superiorRoom
+      },
+      {
+        title:"Family Room",
+        bed: "Double bed, Single bed",
+        person: 5,
+        image: familyRoom
+      },
+    ]
+
+    return dealData.map(deal => (
+        <Row className={"room-deal my-4"} onClick={() => openBooking({deal})}>
+              <Col sm="3" className={"px-0 overflow-hidden"}>
+                <img src={deal.image} className={"w-100"}/>
+              </Col>
+              <Col sm="9" className={"pl-4"}>
+                <h5 className={"font-weight-bold"}>{deal.title}</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci alias aliquid, aut deserunt, dicta dolorum esse id</p>
+                <div className={"text-muted"}>
+                  <Icon svg={BED} className={"mr-1"}/><span className={"mr-2"}>{deal.bed}</span>
+                  <Icon svg={USERS} className={"mr-1"}/><span className={"mr-2"}>{deal.person} guests</span>
+                </div>
+              </Col>
+          </Row>
+    ))
+
+  }
 
   const ScrollSections = () => (
     <>
@@ -1055,14 +1110,17 @@ const DetailModal = () => {
       <section id={"deals"}>
         <h4
           className={"text-secondary mt-2"}
-          style={{ marginBottom: "calc(100vh - 150px)" }}
         >
           Deals
         </h4>
+        <Container>
+          <Deals/>
+        </Container>
       </section>
     </>
   );
 
+  const scrollSpyItems = navItems.map(item => item.id)
 
   return (
     <Drawer
@@ -1086,7 +1144,7 @@ const DetailModal = () => {
       <div className={"d-flex"}>
         <div className={"position-relative"} style={{ width: "180px" }}>
           <Scrollspy
-            items={["section-1", "section-2", "section-3"]}
+            items={scrollSpyItems}
             currentClassName="is-current"
             className={"list-group mr-3 position-fixed"}
           >

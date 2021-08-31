@@ -67,6 +67,7 @@ import {Liquor} from "@styled-icons/material/Liquor";
 import {StarRate} from "@styled-icons/material/StarRate";
 import {ThumbUp} from "@styled-icons/material/ThumbUp";
 import {ThumbDown} from "@styled-icons/material/ThumbDown";
+import {Bed} from "@styled-icons/material/Bed";
 
 // material-outlined
 import {AccessTime} from "@styled-icons/material-outlined/AccessTime";
@@ -143,3 +144,4 @@ export const LIQUOR = <Liquor/>;
 export const STAR_RATE = <StarRate/>;
 export const THUMB_DOWN = <ThumbDown/>;
 export const THUMB_UP = <ThumbUp/>;
+export const BED = <Bed/>;

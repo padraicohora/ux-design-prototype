@@ -368,3 +368,18 @@
   margin-right: 15px;
 }
 
+.room-deal{
+    transition: all .3s;
+  &:hover{
+    cursor:pointer;
+    h5{
+      color:$primary;
+    }
+    img{
+      transition: all .3s;
+      transform: scale(1.3);
+    }
+
+
+  }
+}
