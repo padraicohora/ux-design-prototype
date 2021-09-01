@@ -255,6 +255,516 @@ const DetailModal = () => {
     active: bookmarkActive,
   });
 
+  const Overview = () => {
+      return <section id={"overview"}>
+        <h4 className={"text-secondary px-3 mb-0 mt-3"}>Overview</h4>
+        <div className={"py-3 rounded shadow-sm mb-4"}>
+          <div className={"card-heading d-flex px-3"}>
+            <div className={"d-flex flex-fill flex-column text-truncate"}>
+              <h2 className={"flex-fill text-truncate"}>{title}</h2>
+
+              <div className={"align-items-center d-flex"}>
+                <span className="text-secondary card-subtitle align-items-center d-flex flex-fill mb-0 ">
+                  {!locationBased && <Icon svg={PIN_DROP} />}
+                  <span className={"flex-fill"}>{location}</span>
+                </span>
+              </div>
+              <NavHashLink
+                  to={`#location`}
+                  className={
+                    "m-0 mt-1 p-0 text-primary small text-decoration-none"
+                  }
+              >
+                Show on map
+              </NavHashLink>
+            </div>
+            <div
+                className={
+                  "card-info d-flex flex-column align-items-end justify-content-end"
+                }
+            >
+              <div className={"d-flex align-items-center rating"}>
+                <div className={"mx-2"}>
+                  <small
+                      className={
+                        "card-rating card-rating font-weight-bolder p-2 rounded-circle small star-rating"
+                      }
+                  >
+                    {rating}
+                  </small>
+                </div>
+                <div className={"d-flex flex-column "}>
+                  <span className={"mb-0 text-secondary rating-text"}>
+                    {calculateRating(rating)}
+                  </span>
+                  <small
+                      className={"text-muted rating-text"}
+                  >{`${reviews} reviews`}</small>
+                </div>
+              </div>
+              <NavHashLink
+                  to={`#reviews`}
+                  className={
+                    "m-0 mt-1 p-0 text-primary small text-decoration-none text-right"
+                  }
+              >
+                Show reviews
+              </NavHashLink>
+            </div>
+          </div>
+          <div className={" align-items-center d-flex my-3 px-3"}>
+            <CardText className={"mb-0 flex-fill"}>
+              <Badge color={"grey"} pill>
+                {type}
+              </Badge>
+              <Badge color={"grey"} className={"ml-2 text-capitalize"} pill>
+                {group}
+              </Badge>
+              <Badge color={"grey"} className={"ml-2 text-capitalize"} pill>
+                {extra[extraIndex]}
+              </Badge>
+            </CardText>
+
+            <Button
+                className={bookmarkClass}
+                color={"light"}
+                size={"sm"}
+                onClick={() => {
+                  setBookmarkActive(!bookmarkActive);
+                }}
+            >
+              <Icon svg={bookmarkActive ? BOOKMARK : BOOKMARK_BORDER} />
+            </Button>
+          </div>
+          <div
+              className={"image-wrapper lightbox-image"}
+              style={{
+                backgroundImage: `url(${mainImage})`,
+                backgroundSize: "cover",
+              }}
+              onClick={() => {
+                setPhotoIndex(images.findIndex((_image) => _image === mainImage));
+              }}
+          />
+          <div
+              className={
+                "card-price text-dark flex-fill pt-3 px-3 justify-content-between"
+              }
+          >
+            <span className={"price d-flex align-items-center"}>
+              <small className={"mr-2"}>From</small> {price}
+            </span>
+            <Button color={"primary"} className={"rounded-pill mr-2"}>
+              View Offers
+            </Button>
+          </div>
+        </div>
+      </section>
+  }
+
+  const Location = () => {
+    return <section id={"location"} className={"mb-4"}>
+      <h4 className={"text-secondary my-2 pt-3 pb-2"}>Location</h4>
+      <div
+          className={"image-wrapper position-relative"}
+          style={{ backgroundImage: `url(${map})`, backgroundSize: "cover" }}
+      >
+        <Icon svg={LOCATION_ICON} className={"map-pin-icon"} />
+        <h4 className={"map-address"}>
+          <Badge color={"light"} className={"text-body"}>
+            {location}
+          </Badge>
+        </h4>
+        <ButtonGroup className={"map-controls-button"} vertical>
+          <Button size={"sm"} color={"light"}>
+            <Icon svg={ADD_CIRCLE_SOLID} />
+          </Button>
+          <Button size={"sm"} color={"light"}>
+            <Icon svg={REMOVE_CIRCLE_SOLID} />
+          </Button>
+        </ButtonGroup>
+      </div>
+    </section>
+  }
+
+  const Info = () => {
+    return <section id={"info"} className={"mb-4"}>
+      <h4 className={"text-secondary my-2"}>Info</h4>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat. Duis aute irure dolor in
+        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+        culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+
+      <Container className={"pl-0 pr-3 highlight-features"}>
+        <h6 className="font-weight-bold text-muted">Highlighted Features</h6>
+        <Row className={"py-2 align-items-center"}>
+          <Col xs="3" className={"pb-3"}>
+            <div className={"d-flex align-items-center my-2"}>
+              <Icon svg={WIFI} />
+              <div>
+                <span>Free Wifi in Rooms</span>
+              </div>
+            </div>
+          </Col>
+          <Col xs="3" className={"pb-3"}>
+            <div className={"d-flex align-items-center my-2"}>
+              <Icon svg={SPA} />
+              <div>
+                <span>Spa</span>
+              </div>
+            </div>
+          </Col>
+          <Col xs="3" className={"pb-3"}>
+            <div className={"d-flex align-items-center my-2"}>
+              <Icon svg={LOCAL_PARKING} />
+              <div>
+                <span>Car Parking</span>
+              </div>
+            </div>
+          </Col>
+          <Col xs="3" className={"pb-3"}>
+            <div className={"d-flex align-items-center my-2"}>
+              <Icon svg={AC_UNIT} />
+              <div>
+                <span>Climate control</span>
+              </div>
+            </div>
+          </Col>
+          <Col xs="3" className={"pb-3"}>
+            <div className={"d-flex align-items-center my-2"}>
+              <Icon svg={RESTAURANT_MENU} />
+              <div>
+                <span>Restaurant</span>
+              </div>
+            </div>
+          </Col>
+          <Col xs="3" className={"pb-3"}>
+            <div className={"d-flex align-items-center my-2"}>
+              <Icon svg={ROOM_SERVICE} />
+              <div>
+                <span>Room service</span>
+              </div>
+            </div>
+          </Col>
+          <Col xs="3" className={"pb-3"}>
+            <div className={"d-flex align-items-center  my-2"}>
+              <Icon svg={FITNESS_CENTER} />
+              <div>
+                <span>Fitness Center</span>
+              </div>
+            </div>
+          </Col>
+          <Col xs="3" className={"pb-3"}>
+            <div className={"d-flex align-items-center my-2"}>
+              <Icon svg={LIQUOR} />
+              <div>
+                <span>Bar</span>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+      <UncontrolledCollapse toggler="#toggler">
+        <Container className={"px-0"}>
+          <Row>
+            <Col xs="4">
+              <h6 className="font-weight-bold text-muted">
+                Hotel facilities
+              </h6>
+              <List className={"pl-4"}>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  24-hour reception
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Airport shuttle
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Breakfast
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Business centre
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Car park
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Cashless payment
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Computer with Internet
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Concierge
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Conference rooms
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Doctor on site
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Free WiFi
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Free WiFi in public areas
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Gym
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Hand sanitizer provided
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Hotel bar
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Hotel safe
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Laundry service
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Lift
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  New safety protocols
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Non-smoking rooms
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Online check in/check out
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Restaurant
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Room service
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Safe distance
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Temperature screening
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  WiFi in public areas
+                </li>
+              </List>
+            </Col>
+            <Col xs="4">
+              <h6 className="font-weight-bold text-muted">Room facilities</h6>
+              <List className={"pl-4"}>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Air conditioning
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Bathtub (upon inquiry)
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Cable TV
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Central heating
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Desk
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Electric kettle
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Free WiFi (rooms)
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Fridge
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Hairdryer
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Ironing board
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Safe
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Satellite TV
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Shower
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Telephone
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Television
+                </li>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  WiFi
+                </li>
+              </List>
+            </Col>
+            <Col xs="4">
+              <h6 className="font-weight-bold text-muted">Accessibility</h6>
+              <List className={"pl-4"}>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Wheelchair accessible
+                </li>
+              </List>
+              <h6 className="font-weight-bold text-muted">For children</h6>
+              <List className={"pl-4"}>
+                <li
+                    className="unordered-list__item"
+                    itemProp="amenityFeature"
+                >
+                  Cot
+                </li>
+              </List>
+            </Col>
+          </Row>
+        </Container>
+      </UncontrolledCollapse>
+      <a id="toggler" className={"mb-2 text-primary cursor-pointer"}>
+        + All features
+      </a>
+    </section>
+  }
+
   const MemberReviews = () => {
     let top = [];
     let collapseItems = [];
@@ -301,7 +811,6 @@ const DetailModal = () => {
             </div>
           </div>
         </div>
-        <hr/>
       </>
       if(index <= 1 ) {
         top.push(item)
@@ -323,233 +832,122 @@ const DetailModal = () => {
       </>
     };
 
-  const Reviews = () => (
-      <>
+  const Reviews = () => {
+    return <section id={"reviews"} className={"mb-4"}>
+      <h4 className={"text-secondary my-2 pt-3"}>Reviews</h4>
+      <div>
         <div>
-          <div>
-            <div className="offer-dedicated-body-left">
-              <div className="tab-content" id="pills-tabContent">
-                <div
-                    className="tab-pane fade active show"
-                    id="pills-reviews"
-                    role="tabpanel"
-                    aria-labelledby="pills-reviews-tab"
-                >
+          <div className="offer-dedicated-body-left">
+            <div className="tab-content" id="pills-tabContent">
+              <div
+                  className="tab-pane fade active show"
+                  id="pills-reviews"
+                  role="tabpanel"
+                  aria-labelledby="pills-reviews-tab"
+              >
 
-                  <div className="bg-white rounded  mb-4 clearfix graph-star-rating">
-                    <div className="graph-star-rating-header">
+                <div className="bg-white rounded  mb-4 clearfix graph-star-rating">
+                  <div className="graph-star-rating-header">
 
-                      {/*<div className={"d-flex justify-content-between my-4"}>*/}
-                      {/*  <strong className="text-black ">*/}
-                      {/*    /!*<Icon svg={STAR}/>*!/*/}
-                      {/*    {reviews} reviews</strong>*/}
-                      {/*  <span className="text-black mb-4 mt-2">Rated {rating} out of 10</span>*/}
-                      {/*</div>*/}
 
-                      <h6 className="font-weight-bold text-muted d-flex justify-content-between my-4">
+                    <h6 className="font-weight-bold text-muted d-flex justify-content-between my-4">
 
                         <span><Icon svg={STAR_RATE}/>
                           <strong>{reviews} reviews</strong></span>
-                        <span className="mb-4 mt-2">Rated {rating} out of 10</span>
-                      </h6>
-
-                    </div>
-                    <div className="graph-star-rating-body">
-                      <div className="rating-list">
-                        <div className="rating-list-left">5 Star</div>
-                        <div className="rating-list-center">
-                          <div className="progress">
-                            <div
-                                style={{ width: "56%" }}
-                                aria-valuemax={5}
-                                aria-valuemin={0}
-                                aria-valuenow={5}
-                                role="progressbar"
-                                className="progress-bar bg-primary"
-                            >
-                            </div>
-                          </div>
-                        </div>
-                        <div className="rating-list-right">56%</div>
-                      </div>
-                      <div className="rating-list">
-                        <div className="rating-list-left">4 Star</div>
-                        <div className="rating-list-center">
-                          <div className="progress">
-                            <div
-                                style={{ width: "23%" }}
-                                aria-valuemax={5}
-                                aria-valuemin={0}
-                                aria-valuenow={5}
-                                role="progressbar"
-                                className="progress-bar bg-primary"
-                            >
-                            </div>
-                          </div>
-                        </div>
-                        <div className="rating-list-right">23%</div>
-                      </div>
-                      <div className="rating-list">
-                        <div className="rating-list-left">3 Star</div>
-                        <div className="rating-list-center">
-                          <div className="progress">
-                            <div
-                                style={{ width: "11%" }}
-                                aria-valuemax={5}
-                                aria-valuemin={0}
-                                aria-valuenow={5}
-                                role="progressbar"
-                                className="progress-bar bg-primary"
-                            >
-                            </div>
-                          </div>
-                        </div>
-                        <div className="rating-list-right">11%</div>
-                      </div>
-                      <div className="rating-list">
-                        <div className="rating-list-left">2 Star</div>
-                        <div className="rating-list-center">
-                          <div className="progress">
-                            <div
-                                style={{ width: "2%" }}
-                                aria-valuemax={5}
-                                aria-valuemin={0}
-                                aria-valuenow={5}
-                                role="progressbar"
-                                className="progress-bar bg-primary"
-                            >
-                            </div>
-                          </div>
-                        </div>
-                        <div className="rating-list-right">02%</div>
-                      </div>
-                    </div>
+                      <span className="mb-4 mt-2">Rated {rating} out of 10</span>
+                    </h6>
 
                   </div>
-                  <div className="bg-white rounded mb-4 restaurant-detailed-ratings-and-reviews">
-                    <h6 className="font-weight-bold text-secondary mb-1">All Ratings and Reviews</h6>
-
-                    <MemberReviews/>
-
-                    <div className="reviews-members pt-4 pb-4">
-                      <div className="media">
-                        <Icon svg={ACCOUNT_CIRCLE}/>
-                        <div className="media-body">
-                          <div className="reviews-members-header">
-                        <span className="float-right">
-                          <a href="#">
-                            <i className="icofont-ui-rating active" />
-                          </a>
-                          <a href="#">
-                            <i className="icofont-ui-rating active" />
-                          </a>
-                          <a href="#">
-                            <i className="icofont-ui-rating active" />
-                          </a>
-                          <a href="#">
-                            <i className="icofont-ui-rating active" />
-                          </a>
-                          <a href="#">
-                            <i className="icofont-ui-rating" />
-                          </a>
-                        </span>
-                            <h6 className="mb-1">
-                              <a className="text-black" href="#">
-                                Gurdeep Singh
-                              </a>
-                            </h6>
-                            <p className="text-gray">Tue, 20 Mar 2020</p>
-                          </div>
-                          <div className="reviews-members-body">
-                            <p>
-                              It is a long established fact that a reader will be
-                              distracted by the readable content of a page when
-                              looking at its layout. The point of using Lorem Ipsum
-                              is that it has a more-or-less normal distribution of
-                              letters, as opposed to using 'Content here, content
-                              here', making it look like readable English.
-                            </p>
-                          </div>
-                          <div className="reviews-members-footer">
-                            <a className="total-like" href="#">
-                              <i className="icofont-thumbs-up" /> 88K
-                            </a>{" "}
-                            <a className="total-like" href="#">
-                              <i className="icofont-thumbs-down" /> 1K
-                            </a>
-                        {/*    <span className="total-like-user-main ml-2" dir="rtl">*/}
-                        {/*  <a*/}
-                        {/*      data-toggle="tooltip"*/}
-                        {/*      data-placement="top"*/}
-                        {/*      title*/}
-                        {/*      href="#"*/}
-                        {/*      data-original-title="Gurdeep Osahan"*/}
-                        {/*  >*/}
-                        {/*//     <img*/}
-                        {/*//         alt="Generic placeholder image"*/}
-                        {/*//         src="http://bootdey.com/img/Content/avatar/avatar5.png"*/}
-                        {/*//         className="total-like-user rounded-pill"*/}
-                        {/*//     />*/}
-                        {/*//   </a>*/}
-                        {/*//   <a*/}
-                        {/*//       data-toggle="tooltip"*/}
-                        {/*//       data-placement="top"*/}
-                        {/*//       title*/}
-                        {/*//       href="#"*/}
-                        {/*      data-original-title="Gurdeep Singh"*/}
-                        {/*  >*/}
-                        {/*    <img*/}
-                        {/*        alt="Generic placeholder image"*/}
-                        {/*        src="http://bootdey.com/img/Content/avatar/avatar2.png"*/}
-                        {/*        className="total-like-user rounded-pill"*/}
-                        {/*    />*/}
-                        {/*  </a>*/}
-                        {/*  <a*/}
-                        {/*      data-toggle="tooltip"*/}
-                        {/*      data-placement="top"*/}
-                        {/*      title*/}
-                        {/*      href="#"*/}
-                        {/*      data-original-title="Askbootstrap"*/}
-                        {/*  >*/}
-                        {/*    <img*/}
-                        {/*        alt="Generic placeholder image"*/}
-                        {/*        src="http://bootdey.com/img/Content/avatar/avatar3.png"*/}
-                        {/*        className="total-like-user rounded-pill"*/}
-                        {/*    />*/}
-                        {/*  </a>*/}
-                        {/*  <a*/}
-                        {/*      data-toggle="tooltip"*/}
-                        {/*      data-placement="top"*/}
-                        {/*      title*/}
-                        {/*      href="#"*/}
-                        {/*      data-original-title="Osahan"*/}
-                        {/*  >*/}
-                        {/*    <img*/}
-                        {/*        alt="Generic placeholder image"*/}
-                        {/*        src="http://bootdey.com/img/Content/avatar/avatar4.png"*/}
-                        {/*        className="total-like-user rounded-pill"*/}
-                        {/*    />*/}
-                        {/*  </a>*/}
-                        {/*</span>*/}
+                  <div className="graph-star-rating-body">
+                    <div className="rating-list">
+                      <div className="rating-list-left">5 Star</div>
+                      <div className="rating-list-center">
+                        <div className="progress">
+                          <div
+                              style={{ width: "56%" }}
+                              aria-valuemax={5}
+                              aria-valuemin={0}
+                              aria-valuenow={5}
+                              role="progressbar"
+                              className="progress-bar bg-primary"
+                          >
                           </div>
                         </div>
                       </div>
+                      <div className="rating-list-right">56%</div>
                     </div>
-                    <hr />
-                    <a
-                        className="text-center w-100 d-block mt-4 font-weight-bold"
-                        href="#"
-                    >
-                      See All Reviews
-                    </a>
+                    <div className="rating-list">
+                      <div className="rating-list-left">4 Star</div>
+                      <div className="rating-list-center">
+                        <div className="progress">
+                          <div
+                              style={{ width: "23%" }}
+                              aria-valuemax={5}
+                              aria-valuemin={0}
+                              aria-valuenow={5}
+                              role="progressbar"
+                              className="progress-bar bg-primary"
+                          >
+                          </div>
+                        </div>
+                      </div>
+                      <div className="rating-list-right">23%</div>
+                    </div>
+                    <div className="rating-list">
+                      <div className="rating-list-left">3 Star</div>
+                      <div className="rating-list-center">
+                        <div className="progress">
+                          <div
+                              style={{ width: "11%" }}
+                              aria-valuemax={5}
+                              aria-valuemin={0}
+                              aria-valuenow={5}
+                              role="progressbar"
+                              className="progress-bar bg-primary"
+                          >
+                          </div>
+                        </div>
+                      </div>
+                      <div className="rating-list-right">11%</div>
+                    </div>
+                    <div className="rating-list">
+                      <div className="rating-list-left">2 Star</div>
+                      <div className="rating-list-center">
+                        <div className="progress">
+                          <div
+                              style={{ width: "2%" }}
+                              aria-valuemax={5}
+                              aria-valuemin={0}
+                              aria-valuenow={5}
+                              role="progressbar"
+                              className="progress-bar bg-primary"
+                          >
+                          </div>
+                        </div>
+                      </div>
+                      <div className="rating-list-right">02%</div>
+                    </div>
                   </div>
+
+                </div>
+                <div className="bg-white rounded mb-4 restaurant-detailed-ratings-and-reviews">
+                  <h6 className="font-weight-bold text-secondary mb-1">All Ratings and Reviews</h6>
+
+                  <MemberReviews/>
+                  <a
+                      className="text-center w-100 d-block mt-4 font-weight-bold"
+                      href="#"
+                  >
+                    See All Reviews
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </>
-  );
+      </div>
+      </section>
+  }
 
   const Deals = () => {
     const dealData = [
@@ -579,7 +977,7 @@ const DetailModal = () => {
       },
     ]
 
-    return dealData.map(deal => (
+    const deals =  dealData.map(deal => (
         <Row className={"room-deal my-4"} onClick={() => openBooking({deal})}>
               <Col sm="3" className={"px-0 overflow-hidden"}>
                 <img src={deal.image} className={"w-100"}/>
@@ -595,528 +993,27 @@ const DetailModal = () => {
           </Row>
     ))
 
+    return <section id={"deals"}>
+      <h4
+          className={"text-secondary mt-2"}
+      >
+        Deals
+      </h4>
+      <Container>
+        {deals}
+      </Container>
+    </section>
+
   }
 
   const ScrollSections = () => (
     <>
-      <section id={"overview"}>
-        <h4 className={"text-secondary px-3 mb-0 mt-3"}>Overview</h4>
-        <div className={"py-3 rounded shadow-sm mb-4"}>
-          <div className={"card-heading d-flex px-3"}>
-            <div className={"d-flex flex-fill flex-column text-truncate"}>
-              <h2 className={"flex-fill text-truncate"}>{title}</h2>
-
-              <div className={"align-items-center d-flex"}>
-                <span className="text-secondary card-subtitle align-items-center d-flex flex-fill mb-0 ">
-                  {!locationBased && <Icon svg={PIN_DROP} />}
-                  <span className={"flex-fill"}>{location}</span>
-                </span>
-              </div>
-              <NavHashLink
-                to={`#location`}
-                className={
-                  "m-0 mt-1 p-0 text-primary small text-decoration-none"
-                }
-              >
-                Show on map
-              </NavHashLink>
-            </div>
-            <div
-              className={
-                "card-info d-flex flex-column align-items-end justify-content-end"
-              }
-            >
-              <div className={"d-flex align-items-center rating"}>
-                <div className={"mx-2"}>
-                  <small
-                    className={
-                      "card-rating card-rating font-weight-bolder p-2 rounded-circle small star-rating"
-                    }
-                  >
-                    {rating}
-                  </small>
-                </div>
-                <div className={"d-flex flex-column "}>
-                  <span className={"mb-0 text-secondary rating-text"}>
-                    {calculateRating(rating)}
-                  </span>
-                  <small
-                    className={"text-muted rating-text"}
-                  >{`${reviews} reviews`}</small>
-                </div>
-              </div>
-              <NavHashLink
-                to={`#reviews`}
-                className={
-                  "m-0 mt-1 p-0 text-primary small text-decoration-none text-right"
-                }
-              >
-                Show reviews
-              </NavHashLink>
-            </div>
-          </div>
-          <div className={" align-items-center d-flex my-3 px-3"}>
-            <CardText className={"mb-0 flex-fill"}>
-              <Badge color={"grey"} pill>
-                {type}
-              </Badge>
-              <Badge color={"grey"} className={"ml-2 text-capitalize"} pill>
-                {group}
-              </Badge>
-              <Badge color={"grey"} className={"ml-2 text-capitalize"} pill>
-                {extra[extraIndex]}
-              </Badge>
-            </CardText>
-
-            <Button
-              className={bookmarkClass}
-              color={"light"}
-              size={"sm"}
-              onClick={() => {
-                setBookmarkActive(!bookmarkActive);
-              }}
-            >
-              <Icon svg={bookmarkActive ? BOOKMARK : BOOKMARK_BORDER} />
-            </Button>
-          </div>
-          <div
-            className={"image-wrapper lightbox-image"}
-            style={{
-              backgroundImage: `url(${mainImage})`,
-              backgroundSize: "cover",
-            }}
-            onClick={() => {
-              setPhotoIndex(images.findIndex((_image) => _image === mainImage));
-            }}
-          />
-          <div
-            className={
-              "card-price text-dark flex-fill pt-3 px-3 justify-content-between"
-            }
-          >
-            <span className={"price d-flex align-items-center"}>
-              <small className={"mr-2"}>From</small> {price}
-            </span>
-            <Button color={"primary"} className={"rounded-pill mr-2"}>
-              View Offers
-            </Button>
-          </div>
-        </div>
-      </section>
+      <Overview/>
       <PhotoSection images={images} outsideIndex={photoIndex} />
-
-      <section id={"location"} className={"mb-4"}>
-        <h4 className={"text-secondary my-2 pt-3 pb-2"}>Location</h4>
-        <div
-          className={"image-wrapper position-relative"}
-          style={{ backgroundImage: `url(${map})`, backgroundSize: "cover" }}
-        >
-          <Icon svg={LOCATION_ICON} className={"map-pin-icon"} />
-          <h4 className={"map-address"}>
-            <Badge color={"light"} className={"text-body"}>
-              {location}
-            </Badge>
-          </h4>
-          <ButtonGroup className={"map-controls-button"} vertical>
-            <Button size={"sm"} color={"light"}>
-              <Icon svg={ADD_CIRCLE_SOLID} />
-            </Button>
-            <Button size={"sm"} color={"light"}>
-              <Icon svg={REMOVE_CIRCLE_SOLID} />
-            </Button>
-          </ButtonGroup>
-        </div>
-      </section>
-
-      <section id={"info"} className={"mb-4"}>
-        <h4 className={"text-secondary my-2"}>Info</h4>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-
-        <Container className={"pl-0 pr-3 highlight-features"}>
-          <h6 className="font-weight-bold text-muted">Highlighted Features</h6>
-          <Row className={"py-2 align-items-center"}>
-            <Col xs="3" className={"pb-3"}>
-              <div className={"d-flex align-items-center my-2"}>
-                <Icon svg={WIFI} />
-                <div>
-                  <span>Free Wifi in Rooms</span>
-                </div>
-              </div>
-            </Col>
-            <Col xs="3" className={"pb-3"}>
-              <div className={"d-flex align-items-center my-2"}>
-                <Icon svg={SPA} />
-                <div>
-                  <span>Spa</span>
-                </div>
-              </div>
-            </Col>
-            <Col xs="3" className={"pb-3"}>
-              <div className={"d-flex align-items-center my-2"}>
-                <Icon svg={LOCAL_PARKING} />
-                <div>
-                  <span>Car Parking</span>
-                </div>
-              </div>
-            </Col>
-            <Col xs="3" className={"pb-3"}>
-              <div className={"d-flex align-items-center my-2"}>
-                <Icon svg={AC_UNIT} />
-                <div>
-                  <span>Climate control</span>
-                </div>
-              </div>
-            </Col>
-            <Col xs="3" className={"pb-3"}>
-              <div className={"d-flex align-items-center my-2"}>
-                <Icon svg={RESTAURANT_MENU} />
-                <div>
-                  <span>Restaurant</span>
-                </div>
-              </div>
-            </Col>
-            <Col xs="3" className={"pb-3"}>
-              <div className={"d-flex align-items-center my-2"}>
-                <Icon svg={ROOM_SERVICE} />
-                <div>
-                  <span>Room service</span>
-                </div>
-              </div>
-            </Col>
-            <Col xs="3" className={"pb-3"}>
-              <div className={"d-flex align-items-center  my-2"}>
-                <Icon svg={FITNESS_CENTER} />
-                <div>
-                  <span>Fitness Center</span>
-                </div>
-              </div>
-            </Col>
-            <Col xs="3" className={"pb-3"}>
-              <div className={"d-flex align-items-center my-2"}>
-                <Icon svg={LIQUOR} />
-                <div>
-                  <span>Bar</span>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-        <UncontrolledCollapse toggler="#toggler">
-          <Container className={"px-0"}>
-            <Row>
-              <Col xs="4">
-                <h6 className="font-weight-bold text-muted">
-                  Hotel facilities
-                </h6>
-                <List className={"pl-4"}>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    24-hour reception
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Airport shuttle
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Breakfast
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Business centre
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Car park
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Cashless payment
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Computer with Internet
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Concierge
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Conference rooms
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Doctor on site
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Free WiFi
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Free WiFi in public areas
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Gym
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Hand sanitizer provided
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Hotel bar
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Hotel safe
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Laundry service
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Lift
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    New safety protocols
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Non-smoking rooms
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Online check in/check out
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Restaurant
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Room service
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Safe distance
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Temperature screening
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    WiFi in public areas
-                  </li>
-                </List>
-              </Col>
-              <Col xs="4">
-                <h6 className="font-weight-bold text-muted">Room facilities</h6>
-                <List className={"pl-4"}>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Air conditioning
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Bathtub (upon inquiry)
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Cable TV
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Central heating
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Desk
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Electric kettle
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Free WiFi (rooms)
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Fridge
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Hairdryer
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Ironing board
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Safe
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Satellite TV
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Shower
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Telephone
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Television
-                  </li>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    WiFi
-                  </li>
-                </List>
-              </Col>
-              <Col xs="4">
-                <h6 className="font-weight-bold text-muted">Accessibility</h6>
-                <List className={"pl-4"}>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Wheelchair accessible
-                  </li>
-                </List>
-                <h6 className="font-weight-bold text-muted">For children</h6>
-                <List className={"pl-4"}>
-                  <li
-                    className="unordered-list__item"
-                    itemProp="amenityFeature"
-                  >
-                    Cot
-                  </li>
-                </List>
-              </Col>
-            </Row>
-          </Container>
-        </UncontrolledCollapse>
-        <a id="toggler" className={"mb-2 text-primary cursor-pointer"}>
-          + All features
-        </a>
-      </section>
-      <section id={"reviews"} className={"mb-4"}>
-        <h4 className={"text-secondary my-2 pt-3"}>Reviews</h4>
-        <Reviews />
-      </section>
-      <section id={"deals"}>
-        <h4
-          className={"text-secondary mt-2"}
-        >
-          Deals
-        </h4>
-        <Container>
-          <Deals/>
-        </Container>
-      </section>
+      <Location/>
+      <Info />
+      <Reviews />
+      <Deals/>
     </>
   );
 
