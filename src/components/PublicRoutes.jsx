@@ -23,10 +23,12 @@ import Footer from "./_common_/components/Footer";
 import {useSelector} from "react-redux";
 import Loader from "./_common_/components/Loader";
 import DetailModal from "./detail/components/DetailModal";
+import ScrollToTop from "./_common_/components/ScrollToTop";
 
 const PublicRoutes = () => {
     const { loading } = useSelector((state) => state.home);
     return <HashRouter>
+        <ScrollToTop/>
         {!loading && <Navigation/>}
         <Switch>
             <Route exact path={HOME} component={Home}/>

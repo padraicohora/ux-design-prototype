@@ -94,6 +94,7 @@ const PhotoSection = ({ images, outsideIndex }) => {
     images.map((image, index) => {
       return (
         <div
+            key={index}
           className={"thumbnail lightbox-image"}
           style={{ backgroundImage: `url(${image})` }}
           onClick={() => {
@@ -241,6 +242,7 @@ const DetailModal = () => {
   }
   const scrollspyItems = navItems.map((item) => (
     <NavHashLink
+        key={item.id}
       to={`#${item.id}`}
       activeClassName="active bg-white text-primary"
       className={
@@ -258,7 +260,7 @@ const DetailModal = () => {
   const Overview = () => {
       return <section id={"overview"}>
         <h4 className={"text-secondary px-3 mb-0 mt-3"}>Overview</h4>
-        <div className={"py-3 rounded shadow-sm mb-4"}>
+        <div className={"pt-3 rounded shadow-sm mb-4"}>
           <div className={"card-heading d-flex px-3"}>
             <div className={"d-flex flex-fill flex-column text-truncate"}>
               <h2 className={"flex-fill text-truncate"}>{title}</h2>
@@ -337,7 +339,7 @@ const DetailModal = () => {
             </Button>
           </div>
           <div
-              className={"image-wrapper lightbox-image"}
+              className={"image-wrapper lightbox-image position-relative"}
               style={{
                 backgroundImage: `url(${mainImage})`,
                 backgroundSize: "cover",
@@ -345,19 +347,21 @@ const DetailModal = () => {
               onClick={() => {
                 setPhotoIndex(images.findIndex((_image) => _image === mainImage));
               }}
-          />
-          <div
-              className={
-                "card-price text-dark flex-fill pt-3 px-3 justify-content-between"
-              }
           >
-            <span className={"price d-flex align-items-center"}>
-              <small className={"mr-2"}>From</small> {price}
-            </span>
-            <Button color={"primary"} className={"rounded-pill mr-2"}>
-              View Offers
-            </Button>
+            <Badge color={"light"} className={"m-3 position-absolute"} style={{bottom:0, fontSize:16}}>From {price}</Badge>
           </div>
+          {/*<div*/}
+          {/*    className={*/}
+          {/*      "card-price text-dark flex-fill pt-3 px-3 justify-content-between"*/}
+          {/*    }*/}
+          {/*>*/}
+          {/*  <span className={"price d-flex align-items-center"}>*/}
+          {/*    <small className={"mr-2"}>From</small> {price}*/}
+          {/*  </span>*/}
+            {/*<Button color={"primary"} className={"rounded-pill mr-2"}>*/}
+            {/*  View Offers*/}
+            {/*</Button>*/}
+          {/*</div>*/}
         </div>
       </section>
   }
@@ -936,7 +940,8 @@ const DetailModal = () => {
                   <MemberReviews/>
                   <a
                       className="text-center w-100 d-block mt-4 font-weight-bold"
-                      href="#"
+                      href="javascript:void(0)"
+
                   >
                     See All Reviews
                   </a>
@@ -949,13 +954,13 @@ const DetailModal = () => {
       </section>
   }
 
-  const Deals = () => {
+  const Rooms = () => {
     const dealData = [
       {
         title:"Economy Double Room",
-        bed: "French bed",
+        bed: "Large Double bed",
         person: 2,
-        image: classicDouble
+        image: classicDouble,
       },
       {
         title:"Classic Double/Twin Room",
@@ -978,7 +983,7 @@ const DetailModal = () => {
     ]
 
     const deals =  dealData.map(deal => (
-        <Row className={"room-deal my-4"} onClick={() => openBooking({deal})}>
+        <Row className={"room-deal my-4"} key={deal.title} onClick={() => openBooking({deal})}>
               <Col sm="3" className={"px-0 overflow-hidden"}>
                 <img src={deal.image} className={"w-100"}/>
               </Col>
@@ -994,10 +999,8 @@ const DetailModal = () => {
     ))
 
     return <section id={"deals"}>
-      <h4
-          className={"text-secondary mt-2"}
-      >
-        Deals
+      <h4 className={"text-secondary mt-2"}>
+        Rooms
       </h4>
       <Container>
         {deals}
@@ -1013,7 +1016,7 @@ const DetailModal = () => {
       <Location/>
       <Info />
       <Reviews />
-      <Deals/>
+      <Rooms/>
     </>
   );
 
@@ -1030,11 +1033,11 @@ const DetailModal = () => {
       footer={
         <div className={"text-center"}>
           <Button color="primary" onClick={closePanel}>
-            Do Something
+            View Offers
           </Button>{" "}
-          <Button color="secondary" onClick={closePanel}>
-            Cancel
-          </Button>
+          {/*<Button color="secondary" onClick={closePanel}>*/}
+          {/*  Compare*/}
+          {/*</Button>*/}
         </div>
       }
     >

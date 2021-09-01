@@ -22,6 +22,11 @@ export default (state = initialState, action = {}) => {
             return {
                 ...state, searchOpen: !state.searchOpen,
             };
+
+        case "OPEN_EXPLORE_TYPE":
+            return {
+                ...state, searchOpen: !state.searchOpen,
+            };
         case "HIDE_SEARCH_BAR":
             return {
                 ...state, searchOpen: false,

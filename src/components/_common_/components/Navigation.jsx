@@ -50,6 +50,7 @@ import { DateRangePicker } from "react-dates";
 import "../../../styles/components/_react_dates_overrides.scss";
 import adventureHotels from "../../../data/json/adventure";
 import romanceHotels from "../../../data/json/romantic";
+import accommodations from "../../../data/json/accommodations";
 import AccommodationCard from "../../home/components/AccommodationCard";
 import locations from "../../../data/json/locations";
 import AssistantWizard from "../../home/components/AssistantWizard";
@@ -111,6 +112,11 @@ const Navigation = (props) => {
     setEndDate(endDate);
   };
 
+  const handleSearchSuggestion = (items) => {
+    dispatch({ type: "SET_LOADING"})
+    history.push(RESULTS);
+    dispatch({ type: "OPEN_EXPLORE_TYPE", payload: items });
+  }
 
   useEffect(() => {
     if(location.length > 2){
@@ -126,7 +132,7 @@ const Navigation = (props) => {
     <div className={"sticky-top"}>
       <Navbar color="white" light expand="md" className={"header-navigation"}>
         <Container>
-          <NavbarBrand onClick={goHome}>book-assist</NavbarBrand>
+          <NavbarBrand onClick={goHome}>🧙🏾‍♂️️ Book Assist</NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto align-items-center" navbar>
@@ -173,7 +179,8 @@ const Navigation = (props) => {
                 <Popover
                     hideArrow
                     fade={true}
-                    trigger="focus"
+                    trigger="legacy"
+                    // isOpen={location.length > 2 && searchRelated.length !== 0 && popoverOpen}
                     isOpen={location.length > 2 && searchRelated.length !== 0 && popoverOpen}
                     placement="bottom-start"
                     target="locationInput"
@@ -197,9 +204,10 @@ const Navigation = (props) => {
                         <ul className={"list-group list-group-flush"}>
                           <LocationList/>
                         </ul>
-                        <Button color={"primary"} outline>
+                        {searchLocations.length > 5 && <Button color={"primary"} outline
+                                 onClick={() => handleSearchSuggestion(accommodations.slice(0,searchLocations.length))}>
                           Show All
-                        </Button>
+                        </Button>}
                       </Col>
                       <Col sm={4}>
                         <h5 className={"d-flex align-items-center justify-content-between mb-4"}>Accommodations
@@ -208,9 +216,10 @@ const Navigation = (props) => {
                         <ul className={"list-group list-group-flush"}>
                           <AccommodationList/>
                         </ul>
-                        <Button color={"primary"} outline>
+                        {searchAccommodations.length > 5 && <Button color={"primary"} outline
+                                                                   onClick={()=>handleSearchSuggestion(searchAccommodations)}>
                           Show All
-                        </Button>
+                        </Button>}
 
                       </Col>
                       <Col sm={4}>
@@ -221,9 +230,10 @@ const Navigation = (props) => {
                         <ul className={"list-group list-group-flush"}>
                           <RelatedList/>
                         </ul>
-                        <Button color={"primary"} outline>
+                        {searchRelated.length > 5 && <Button color={"primary"} outline
+                                                             onClick={()=>handleSearchSuggestion(searchRelated)}>
                           Show All
-                        </Button>
+                        </Button>}
 
                       </Col>
                     </Row>
@@ -443,11 +453,6 @@ const Navigation = (props) => {
               >
                 Search
               </Button>
-              {/*<Link*/}
-              {/*  to={RESULTS}*/}
-              {/*>*/}
-              {/*  Search*/}
-              {/*</Link>*/}
             </div>
           </Form>
         </Container>

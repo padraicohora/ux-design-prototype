@@ -71,10 +71,7 @@ const AccommodationCard = (props) => {
                             </CardSubtitle>
                                 <div className={"card-price text-dark"}>{price}</div>
                             </div>
-
-
                         </div>
-
                     </div>
 
                     <div className={"card-info d-flex align-items-center"}>
@@ -101,7 +98,6 @@ const AccommodationCard = (props) => {
                                     className={"text-muted rating-text"}>{`${reviews} reviews`}</small>
                             </div>}
                         </div>
-
                     </div>
                 </CardBody>
             </Card>

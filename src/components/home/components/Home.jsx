@@ -23,9 +23,11 @@ const Home = () => {
 
   const history = useHistory();
 
-  const openResults = () => {
+  const openResults = (items) => {
+    dispatch({ type: "SET_LOADING"})
     history.push(RESULTS);
-    dispatch({ type: TOGGLE_SEARCH_BAR });
+
+    dispatch({ type: "OPEN_EXPLORE_TYPE", payload: items });
   };
 
   const startAssistant = () => {
@@ -41,8 +43,6 @@ const Home = () => {
       behavior: "smooth",
     });
   };
-
-
 
   return (
     <div>

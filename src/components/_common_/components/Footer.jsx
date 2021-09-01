@@ -77,7 +77,7 @@ const Footer = (props) => {
                     <Icon svg={MESSAGES_ICON}/>
                   </div>
                   <div className="info">
-                    <p><a href="#">hellow@bookp-assist.com</a></p>
+                    <p><a href="#">hello@book-assist.com</a></p>
 
                   </div>
                 </div>

@@ -128,6 +128,11 @@ export default (state = initialState, action = {}) => {
         results,
         accommodationDetail,
       };
+    case "OPEN_EXPLORE_TYPE":
+      return {
+        ...state,
+        results: action.payload,
+      };
     case "SET_SEARCH_SORT":
       results = _.clone(state.results);
 

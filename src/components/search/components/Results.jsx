@@ -181,8 +181,11 @@ const Results = (props) => {
                 <Row>
                     <List/>
                 </Row>
-
+                <div className={"text-center my-5"}>
+                    <Button color={"primary"} outline size={"lg"}>Show More</Button>
+                </div>
             </Container>
+
         </div>
     </div>
 }
