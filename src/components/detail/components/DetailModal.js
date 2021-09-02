@@ -56,9 +56,10 @@ import {
   REVIEWS,
   ROOM_SERVICE,
   SPA,
-  STAR_RATE,
+  STAR_RATE, SUPPORT_AGENT,
   THUMB_DOWN,
-  THUMB_UP, USERS,
+  THUMB_UP,
+  USERS,
   WIFI,
 } from "../../_common_/constants/icons";
 import Icon from "../../_common_/components/Icon";
@@ -236,9 +237,10 @@ const DetailModal = () => {
     },
   ];
 
-  const openBooking = (items) => {
-    console.log(`items`, items.deal)
-    closePanel()
+  const openBooking = (item) => {
+    closePanel();
+    dispatch({type:"OPEN_ACCOMMODATION", payload:item})
+    history.push(BOOKING);
   }
   const scrollspyItems = navItems.map((item) => (
     <NavHashLink
@@ -983,7 +985,7 @@ const DetailModal = () => {
     ]
 
     const deals =  dealData.map(deal => (
-        <Row className={"room-deal my-4"} key={deal.title} onClick={() => openBooking({deal})}>
+        <Row className={"room-deal my-4"} key={deal.title} onClick={() => openBooking({deal, accommodation})}>
               <Col sm="3" className={"px-0 overflow-hidden"}>
                 <img src={deal.image} className={"w-100"}/>
               </Col>
@@ -1032,12 +1034,13 @@ const DetailModal = () => {
       onRequestClose={closePanel}
       footer={
         <div className={"text-center"}>
-          <Button color="primary" onClick={closePanel}>
+          <Button color="primary" onClick={() => openBooking({ accommodation })} className={"mx-2"} style={{minWidth:"8rem"}}>
             View Offers
-          </Button>{" "}
-          {/*<Button color="secondary" onClick={closePanel}>*/}
-          {/*  Compare*/}
-          {/*</Button>*/}
+          </Button>
+          <Button color="light" className={"mx-2"} style={{minWidth:"8rem"}}>
+            <Icon svg={SUPPORT_AGENT} className={"mr-1"}/>
+            Live Chat
+          </Button>
         </div>
       }
     >
@@ -1050,6 +1053,7 @@ const DetailModal = () => {
           >
             {scrollspyItems}
           </Scrollspy>
+
         </div>
         <div className={"flex-fill"} style={{ marginLeft: "120px" }}>
           <ScrollSections />

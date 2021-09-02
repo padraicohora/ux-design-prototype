@@ -14,6 +14,8 @@ import classnames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
 import {ensureNonNull} from "../../_common_/Utils";
 import TextTruncate from 'react-text-truncate';
+import {BOOKING} from "../../booking/constants";
+import {useHistory} from "react-router-dom";
 
 const AssistantCard = ({
     image,
@@ -25,7 +27,8 @@ const AssistantCard = ({
     reviews,
     assistant,
     number,
-    onOpen
+    onOpen,
+    item
 }) => {
 
     const { wizardOpen, assistDate, results,
@@ -34,6 +37,9 @@ const AssistantCard = ({
         assistAccommodation,
         assistLocation,
         assistPersonalisation } = useSelector((state) => state.assist);
+
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     function calculateRating(rating) {
         const number = parseFloat(rating) * 10;
@@ -55,6 +61,12 @@ const AssistantCard = ({
                 {ensureNonNull(assistAccommodation).label}
             </Badge>
         </>
+    }
+
+
+    const openBooking = () => {
+        dispatch({type:"OPEN_ACCOMMODATION", payload:item})
+        history.push(BOOKING);
     }
 
     const rootClass = classnames("accommodation-card p-4 position-relative", {
@@ -106,7 +118,7 @@ const AssistantCard = ({
                         <div className={"d-flex flex-column align-self-start"}>
 
                             <div className={"card-price text-dark mb-3 mt-1"}>From {price}</div>
-                            <Button color={"primary"} outline>View Offers</Button>
+                            <Button color={"primary"} outline onClick={openBooking}>View Offers</Button>
                         </div>
                     </div>
                     <BadgeList />
@@ -120,7 +132,7 @@ const AssistantCard = ({
                                 textTruncateChild={<a href="#" onClick={(e)=> {
                                     e.preventDefault();
                                     onOpen()
-                                }}>Read on</a>}
+                                }}>More information</a>}
                             />
                         </CardText>
                     </div>

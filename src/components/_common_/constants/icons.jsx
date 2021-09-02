@@ -68,6 +68,7 @@ import {StarRate} from "@styled-icons/material/StarRate";
 import {ThumbUp} from "@styled-icons/material/ThumbUp";
 import {ThumbDown} from "@styled-icons/material/ThumbDown";
 import {Bed} from "@styled-icons/material/Bed";
+import {SupportAgent} from "@styled-icons/material/SupportAgent";
 
 // material-outlined
 import {AccessTime} from "@styled-icons/material-outlined/AccessTime";
@@ -145,3 +146,4 @@ export const STAR_RATE = <StarRate/>;
 export const THUMB_DOWN = <ThumbDown/>;
 export const THUMB_UP = <ThumbUp/>;
 export const BED = <Bed/>;
+export const SUPPORT_AGENT = <SupportAgent/>;

@@ -25,7 +25,11 @@ export default (state = initialState, action = {}) => {
 
         case "OPEN_EXPLORE_TYPE":
             return {
-                ...state, searchOpen: !state.searchOpen,
+                ...state, searchOpen: false,
+            };
+        case "OPEN_ACCOMMODATION":
+            return {
+                ...state, searchOpen: false,
             };
         case "HIDE_SEARCH_BAR":
             return {

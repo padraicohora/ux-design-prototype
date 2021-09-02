@@ -68,15 +68,6 @@ const AssistantWizard = (props) => {
     history.push(ASSISTANT);
   };
 
-  const steps = [
-    "Welcome",
-    "Dates",
-    "Stay Type",
-    "Accommodation",
-    "Location",
-    "Personalise",
-  ];
-
     const stayTypeOptions = [ { icon: "⛳", label: "Family Fun Holiday" },
         { icon: "💋", label: "Romantic Getaway" }, { icon: "🛀", label: "Relaxing Break" },
         { icon: "🛶", label: "Adventure" }, { icon: "💼", label: "Work Related" }, ];
@@ -126,6 +117,15 @@ const AssistantWizard = (props) => {
         description: "is highly ratings and reviews"
     },
   ];
+
+    const steps = [
+        "Welcome",
+        "Dates",
+        "Stay Type",
+        "Accommodation",
+        "Location",
+        "Personalise",
+    ];
 
   const WizardSteps = () =>
     steps.map((step, index) => {

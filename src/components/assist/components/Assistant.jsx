@@ -41,7 +41,7 @@ const Assistant = (props) => {
         let items;
         if(!_.isEmpty(results)){
                 items = results.map((result, index)=>{
-                    return <Col sm={"12"}><AssistantCard {...result} key={result.id} assistant number={index} onOpen={() => togglePanel(result)}/></Col>  })
+                    return <Col sm={"12"}><AssistantCard {...result} item={result} key={result.id} assistant number={index} onOpen={() => togglePanel(result)}/></Col>  })
         }else{
             return <Redirect to={HOME} />
         }
