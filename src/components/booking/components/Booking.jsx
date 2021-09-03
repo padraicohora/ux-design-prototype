@@ -80,7 +80,7 @@ const Booking = (props) => {
                     </div>
                 </Col>
             </Row>
-            
+
             ));
 
         return <section id={"deals"}>

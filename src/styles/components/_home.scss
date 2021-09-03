@@ -208,3 +208,23 @@ button.icon-button{
 .map-image svg{
   height: 40px!important;
 }
+
+#picklist-1.form-control{
+  border-left: 0;
+  padding: 0;
+  span:after{
+    color:$secondary
+  }
+  #picklist-input-1{
+    border-radius: 0;
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    height: calc(1.5em + 0.75rem + 2px);
+    &:hover{
+      box-shadow: none;
+      background-color: transparent;
+    }
+  }
+}

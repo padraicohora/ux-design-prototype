@@ -107,11 +107,11 @@ const Results = (props) => {
             if(freeCancellationOnly){
                 items = results.filter(item => item.freeCancellation !== true)
                 items = items.map((result)=>{
-                    return <Col sm={"3"}><AccommodationCard {...result} key={result.id}/></Col>
+                    return <Col sm={"3"}><AccommodationCard {...result} location={location} key={result.id} startDate={startDate} endDate={endDate}/></Col>
                 })
             }else{
                 items = results.map((result)=>{
-                    return <Col sm={"3"}><AccommodationCard {...result} key={result.id}/></Col>  })
+                    return <Col sm={"3"}><AccommodationCard {...result} location={location} key={result.id} startDate={startDate} endDate={endDate}/></Col>  })
             }
         }else{
             return <Redirect to={HOME} />
@@ -130,7 +130,7 @@ const Results = (props) => {
                         Results for&nbsp;
                         <strong className={"pl-1"}>{location}</strong>
                         &nbsp;between&nbsp;
-                        <strong>{`${startDate.format(dateFormat)} - ${endDate.format(dateFormat)}`}</strong>
+                        <strong>{`${startDate && startDate.format(dateFormat)} - ${endDate && endDate.format(dateFormat)}`}</strong>
                         &nbsp;for&nbsp;
                         <strong>{guestString(adults, children, rooms)}</strong>
                         <small className={"pl-1"}>{`(${results ? results.length : 0} results)`}</small>

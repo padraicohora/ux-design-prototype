@@ -30,7 +30,8 @@ const AccommodationCard = (props) => {
         locationBased,
         city,
         country,
-        accomodations
+        accomodations,
+        endDate, startDate
     } = props;
     const dispatch = useDispatch();
     const { panelOpen, accommodation } = useSelector((state) => state.detail, shallowEqual);

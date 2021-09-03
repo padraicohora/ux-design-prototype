@@ -37,11 +37,15 @@ const Assistant = (props) => {
         dispatch({ type: "RESTART_BOOK_ASSIST_WIZARD", payload:true })
     };
 
+    console.log(`assistDate`, assistDate)
     const List = () => {
         let items;
         if(!_.isEmpty(results)){
                 items = results.map((result, index)=>{
-                    return <Col sm={"12"}><AssistantCard {...result} item={result} key={result.id} assistant number={index} onOpen={() => togglePanel(result)}/></Col>  })
+                    return <Col sm={"12"}><AssistantCard {...result} item={result} key={result.id}
+                                                         startDate={assistDate.startDate}
+                                                         endDate={assistDate.endDate}
+                                                         assistant number={index} onOpen={() => togglePanel(result)}/></Col>  })
         }else{
             return <Redirect to={HOME} />
         }
