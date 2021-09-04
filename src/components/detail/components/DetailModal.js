@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Scrollspy from "react-scrollspy";
 import { NavHashLink } from "react-router-hash-link";
 import { useLocation, useHistory } from "react-router-dom";
+import { DateRangePicker } from "react-dates";
+import _ from "lodash"
 import {
   Alert,
   Badge,
@@ -22,7 +24,12 @@ import {
   List,
   Container,
   Row,
-  Col, UncontrolledTooltip,
+  Col,
+  UncontrolledTooltip,
+  FormGroup,
+  Label,
+  InputGroup,
+  InputGroupAddon, InputGroupText,
 } from "reactstrap";
 import {
   Drawer,
@@ -41,7 +48,7 @@ import {
   BED,
   BOOKMARK,
   BOOKMARK_BORDER,
-  CALENDAR,
+  CALENDAR, EDIT_ICON,
   FITNESS_CENTER,
   IMAGE,
   INFO,
@@ -56,7 +63,8 @@ import {
   REVIEWS,
   ROOM_SERVICE,
   SPA,
-  STAR_RATE, SUPPORT_AGENT,
+  STAR_RATE,
+  SUPPORT_AGENT,
   THUMB_DOWN,
   THUMB_UP,
   USERS,
@@ -74,6 +82,7 @@ import classnames from "classnames";
 import { toast } from "react-toastify";
 import {reviewData} from "../../../data/json/reviews"
 import {BOOKING} from "../../booking/constants";
+import {dateFormat} from "../../search/components/Results";
 
 const extra = ["Excellent Staff", "Cosy "];
 
@@ -137,6 +146,16 @@ const DetailModal = () => {
   );
   const [photoIndex, setPhotoIndex] = useState(0);
 
+  const [localStartDate, setStartDate] = useState();
+  const [localEndDate, setEndDate] = useState();
+  const [datesFocused, setDatesFocused] = useState();
+  const setSearchDates = ({ startDate, endDate }) => {
+    setStartDate(startDate);
+    setEndDate(endDate);
+    dispatch({
+        type: "SET_DETAIL_TIME", payload: {startDate, endDate} });
+  };
+
   const { images } = useSelector((state) => state.detail, shallowEqual);
   const { panelOpen, accommodation } = useSelector(
     (state) => state.detail,
@@ -158,6 +177,8 @@ const DetailModal = () => {
     city,
     country,
     accomodations,
+      startDate,
+      endDate
   } = ensureNonNull(accommodation);
   const dispatch = useDispatch();
   const browserLocation = useLocation();
@@ -984,8 +1005,8 @@ const DetailModal = () => {
       },
     ]
 
-    const deals =  dealData.map(deal => (
-        <Row className={"room-deal my-4"} key={deal.title} onClick={() => openBooking({deal, accommodation})}>
+    const deals =  _.sampleSize(dealData, getRandomInt(-1, 3)).map(deal => (
+        <Row className={"room-deal my-4"} key={deal.title} onClick={() => startDate && endDate && openBooking({deal, accommodation})}>
               <Col sm="3" className={"px-0 overflow-hidden"}>
                 <img src={deal.image} className={"w-100"}/>
               </Col>
@@ -1001,12 +1022,133 @@ const DetailModal = () => {
     ))
 
     return <section id={"deals"}>
-      <h4 className={"text-secondary mt-2"}>
-        Rooms
-      </h4>
-      <Container>
-        {deals}
-      </Container>
+      {/*{(startDate && endDate)*/}
+      {/*    ? <div className={"d-flex justify-content-between flex-row"}>*/}
+      {/*  <h4 className={"text-secondary mt-2"}>*/}
+      {/*  Rooms*/}
+      {/*</h4>*/}
+      {/*  <span>*/}
+      {/*        <Badge className={"align-self-center p-1"} color={"grey"}>*/}
+      {/*          {startDate.format(dateFormat)} - {endDate.format(dateFormat)}*/}
+      {/*        </Badge>*/}
+      {/*        <Button*/}
+      {/*            className={bookmarkClass}*/}
+      {/*            color={"light"}*/}
+      {/*            size={"sm"}*/}
+      {/*            onClick={() => dispatch({ type: "REMOVE_DETAIL_TIME" })}*/}
+      {/*        >*/}
+      {/*        <Icon svg={EDIT_ICON}/>*/}
+      {/*        </Button>*/}
+      {/*      </span>*/}
+      {/*    </div>*/}
+      {/*      : <div>*/}
+      {/*      <h4 className={"text-secondary mt-2"}>*/}
+      {/*        Rooms*/}
+      {/*      </h4>*/}
+      {/*      <Alert color="warning" className={"d-flex justify-content-between flex-row"}>*/}
+      {/*        <div>*/}
+      {/*          <strong className={"d-block"}>No dates selected</strong>*/}
+      {/*          You must select a date to view the rooms*/}
+      {/*        </div>*/}
+      {/*        <FormGroup className="mb-2 mb-sm-0 text-left">*/}
+      {/*          <InputGroup*/}
+      {/*              style={{width:"240px"}}*/}
+      {/*              className={`flex-fill ${datesFocused ? "focused" : null}`}*/}
+      {/*          >*/}
+      {/*            <InputGroupAddon addonType="prepend">*/}
+      {/*              <InputGroupText*/}
+      {/*                  className={datesFocused ? "border-primary" : null}*/}
+      {/*              >*/}
+      {/*                <Icon svg={CALENDAR} />*/}
+      {/*              </InputGroupText>*/}
+      {/*            </InputGroupAddon>*/}
+      {/*            <DateRangePicker*/}
+      {/*                startDate={localStartDate}*/}
+      {/*                startDateId="your_unique_start_date_id"*/}
+      {/*                endDate={localEndDate}*/}
+      {/*                endDateId="your_unique_end_date_id"*/}
+      {/*                onDatesChange={setSearchDates}*/}
+      {/*                focusedInput={datesFocused}*/}
+      {/*                onFocusChange={(focusedInput) =>*/}
+      {/*                    setDatesFocused(focusedInput)*/}
+      {/*                }*/}
+      {/*                customArrowIcon={<></>}*/}
+      {/*                displayFormat={"DD/MM/YYYY"}*/}
+      {/*                hideKeyboardShortcutsPanel*/}
+      {/*                small*/}
+      {/*            />*/}
+      {/*          </InputGroup>*/}
+      {/*        </FormGroup>*/}
+      {/*      </Alert>*/}
+      {/*      </div>}*/}
+
+      {(startDate && endDate) ? <>
+            <div className={"d-flex justify-content-between flex-row"}>
+              <h4 className={"text-secondary mt-2"}>
+                Rooms {`(${deals.length})`}
+              </h4>
+              <span>
+              <Badge className={"align-self-center p-1"} color={"grey"}>
+                {startDate.format(dateFormat)} - {endDate.format(dateFormat)}
+              </Badge>
+              <Button
+                  className={bookmarkClass}
+                  color={"light"}
+                  size={"sm"}
+                  onClick={() => dispatch({ type: "REMOVE_DETAIL_TIME" })}
+              >
+              <Icon svg={EDIT_ICON}/>
+              </Button>
+            </span>
+            </div>
+            <Container>
+            {deals.length === 0 ? <Alert color="danger">
+             No rooms were available for you selected dates,  please re-select dates again
+            </Alert> : deals}
+          </Container>
+          </>
+          : <>
+            <div>
+              <h4 className={"text-secondary mt-2"}>
+                Rooms
+              </h4>
+              <Alert color="warning" className={"d-flex justify-content-between flex-row p-4"}>
+                <div>
+                  <strong className={"d-block"}>No dates selected</strong>
+                  You must select a date to view the rooms
+                </div>
+                <FormGroup className="mb-2 mb-sm-0 text-left align-self-center">
+                  <InputGroup
+                      style={{ width: "240px" }}
+                      className={`flex-fill ${datesFocused ? "focused" : null}`}
+                  >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText
+                          className={datesFocused ? "border-primary" : null}
+                      >
+                        <Icon svg={CALENDAR}/>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <DateRangePicker
+                        startDate={localStartDate}
+                        startDateId="your_unique_start_date_id"
+                        endDate={localEndDate}
+                        endDateId="your_unique_end_date_id"
+                        onDatesChange={setSearchDates}
+                        focusedInput={datesFocused}
+                        onFocusChange={(focusedInput) => setDatesFocused(focusedInput)}
+                        customArrowIcon={<></>}
+                        displayFormat={"DD/MM/YYYY"}
+                        hideKeyboardShortcutsPanel
+                        small
+                    />
+                  </InputGroup>
+                </FormGroup>
+              </Alert>
+            </div>
+            <div style={{ minHeight: "350px" }}/>
+          </>
+      }
     </section>
 
   }
@@ -1023,6 +1165,9 @@ const DetailModal = () => {
   );
 
   const scrollSpyItems = navItems.map(item => item.id)
+
+  console.log("startDate", startDate )
+  console.log("endDate", endDate )
 
   return (
     <Drawer

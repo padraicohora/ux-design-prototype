@@ -27,6 +27,7 @@ import DateRangePicker from "react-dates/esm/components/DateRangePicker";
 import moment from "moment";
 import {ASSISTANT} from "../../assist/constants";
 import {useHistory} from "react-router-dom";
+import { Picklist, Option } from 'react-rainbow-components';
 
 const AssistantWizard = (props) => {
   const { wizardOpen, assistDate,
@@ -396,6 +397,38 @@ const Dates = (props) => {
     const off_season = "When it's off season";
     const when_there_is_snow = "When there is snow";
     const christmas_new_year = "At Christmas and New Year";
+    const seasonTypes = [
+        {
+            label: when_its_hot,
+            name:"1",
+            startDate:moment("2022-06-01"),
+            endDate:moment("2022-09-01"),
+        },
+        {
+            label: not_too_hot,
+            name:"2",
+            startDate:moment("2022-03-01"),
+            endDate:moment("2022-05-01"),
+        },
+        {
+            label: off_season,
+            name:"3",
+            startDate:moment("2022-09-01"),
+            endDate:moment("2022-11-01"),
+        },
+        {
+            label: when_there_is_snow,
+            name:"4",
+            startDate:moment("2022-11-01"),
+            endDate:moment("2022-03-01"),
+        },
+        {
+            label: when_there_is_snow,
+            name:"4",
+            startDate:moment("2022-11-01"),
+            endDate:moment("2022-03-01"),
+        }
+    ]
     const [type, setType] = useState(assistSeason);
     const [typeFocused, setTypeFocused] = useState(false);
 
@@ -420,7 +453,7 @@ const Dates = (props) => {
     >
         <div className={"d-flex flex-fill justify-content-center px-2 text-center"}>
             <FormGroup className="mb-2 mb-sm-0 px-3 text-left">
-                <Label className={"h5 font-weight-bold"}>Have a date?</Label>
+                <Label className={"font-weight-bold"}>Select a date</Label>
                 <InputGroup
                     style={{width:"240px"}}
                     className={`flex-fill ${datesFocused ? "focused" : null}`}
@@ -449,54 +482,72 @@ const Dates = (props) => {
                     />
                 </InputGroup>
             </FormGroup>
-            <FormGroup className="mb-2 mb-sm-0 px-3 text-left">
-                <Label className={"h5 font-weight-bold"}>Or the season?</Label>
-                <UncontrolledDropdown setActiveFromChild style={{width:"240px"}}>
-                        <DropdownToggle
-                            tag="Input"
-                            className={dropdownClass}
-                            caret
-                            value={type ? type : "Select season"}
-                            onChange={()=>null}
-                            onFocus={() => setTypeFocused(true)}
-                            onBlur={() => setTypeFocused(false)}
-                        >
-                            {type ? type : "Select season"}
-                        </DropdownToggle>
-                        <DropdownMenu>
-                            <DropdownItem
-                                active={type === when_its_hot}
-                                onClick={() => setType(when_its_hot)}
-                            >
-                                {when_its_hot}
-                            </DropdownItem>
-                            <DropdownItem
-                                active={type === not_too_hot}
-                                onClick={() => setType(not_too_hot)}
-                            >
-                                {not_too_hot}
-                            </DropdownItem>
-                            <DropdownItem
-                                active={type === off_season}
-                                onClick={() => setType(off_season)}
-                            >
-                                {off_season}
-                            </DropdownItem>
-                            <DropdownItem
-                                active={type === when_there_is_snow}
-                                onClick={() => setType(when_there_is_snow)}
-                            >
-                                {when_there_is_snow}
-                            </DropdownItem>
-                            <DropdownItem
-                                active={type === christmas_new_year}
-                                onClick={() => setType(christmas_new_year)}
-                            >
-                                {christmas_new_year}
-                            </DropdownItem>
-                        </DropdownMenu>
-                    </UncontrolledDropdown>
-            </FormGroup>
+            {/*<FormGroup className="mb-2 mb-sm-0 px-3 text-left">*/}
+            {/*    <Label className={"h5 font-weight-bold"}>Or the season?</Label>*/}
+            {/*    <UncontrolledDropdown setActiveFromChild style={{width:"240px"}}>*/}
+            {/*            <DropdownToggle*/}
+            {/*                tag="Input"*/}
+            {/*                className={dropdownClass}*/}
+            {/*                caret*/}
+            {/*                value={type ? type : "Select season"}*/}
+            {/*                onChange={()=>null}*/}
+            {/*                onFocus={() => setTypeFocused(true)}*/}
+            {/*                onBlur={() => setTypeFocused(false)}*/}
+            {/*            >*/}
+            {/*                {type ? type : "Select season"}*/}
+            {/*            </DropdownToggle>*/}
+            {/*            <DropdownMenu>*/}
+            {/*                <DropdownItem*/}
+            {/*                    active={type === when_its_hot}*/}
+            {/*                    onClick={() => setType(when_its_hot)}*/}
+            {/*                >*/}
+            {/*                    {when_its_hot}*/}
+            {/*                </DropdownItem>*/}
+            {/*                <DropdownItem*/}
+            {/*                    active={type === not_too_hot}*/}
+            {/*                    onClick={() => setType(not_too_hot)}*/}
+            {/*                >*/}
+            {/*                    {not_too_hot}*/}
+            {/*                </DropdownItem>*/}
+            {/*                <DropdownItem*/}
+            {/*                    active={type === off_season}*/}
+            {/*                    onClick={() => setType(off_season)}*/}
+            {/*                >*/}
+            {/*                    {off_season}*/}
+            {/*                </DropdownItem>*/}
+            {/*                <DropdownItem*/}
+            {/*                    active={type === when_there_is_snow}*/}
+            {/*                    onClick={() => setType(when_there_is_snow)}*/}
+            {/*                >*/}
+            {/*                    {when_there_is_snow}*/}
+            {/*                </DropdownItem>*/}
+            {/*                <DropdownItem*/}
+            {/*                    active={type === christmas_new_year}*/}
+            {/*                    onClick={() => setType(christmas_new_year)}*/}
+            {/*                >*/}
+            {/*                    {christmas_new_year}*/}
+            {/*                </DropdownItem>*/}
+            {/*            </DropdownMenu>*/}
+            {/*        </UncontrolledDropdown>*/}
+            {/*    <Picklist*/}
+            {/*        id="picklist-3"*/}
+            {/*        className={dropdownClass}*/}
+            {/*        placeholder="Select season"*/}
+            {/*        onChange={value => setType(({ value })}*/}
+            {/*        value={type}*/}
+            {/*        label="Or the season?"*/}
+            {/*    >*/}
+            {/*        <Option name="option 1" label="All Buildings" icon={<DashboardIcon />} />*/}
+            {/*        <Option name="option 2" label="New Building" icon={<AddFilledIcon />} />*/}
+            {/*        <Option name="header" label="Your Buildings" variant="header" />*/}
+            {/*        <Option name="option 3" label="Experimental" icon={<BuildingIcon />} />*/}
+            {/*        <Option name="option 4" label="Bennet Towers" icon={<BuildingIcon />} />*/}
+            {/*        <Option name="option 5" label="Empire State" icon={<BuildingIcon />} />*/}
+            {/*        <Option name="option 6" label="Central Park" icon={<BuildingIcon />} />*/}
+            {/*        <Option name="option 7" label="Chrysler" icon={<BuildingIcon />} />*/}
+            {/*        <Option name="option 8" label="Plaza" icon={<BuildingIcon />} />*/}
+            {/*    </Picklist>*/}
+            {/*</FormGroup>*/}
         </div>
     </WizardScreen>
   );

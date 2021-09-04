@@ -24,7 +24,26 @@ export default (state = initialState, action = {}) => {
                     ...initialState
                 };
             }
-
+        case "REMOVE_DETAIL_TIME":{
+            return {
+                ...state,
+                accommodation: {
+                    ...state.accommodation,
+                    startDate:null,
+                    endDate:null,
+                },
+            };
+        }
+        case "SET_DETAIL_TIME":{
+            return {
+                ...state,
+                accommodation: {
+                    ...state.accommodation,
+                    startDate:action.payload.startDate,
+                    endDate:action.payload.endDate,
+                },
+            };
+        }
         default: {
             return state;
         }

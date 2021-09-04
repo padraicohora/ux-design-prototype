@@ -11,13 +11,14 @@ import React from "react";
 import Icon from "../../_common_/components/Icon";
 import {PIN_DROP} from "../../_common_/constants/icons";
 import classnames from "classnames";
-import {useDispatch, useSelector} from "react-redux";
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {ensureNonNull} from "../../_common_/Utils";
 import TextTruncate from 'react-text-truncate';
 import {BOOKING} from "../../booking/constants";
 import {useHistory} from "react-router-dom";
 
-const AssistantCard = ({
+const AssistantCard = (props) => {
+const {
     image,
     title,
     location,
@@ -29,14 +30,14 @@ const AssistantCard = ({
     number,
     onOpen,
     item
-}) => {
-
+} = props
     const { wizardOpen, assistDate, results,
         assistSeason,
         assistHolidayType,
         assistAccommodation,
         assistLocation,
         assistPersonalisation } = useSelector((state) => state.assist);
+    const { panelOpen } = useSelector((state) => state.detail, shallowEqual);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -75,8 +76,14 @@ const AssistantCard = ({
     const cardClass = classnames( {
         assistant,
     })
+
+
+    const togglePanel = () => {
+        dispatch({ type: "SHOW_DETAIL_PANEL", payload: panelOpen ? null : props });
+    };
+
     return (
-        <div className={rootClass}>
+        <div className={rootClass} onClick={() => togglePanel()}>
             <div className={`assistant-rating ${number === 0 && "top-result"}`} style={{backgroundColor: number === 0 ? "gold" : "silver"}}><span>{number+1}</span></div>
             <Card className={cardClass}>
                 <div className={"image-wrapper"} style={{backgroundImage:`url(${image})`}}>

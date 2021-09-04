@@ -37,7 +37,6 @@ const Assistant = (props) => {
         dispatch({ type: "RESTART_BOOK_ASSIST_WIZARD", payload:true })
     };
 
-    console.log(`assistDate`, assistDate)
     const List = () => {
         let items;
         if(!_.isEmpty(results)){
