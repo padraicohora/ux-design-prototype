@@ -58,10 +58,6 @@ import Icon from "../../_common_/components/Icon";
 import {calculateRating} from "../../home/components/AccommodationCard";
 import {getRandomInt} from "../../home/reducers";
 import map from "../../../assets/map.jpg";
-import classicDouble from "../../../assets/rooms/classic-double.jpg";
-import familyRoom from "../../../assets/rooms/family-room.jpg";
-import superiorRoom from "../../../assets/rooms/superior-double.jpg";
-import twinRoom from "../../../assets/rooms/twin-room.jpg";
 import classnames from "classnames";
 import {toast} from "react-toastify";
 import {reviewData} from "../../../data/json/reviews";
@@ -129,8 +125,7 @@ const DetailModal = () => {
         });
     };
 
-    const { images } = useSelector((state) => state.detail, shallowEqual);
-    const { panelOpen, accommodation } = useSelector((state) => state.detail, shallowEqual);
+    const { panelOpen, accommodation, images, deals } = useSelector((state) => state.detail, shallowEqual);
 
     const {
         image,
@@ -146,7 +141,6 @@ const DetailModal = () => {
         group,
         city,
         country,
-        accomodations,
         startDate,
         endDate
     } = ensureNonNull(accommodation);
@@ -202,11 +196,15 @@ const DetailModal = () => {
         label: "Reviews", id: "reviews", icon: REVIEWS,
     }, {
         label: "Deals", id: "deals", icon: LOCAL_OFFER,
-    }, ];
+    } ];
 
     const openBooking = (item) => {
-        closePanel();
         dispatch({ type: "OPEN_ACCOMMODATION", payload: item });
+        const resetLocation = {
+            ...browserLocation, hash: "",
+        };
+        history.push(resetLocation);
+        setExtraIndex(getRandomInt(0, extra.length - 1));
         history.push(BOOKING);
     };
     const scrollspyItems = navItems.map((item) => (<NavHashLink
@@ -921,23 +919,10 @@ const DetailModal = () => {
     };
 
     const Rooms = () => {
-        const dealData = [ {
-            title: "Economy Double Room", bed: "Large Double bed", person: 2, image: classicDouble,
-        }, {
-            title: "Classic Double/Twin Room",
-            bed: "Double bed, Twin bed",
-            person: 2,
-            image: twinRoom
-        }, {
-            title: "Superior Double Room", bed: "Queen bed", person: 2, image: superiorRoom
-        }, {
-            title: "Family Room", bed: "Double bed, Single bed", person: 5, image: familyRoom
-        }, ];
 
-        const deals = _.sampleSize(dealData, getRandomInt(-1, 3))
-        .map(deal => (<Row className={"room-deal my-4"} key={deal.title}
+        const roomDeals = deals.map(deal => (<Row className={"room-deal my-4"} key={deal.title}
                            onClick={() => startDate && endDate &&
-                               openBooking({ deal, accommodation })}>
+                               openBooking({ deal, accommodation, deals })}>
             <Col sm="3" className={"px-0 overflow-hidden"}>
                 <img src={deal.image} className={"w-100"}/>
             </Col>
@@ -955,65 +940,6 @@ const DetailModal = () => {
         </Row>));
 
         return <section id={"deals"}>
-            {/*{(startDate && endDate)*/}
-            {/*    ? <div className={"d-flex justify-content-between flex-row"}>*/}
-            {/*  <h4 className={"text-secondary mt-2"}>*/}
-            {/*  Rooms*/}
-            {/*</h4>*/}
-            {/*  <span>*/}
-            {/*        <Badge className={"align-self-center p-1"} color={"grey"}>*/}
-            {/*          {startDate.format(dateFormat)} - {endDate.format(dateFormat)}*/}
-            {/*        </Badge>*/}
-            {/*        <Button*/}
-            {/*            className={bookmarkClass}*/}
-            {/*            color={"light"}*/}
-            {/*            size={"sm"}*/}
-            {/*            onClick={() => dispatch({ type: "REMOVE_DETAIL_TIME" })}*/}
-            {/*        >*/}
-            {/*        <Icon svg={EDIT_ICON}/>*/}
-            {/*        </Button>*/}
-            {/*      </span>*/}
-            {/*    </div>*/}
-            {/*      : <div>*/}
-            {/*      <h4 className={"text-secondary mt-2"}>*/}
-            {/*        Rooms*/}
-            {/*      </h4>*/}
-            {/*      <Alert color="warning" className={"d-flex justify-content-between flex-row"}>*/}
-            {/*        <div>*/}
-            {/*          <strong className={"d-block"}>No dates selected</strong>*/}
-            {/*          You must select a date to view the rooms*/}
-            {/*        </div>*/}
-            {/*        <FormGroup className="mb-2 mb-sm-0 text-left">*/}
-            {/*          <InputGroup*/}
-            {/*              style={{width:"240px"}}*/}
-            {/*              className={`flex-fill ${datesFocused ? "focused" : null}`}*/}
-            {/*          >*/}
-            {/*            <InputGroupAddon addonType="prepend">*/}
-            {/*              <InputGroupText*/}
-            {/*                  className={datesFocused ? "border-primary" : null}*/}
-            {/*              >*/}
-            {/*                <Icon svg={CALENDAR} />*/}
-            {/*              </InputGroupText>*/}
-            {/*            </InputGroupAddon>*/}
-            {/*            <DateRangePicker*/}
-            {/*                startDate={localStartDate}*/}
-            {/*                startDateId="your_unique_start_date_id"*/}
-            {/*                endDate={localEndDate}*/}
-            {/*                endDateId="your_unique_end_date_id"*/}
-            {/*                onDatesChange={setSearchDates}*/}
-            {/*                focusedInput={datesFocused}*/}
-            {/*                onFocusChange={(focusedInput) =>*/}
-            {/*                    setDatesFocused(focusedInput)*/}
-            {/*                }*/}
-            {/*                customArrowIcon={<></>}*/}
-            {/*                displayFormat={"DD/MM/YYYY"}*/}
-            {/*                hideKeyboardShortcutsPanel*/}
-            {/*                small*/}
-            {/*            />*/}
-            {/*          </InputGroup>*/}
-            {/*        </FormGroup>*/}
-            {/*      </Alert>*/}
-            {/*      </div>}*/}
 
             {(startDate && endDate) ? <>
                 <div className={"d-flex justify-content-between flex-row"}>
@@ -1028,21 +954,26 @@ const DetailModal = () => {
                             className={bookmarkClass}
                             color={"light"}
                             size={"sm"}
-                            onClick={() => dispatch({ type: "REMOVE_DETAIL_TIME" })}
+                            onClick={() => {
+                                setStartDate(null);
+                                setEndDate(null);
+                                dispatch({ type: "REMOVE_DETAIL_TIME" });
+                            }}
                         >
                             <Icon svg={EDIT_ICON}/>
                         </Button>
                     </div>
                 </div>
-
-                {deals.length === 0 ? <Alert color="danger" className={"my-3"}>
+                {deals.length === 0 ? <Alert color="danger"
+                                             className={"mt-3 mb-2 d-flex flex-column"}>
                     No rooms were available for you selected dates, please re-select dates again
                     <Button onClick={() => dispatch({ type: "REMOVE_DETAIL_TIME" })}
-                            className={"my-2 btn-outline-primary"} color={"light"}>Select New
-                        Dates</Button>
+                            className={"my-3 align-self-start btn-outline-primary"}
+                            color={"light"}>Select New Dates</Button>
                 </Alert> : <Container>
-                    {deals}
+                    {roomDeals}
                 </Container>}
+                {/*{deals}*/}
             </> : <>
                 <div>
                     <h4 className={"text-secondary mt-2"}>
@@ -1114,7 +1045,7 @@ const DetailModal = () => {
             >
                 View Offers
             </NavHashLink> : <Button color="primary" onClick={() => {
-                openBooking({ accommodation });
+                openBooking({ accommodation, deals });
             }} className={"mx-2"} style={{ minWidth: "8rem" }}>
                 View Offers
             </Button>}

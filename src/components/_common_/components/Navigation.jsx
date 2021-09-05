@@ -55,10 +55,9 @@ import AccommodationCard from "../../home/components/AccommodationCard";
 import locations from "../../../data/json/locations";
 import AssistantWizard from "../../home/components/AssistantWizard";
 import { Picklist, Option } from 'react-rainbow-components';
-export const guestString = (adults, children, rooms) =>
-    `${adults} Adults, ${
-        children > 0 ? children + " Children, " : ""
-    }${rooms} Rooms`;
+export const guestString = (adults, children, rooms) => {
+  return `${adults} Adults, ${children > 0 ? children + " Children, " : ""}${rooms} Rooms`;
+}
 const Navigation = (props) => {
   const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
@@ -187,90 +186,8 @@ const Navigation = (props) => {
                   >
                     {locationOptions.map(location => <Option name={location.id} label={location.location} item={location}/>)}
                   </Picklist>
-                  {/*<Input*/}
-                  {/*  placeholder={`Enter a ${type} name or location`}*/}
-                  {/*  value={location}*/}
-                  {/*  autoComplete="off"*/}
-                  {/*  lpignore="true"*/}
-                  {/*  onFocus={() => setLocationFocus(true)}*/}
-                  {/*  onBlur={() => setLocationFocus(false)}*/}
-                  {/*  onChange={(e) => {*/}
-                  {/*    setLocation(e.target.value);*/}
-                  {/*  }}*/}
-                  {/*/>*/}
 
                 </InputGroup>
-                {/*<Picklist*/}
-                {/*    id="picklist-1"*/}
-                {/*    style={{width: '200px'}}*/}
-                {/*    onChange={value => setState({ value })}*/}
-                {/*    value={state.value}*/}
-                {/*    label="Select Building"*/}
-                {/*    hideLabel*/}
-                {/*>*/}
-                {/*<Popover*/}
-                {/*    hideArrow*/}
-                {/*    fade={true}*/}
-                {/*    trigger="legacy"*/}
-                {/*    isOpen={location.length > 2 && popoverOpen}*/}
-                {/*    // isOpen={popoverOpen}*/}
-                {/*    placement="bottom-start"*/}
-                {/*    target="locationInput"*/}
-                {/*    container={"div.search-collapse .container"}*/}
-                {/*    popperClassName={"location-suggestions"}*/}
-                {/*    innerClassName={"p-4"}*/}
-                {/*    toggle={()=> setPopoverOpen(!popoverOpen)}*/}
-                {/*>*/}
-                {/*  <Container className={"mb-2"}>*/}
-                {/*    <h5 className={"font-weight-bold justify-content-between align-items-center d-flex mt-2 mb-4"}>*/}
-                {/*      Top suggestions for "{location}"*/}
-                {/*      <span className={"small "}>*/}
-                {/*        {`${searchLocations.length + searchAccommodations.length + searchRelated.length} results`}*/}
-                {/*      </span>*/}
-                {/*    </h5>*/}
-                {/*    <Row>*/}
-                {/*      <Col sm={4}>*/}
-                {/*        <h6 className={"d-flex align-items-center justify-content-between mb-3"}>Locations*/}
-                {/*          <span className={"small mr-5"}>{`(${searchLocations.length})`}</span>*/}
-                {/*        </h6>*/}
-                {/*        <ul className={"list-group list-group-flush"}>*/}
-                {/*          <LocationList/>*/}
-                {/*        </ul>*/}
-                {/*        /!*{searchLocations.length > 5 && <Button color={"primary"} outline*!/*/}
-                {/*        /!*         onClick={() => handleSearchSuggestion(accommodations.slice(0,searchLocations.length))}>*!/*/}
-                {/*        /!*  Show All*!/*/}
-                {/*        /!*</Button>}*!/*/}
-                {/*      </Col>*/}
-                {/*      /!*<Col sm={4}>*!/*/}
-                {/*      /!*  <h6 className={"d-flex align-items-center justify-content-between mb-3"}>Accommodations*!/*/}
-                {/*      /!*    <span className={"small mr-5"}>{`(${searchAccommodations.length})`}</span>*!/*/}
-                {/*      /!*  </h6>*!/*/}
-                {/*      /!*  <ul className={"list-group list-group-flush"}>*!/*/}
-                {/*      /!*    <AccommodationList/>*!/*/}
-                {/*      /!*  </ul>*!/*/}
-                {/*      /!*  {searchAccommodations.length > 5 && <Button color={"primary"} outline*!/*/}
-                {/*      /!*                                             onClick={()=>handleSearchSuggestion(searchAccommodations)}>*!/*/}
-                {/*      /!*    Show All*!/*/}
-                {/*      /!*  </Button>}*!/*/}
-
-                {/*      /!*</Col>*!/*/}
-                {/*      /!*<Col sm={4}>*!/*/}
-                {/*      /!*  <h6 className={"d-flex align-items-center justify-content-between mb-3"}>*!/*/}
-                {/*      /!*    Related*!/*/}
-                {/*      /!*    <span className={"small mr-5"}>{`(${searchRelated.length})`}</span>*!/*/}
-                {/*      /!*  </h6>*!/*/}
-                {/*      /!*  <ul className={"list-group list-group-flush"}>*!/*/}
-                {/*      /!*    <RelatedList/>*!/*/}
-                {/*      /!*  </ul>*!/*/}
-                {/*      /!*  {searchRelated.length > 5 && <Button color={"primary"} outline*!/*/}
-                {/*      /!*                                       onClick={()=>handleSearchSuggestion(searchRelated)}>*!/*/}
-                {/*      /!*    Show All*!/*/}
-                {/*      /!*  </Button>}*!/*/}
-
-                {/*      /!*</Col>*!/*/}
-                {/*    </Row>*/}
-                {/*  </Container>*/}
-                {/*</Popover>*/}
               </FormGroup>
             </div>
             <div className={"px-2 "}>
@@ -330,9 +247,10 @@ const Navigation = (props) => {
                     innerClassName={"pb-0"}
                     toggle={() => {
                       setGuestsFocused(!guestsFocused);
-                      if (guestsFocused === true)
-                        setGuestsAmount(guestString());
-                    }}
+                      if (guestsFocused === true) {
+                        dispatch({ type: "SET_GUEST_AMOUNT", payload: { adults, children, rooms } });
+                        setGuestsAmount(guestString(adults, children, rooms));
+                      }}}
                   >
                     <div>
                       <div className={"d-flex align-items-center mb-3"}>
@@ -492,5 +410,6 @@ const Navigation = (props) => {
       <AssistantWizard/>
     </div>
   );
+  
 };
 export default Navigation;
