@@ -323,7 +323,7 @@ const Navigation = (props) => {
                             onClick={() => setRooms(rooms + 1)}
                             color={"light"}
                             className={"d-flex align-items-center"}
-                            disabled={rooms > 8}
+                            disabled={rooms > 3}
                           >
                             <Icon svg={ADD_CIRCLE} />
                           </Button>
@@ -410,6 +410,6 @@ const Navigation = (props) => {
       <AssistantWizard/>
     </div>
   );
-  
+
 };
 export default Navigation;

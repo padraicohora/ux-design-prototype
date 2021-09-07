@@ -9,8 +9,10 @@ import {
     Badge,
     Button,
     ButtonGroup,
+    Card, CardBody,
     CardText,
     Col,
+    Collapse,
     Container,
     FormGroup,
     InputGroup,
@@ -26,7 +28,7 @@ import Lightbox from "react-image-lightbox";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {ensureNonNull} from "../../_common_/Utils";
 import {
-    AC_UNIT,
+    AC_UNIT, ADD_CIRCLE,
     ADD_CIRCLE_SOLID,
     BED,
     BOOKMARK,
@@ -42,6 +44,7 @@ import {
     LOCATION_ICON,
     NIGHT_SHELTER,
     PIN_DROP,
+    REMOVE_CIRCLE,
     REMOVE_CIRCLE_SOLID,
     RESTAURANT_MENU,
     REVIEWS,
@@ -63,6 +66,7 @@ import {toast} from "react-toastify";
 import {reviewData} from "../../../data/json/reviews";
 import {BOOKING} from "../../booking/constants";
 import {dateFormat} from "../../search/components/Results";
+import {guestString} from "../../_common_/components/Navigation";
 
 const extra = [ "Excellent Staff", "Cosy " ];
 
@@ -116,7 +120,7 @@ const DetailModal = () => {
 
     const [ localStartDate, setStartDate ] = useState();
     const [ localEndDate, setEndDate ] = useState();
-    const [ datesFocused, setDatesFocused ] = useState();
+    const [ datesFocused, setDatesFocused ] = useState(true);
     const setSearchDates = ({ startDate, endDate }) => {
         setStartDate(startDate);
         setEndDate(endDate);
@@ -125,7 +129,17 @@ const DetailModal = () => {
         });
     };
 
-    const { panelOpen, accommodation, images, deals } = useSelector((state) => state.detail, shallowEqual);
+
+    const { panelOpen, accommodation, images, deals, adults, children, rooms } = useSelector((state) => state.detail, shallowEqual);
+
+
+    const [guestsFocused, setGuestsFocused] = useState(false);
+    let [localAdults, setAdults] = useState(adults);
+    const [localChildren, setChildren] = useState(children);
+    const [localRooms, setRooms] = useState(rooms);
+    console.log(`rooms`, rooms)
+    console.log(`localRooms`, localRooms)
+    const [guestsAmount, setGuestsAmount] = useState(guestString(localAdults, localChildren, localRooms));
 
     const {
         image,
@@ -216,7 +230,7 @@ const DetailModal = () => {
         {item.label} <Icon svg={item.icon}/>
     </NavHashLink>));
 
-    const bookmarkClass = classnames("rounded-pill", {
+    const bookmarkClass = classnames("rounded-pill icon-button px-0", {
         active: bookmarkActive,
     });
 
@@ -946,8 +960,8 @@ const DetailModal = () => {
                     <h4 className={"text-secondary mt-2"}>
                         Rooms {`(${deals.length})`}
                     </h4>
-                    <div className={"d-flex"}>
-                        <Badge className={"align-self-center p-1 px-2"} color={"grey"}>
+                    <div className={"d-flex align-items-center"}>
+                        <Badge className={"align-self-center p-1 px-2 mr-1"} color={"grey"}>
                             {startDate.format(dateFormat)} - {endDate.format(dateFormat)}
                         </Badge>
                         <Button
@@ -957,13 +971,136 @@ const DetailModal = () => {
                             onClick={() => {
                                 setStartDate(null);
                                 setEndDate(null);
+                                setGuestsFocused(false);
                                 dispatch({ type: "REMOVE_DETAIL_TIME" });
                             }}
                         >
-                            <Icon svg={EDIT_ICON}/>
+                            <Icon svg={EDIT_ICON} className={"small"}/>
                         </Button>
+                        <Badge className={"align-self-center p-1 px-2 ml-2 mr-1"}   color={"grey"}>
+                            {guestsAmount}
+                        </Badge>
+                        <Button
+                            className={bookmarkClass}
+                            color={"light"}
+                            id={"testGuest"}
+                            size={"sm"}
+                            onClick={() => {
+                                setGuestsFocused(!guestsFocused);
+                                setRooms(rooms)
+                                setAdults(adults)
+                                setChildren(children)
+                            }}
+                        >
+                            <Icon svg={EDIT_ICON} className={"small"}/>
+                        </Button>
+
                     </div>
+
                 </div>
+                <Collapse isOpen={guestsFocused}>
+                    <Card color={"light"}>
+                        <CardBody>
+                            <div>
+                                <div className={"d-flex align-items-center mb-3"}>
+                                    <h5 className={"mb-0 flex-fill"}>Adults</h5>
+                                    <div className={"d-flex align-items-center border rounded"}>
+                                        <Button
+                                            onClick={() => setAdults(localAdults - 1)}
+                                            color={"light"}
+                                            className={"d-flex align-items-center"}
+                                            disabled={localAdults < 2}
+                                        >
+                                            <Icon svg={REMOVE_CIRCLE} />
+                                        </Button>
+                                        <div className={"px-3 text-primary flex-fill"}>
+                                            {localAdults}
+                                        </div>
+                                        <Button
+                                            onClick={() => setAdults(localAdults + 1)}
+                                            color={"light"}
+                                            className={"d-flex align-items-center"}
+                                            disabled={localAdults > 8}
+                                        >
+                                            <Icon svg={ADD_CIRCLE} />
+                                        </Button>
+                                    </div>
+                                </div>
+                                <div className={"d-flex align-items-center mb-3"}>
+                                    <h5 className={"mb-0 flex-fill"}>Children</h5>
+                                    <div
+                                        className={"d-flex align-items-center border rounded"}
+                                    >
+                                        <Button
+                                            onClick={() => setChildren(localChildren - 1)}
+                                            color={"light"}
+                                            className={"d-flex align-items-center"}
+                                            disabled={localChildren < 1}
+                                        >
+                                            <Icon svg={REMOVE_CIRCLE} />
+                                        </Button>
+                                        <div className={"px-3 text-primary flex-fill"}>
+                                            {localChildren}
+                                        </div>
+                                        <Button
+                                            onClick={() => setChildren(localChildren + 1)}
+                                            color={"light"}
+                                            className={"d-flex align-items-center"}
+                                            disabled={localChildren > 8}
+                                        >
+                                            <Icon svg={ADD_CIRCLE} />
+                                        </Button>
+                                    </div>
+                                </div>
+                                <div className={"d-flex align-items-center mb-3"}>
+                                    <h5 className={"mb-0 flex-fill"}>Rooms</h5>
+                                    <div
+                                        className={"d-flex align-items-center border rounded"}
+                                    >
+                                        <Button
+                                            onClick={() => setRooms(localRooms - 1)}
+                                            color={"light"}
+                                            className={"d-flex align-items-center"}
+                                            disabled={localRooms < 2}
+                                        >
+                                            <Icon svg={REMOVE_CIRCLE} />
+                                        </Button>
+                                        <div className={"px-3 text-primary flex-fill"}>
+                                            {localRooms}
+                                        </div>
+                                        <Button
+                                            onClick={() => setRooms(localRooms + 1)}
+                                            color={"light"}
+                                            className={"d-flex align-items-center"}
+                                            disabled={localRooms > 3}
+                                        >
+                                            <Icon svg={ADD_CIRCLE} />
+                                        </Button>
+                                    </div>
+                                </div>
+                                <Button
+                                    color={"primary"}
+                                    className={"mr-2"}
+                                    style={{width:"120px"}}
+                                    onClick={()=>{
+                                        setGuestsFocused(!guestsFocused);
+                                        if (guestsFocused === true) {
+                                            dispatch({ type: "SET_GUEST_AMOUNT", payload: { adults:localAdults, children:localChildren, rooms:localRooms } });
+                                            setGuestsAmount(guestString(localAdults, localChildren, localRooms));
+                                        }
+                                    }}
+                                >Set</Button>
+                                <Button
+                                    style={{width:"120px"}}
+                                    color={"light"}
+                                    onClick={()=>{
+                                        setGuestsFocused(!guestsFocused);
+                                    }}
+                                >Cancel</Button>
+                            </div>
+                        </CardBody>
+                    </Card>
+                </Collapse>
                 {deals.length === 0 ? <Alert color="danger"
                                              className={"mt-3 mb-2 d-flex flex-column"}>
                     No rooms were available for you selected dates, please re-select dates again
@@ -1004,7 +1141,9 @@ const DetailModal = () => {
                                     endDateId="your_unique_end_date_id"
                                     onDatesChange={setSearchDates}
                                     focusedInput={datesFocused}
-                                    onFocusChange={(focusedInput) => setDatesFocused(focusedInput)}
+                                    onFocusChange={(focusedInput) => {
+                                        setDatesFocused(focusedInput);
+                                    }}
                                     customArrowIcon={<></>}
                                     displayFormat={"DD/MM/YYYY"}
                                     hideKeyboardShortcutsPanel
@@ -1052,7 +1191,7 @@ const DetailModal = () => {
             <Button color="light" className={"mx-2"} style={{ minWidth: "8rem" }}>
                 <Icon svg={SUPPORT_AGENT} className={"mr-1"}/>
                 Live Chat
-            </Button>s
+            </Button>
         </div>}
     >
         <div className={"d-flex"}>

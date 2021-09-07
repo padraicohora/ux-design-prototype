@@ -22,6 +22,19 @@ export default (state = initialState, action = {}) => {
                 ...action.payload,
             }
         }
+        case "SUBMIT_SEARCH":{
+            return {
+                ...state,
+                accommodation: {
+                    ...state.accommodation,
+                    startDate:action.payload.startDate,
+                    endDate:action.payload.endDate,
+                },
+                adults:action.payload.adults,
+                children: action.payload.children,
+                rooms: action.payload.rooms,
+            };
+        }
         default: {
             return state;
         }
