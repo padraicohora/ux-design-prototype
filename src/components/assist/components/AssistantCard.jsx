@@ -16,6 +16,7 @@ import {ensureNonNull} from "../../_common_/Utils";
 import TextTruncate from 'react-text-truncate';
 import {BOOKING} from "../../booking/constants";
 import {useHistory} from "react-router-dom";
+import {dealData} from "../../detail/reducers";
 
 const AssistantCard = (props) => {
 const {
@@ -64,9 +65,19 @@ const {
         </>
     }
 
-
-    const openBooking = () => {
-        dispatch({type:"OPEN_ACCOMMODATION", payload:item})
+    const openBooking = (e) => {
+        e.stopPropagation()
+        dispatch({
+            type:"OPEN_ACCOMMODATION",
+            payload: {
+                accommodation:{
+                    ...item,
+                    ...assistDate
+                },
+                deals:dealData,
+                deal: dealData[0]
+            }
+        })
         history.push(BOOKING);
     }
 

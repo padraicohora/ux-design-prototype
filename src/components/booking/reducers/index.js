@@ -1,5 +1,6 @@
 import accommodations from "../../../data/json/accommodations";
 import {getDeals} from "../../detail/reducers";
+import {ensureNonEmpty, ensureNonNull} from "../../_common_/Utils";
 
 const initialState = {
     accommodation:null,
@@ -27,6 +28,11 @@ export default (state = initialState, action = {}) => {
         }
         case "SUBMIT_SEARCH":{
             const {rooms, children, adults} = action.payload
+            const deals = getDeals(rooms, children, adults)
+            let deal = state.deal
+            if(!ensureNonEmpty(deals).find(_deal => ensureNonNull(deal).title === _deal.title)){
+                deal = deals[0]
+            }
             return {
                 ...state,
                 accommodation: {
@@ -37,7 +43,8 @@ export default (state = initialState, action = {}) => {
                 adults:action.payload.adults,
                 children: action.payload.children,
                 rooms: action.payload.rooms,
-                deals:getDeals(rooms, children, adults)
+                deals,
+                deal
             };
         }
         case "SELECT_DEAL_RATE":{

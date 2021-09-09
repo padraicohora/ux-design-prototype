@@ -107,20 +107,30 @@ const Results = (props) => {
             if(freeCancellationOnly){
                 items = results.filter(item => item.freeCancellation !== true)
                 items = items.map((result)=>{
-                    return <Col sm={"3"}><AccommodationCard {...result} location={location} key={result.id} startDate={startDate} endDate={endDate}/></Col>
+                    return <Col sm={"3"}>
+                        <AccommodationCard {...result}
+                                           location={location
+                                               ? location : result.location}
+                                           key={result.id} startDate={startDate}
+                                           endDate={endDate}/>
+                    </Col>
                 })
             }else{
                 items = results.map((result)=>{
-                    return <Col sm={"3"}><AccommodationCard {...result} location={location} key={result.id} startDate={startDate} endDate={endDate}/></Col>  })
+                    return <Col sm={"3"}>
+                        <AccommodationCard {...result}
+                                           location={location
+                                               ? location : result.location}
+                                           key={result.id}
+                                           startDate={startDate}
+                                           endDate={endDate}/>
+                    </Col>  })
             }
         }else{
             return <Redirect to={HOME} />
         }
-
         return items
     }
-
-
 
     return <div>
         <div className={"bg-light search-heading"}>
@@ -181,9 +191,9 @@ const Results = (props) => {
                 <Row>
                     <List/>
                 </Row>
-                <div className={"text-center my-5"}>
-                    <Button color={"primary"} outline size={"lg"}>Show More</Button>
-                </div>
+                {/*<div className={"text-center my-5"}>*/}
+                {/*    <Button color={"primary"} outline size={"lg"}>Show More</Button>*/}
+                {/*</div>*/}
             </Container>
 
         </div>

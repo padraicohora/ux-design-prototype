@@ -30,12 +30,13 @@ import {
   ACCOUNT_CIRCLE,
   ADD_CIRCLE,
   AddCircleOutline,
-  CALENDAR,
+  CALENDAR, PERSON,
   PIN_DROP,
   PLACE,
   REMOVE_CIRCLE,
   RemoveCircleOutline,
-  SEARCH_ICON, SEARCH_OFF_ICON,
+  SEARCH_ICON,
+  SEARCH_OFF_ICON,
   USERS,
 } from "../constants/icons";
 import { useHistory } from "react-router-dom";
@@ -54,7 +55,7 @@ import accommodations from "../../../data/json/accommodations";
 import AccommodationCard from "../../home/components/AccommodationCard";
 import locations from "../../../data/json/locations";
 import AssistantWizard from "../../home/components/AssistantWizard";
-import { Picklist, Option } from 'react-rainbow-components';
+import {Picklist, Option, Avatar} from "react-rainbow-components";
 export const guestString = (adults, children, rooms) => {
   return `${adults} Adults, ${children > 0 ? children + " Children, " : ""}${rooms} Rooms`;
 }
@@ -142,12 +143,23 @@ const Navigation = (props) => {
             <Nav className="ml-auto align-items-center" navbar>
               <NavItem>
                 <Button
-                  color="transparent"
+                  color="primary"
+                  outline
+                  className={"d-flex align-items-center"}
                   onClick={showSearch}
                   disabled={wizardOpen}
                 >
-                  <Icon svg={!searchOpen ? SEARCH_ICON : SEARCH_OFF_ICON} />
+                  <Icon svg={!searchOpen ? SEARCH_ICON : SEARCH_OFF_ICON} className={"mr-1"}/>
+
+                  {!searchOpen ? "Search" : "Hide"}
                 </Button>
+              </NavItem>
+              <NavItem className={"ml-3"}>
+                <Avatar
+                    className={"bg-white border-primary border text-primary"}
+                    icon={<Icon svg={PERSON}/>}
+                    size="medium"
+                />
               </NavItem>
 
             </Nav>
@@ -403,7 +415,7 @@ const Navigation = (props) => {
                 onClick={onSearch}
                 disabled={!location || !startDate || !endDate}
               >
-                Search
+                Submit
               </Button>
             </div>
           </Form>

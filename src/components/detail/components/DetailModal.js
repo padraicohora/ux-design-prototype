@@ -27,7 +27,7 @@ import {
 import {Drawer,} from "react-rainbow-components";
 import Lightbox from "react-image-lightbox";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
-import {ensureNonNull} from "../../_common_/Utils";
+import {ensureNonEmpty, ensureNonNull} from "../../_common_/Utils";
 import {
     AC_UNIT, ADD_CIRCLE,
     ADD_CIRCLE_SOLID,
@@ -923,7 +923,7 @@ const DetailModal = () => {
 
     const Rooms = () => {
 
-        const roomDeals = deals.map(deal => (<Row className={"room-deal my-4"} key={deal.title}
+        const roomDeals = ensureNonEmpty(deals).map(deal => (<Row className={"room-deal my-4"} key={deal.title}
                            onClick={() => startDate && endDate &&
                                openBooking({ deal, accommodation, deals })}>
             <Col sm="3" className={"px-0 overflow-hidden"}>
@@ -1177,7 +1177,7 @@ const DetailModal = () => {
             >
                 View Offers
             </NavHashLink> : <Button color="primary" onClick={() => {
-                openBooking({ accommodation, deals });
+                openBooking({deal:deals[0], accommodation, deals });
             }} className={"mx-2"} style={{ minWidth: "8rem" }}>
                 View Offers
             </Button>}

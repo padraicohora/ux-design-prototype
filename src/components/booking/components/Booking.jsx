@@ -85,10 +85,14 @@ const Booking = (props) => {
   );
 
   const [activeDeal, setActiveDeal] = useState(
-    ensureNonEmpty(deals).find((d) => d.title === deal.title)
+    ensureNonEmpty(deals).find((d) => d.title === ensureNonNull(deal).title)
   );
-
-  const [conditionPopover, setConditionPopover] = useState("");
+  
+  useEffect(()=>{
+    if(ensureNonNull(deal).title !== ensureNonNull(activeDeal).title){
+      setActiveDeal(deal)
+    }
+  }, [deal])
 
   const handleSubmit = () => {
     dispatch({
@@ -575,10 +579,10 @@ const Booking = (props) => {
             <p className={"mb-0 font-weight-bold"}>
               {rate.title} {activeDeal.title}
             </p>
-            <Badge color={"primary"} className={"mr-2"}>
+            <Badge color={"primary"} className={"mr-3"}>
               {rate.benefit}
             </Badge>
-            <Badge color={"primary"} className={"ml-2"}>
+            <Badge color={"primary"}>
               {rate.term}
             </Badge>
           </div>
@@ -667,10 +671,10 @@ const Booking = (props) => {
               <p className={"mb-0 font-weight-bold"}>
                 {rate.title} {activeDeal.title}
               </p>
-              <Badge color={"primary"} className={"mr-2"}>
+              <Badge color={"primary"} className={"mr-3"}>
                 {rate.benefit}
               </Badge>
-              <Badge color={"primary"} className={"ml-2"}>
+              <Badge color={"primary"}>
                 {rate.term}
               </Badge>
             </div>

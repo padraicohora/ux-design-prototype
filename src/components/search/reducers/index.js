@@ -7,7 +7,7 @@ import {directions} from "../components/Results";
 const initialState = {
   selectedAccommodation: null,
   selectedLocation: null,
-  location: "Anywhere",
+  location: null,
   startDate: null,
   endDate: null,
   adults: 2,
@@ -89,7 +89,6 @@ const sortByReviews = function (a, b, prop, highestFirst) {
     }
   }
 
-
   return 0;
 };
 
@@ -106,8 +105,8 @@ export default (state = initialState, action = {}) => {
           .includes(action.payload.location.toLowerCase())) results.push(accommodation);
         });
       }
-      if (results.length < 2) {
-        const accommodationAmount = getRandomInt(2, 6);
+      if (results.length < 4) {
+        const accommodationAmount = getRandomInt(4, 10);
         let i = 0;
         while (i < accommodationAmount) {
           const randomIndex = getRandomInt(0, accommodations.length - 1);
@@ -123,45 +122,46 @@ export default (state = initialState, action = {}) => {
         accommodationDetail,
       };
     }
-    case "OPEN_EXPLORE_TYPE":
+    case "OPEN_EXPLORE_TYPE": {
       return {
-        ...state,
-        results: action.payload,
+        ...state, results: action.payload,
       };
-    case "SET_SEARCH_SORT":
+    }
+    case "SET_SEARCH_SORT": {
+      let results = [];
       results = _.clone(state.results);
 
-      if(action.payload.filter === "price"){
-          results = results.sort((a, b) => {
-              return sortByPrice(a, b, "price", state.direction.filter);
-          });
-      }else if(action.payload.filter === "rating"){
+      if (action.payload.filter === "price") {
+        results = results.sort((a, b) => {
+          return sortByPrice(a, b, "price", state.direction.filter);
+        });
+      } else if (action.payload.filter === "rating") {
         results = results.sort((a, b) => {
           return sortByRating(a, b, "rating", state.direction.filter);
         });
-      }else{
+      } else {
         results = results.sort((a, b) => {
           return sortByReviews(a, b, "reviews", state.direction.filter);
         });
       }
 
       return {
-        ...state,
-        results,
-          sortBy:action.payload
+        ...state, results, sortBy: action.payload
       };
-    case "SET_SEARCH_DIRECTION":
+    }
+    case "SET_SEARCH_DIRECTION": {
+      let results = [];
       results = _.clone(state.results);
 
-      if(state.sortBy.filter === "price"){
+      if (state.sortBy.filter === "price") {
         results = state.results.sort((a, b) => {
           return sortByPrice(a, b, "price", action.payload.filter);
         });
-      }else if(state.sortBy.filter === "rating"){
+      } else if (state.sortBy.filter === "rating") {
         results = results.sort((a, b) => {
           return sortByRating(a, b, "rating", action.payload.filter);
         });
-      }else{
+      } else {
         results = results.sort((a, b) => {
           return sortByReviews(a, b, "reviews", action.payload.filter);
         });
@@ -169,20 +169,9 @@ export default (state = initialState, action = {}) => {
       }
 
       return {
-        ...state,
-        results,
-        direction:action.payload
+        ...state, results, direction: action.payload
       };
-    // case "SET_FREE_CANCELLATION":
-    //   results = _.clone(state.results).filter;
-    //
-    //   if()
-    //   freeCancelationResults = results
-    //   return {
-    //     ...state,
-    //     results,
-    //     direction:action.payload
-    //   };
+    }
     default: {
       return state;
     }
