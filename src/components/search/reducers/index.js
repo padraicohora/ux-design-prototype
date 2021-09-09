@@ -95,18 +95,15 @@ const sortByReviews = function (a, b, prop, highestFirst) {
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-    case "SUBMIT_SEARCH":
+    case "SUBMIT_SEARCH": {
       let results = [];
       let accommodationDetail = null;
 
       if (!state.selectedAccommodation) {
         accommodations.forEach((accommodation) => {
-          if (
-            accommodation.location
-              .toLowerCase()
-              .includes(action.payload.location.toLowerCase())
-          )
-            results.push(accommodation);
+          if (action.payload.location && accommodation.location
+          .toLowerCase()
+          .includes(action.payload.location.toLowerCase())) results.push(accommodation);
         });
       }
       if (results.length < 2) {
@@ -120,14 +117,12 @@ export default (state = initialState, action = {}) => {
       }
 
       return {
-        ...state,
-        ...action.payload,
-        location: action.payload.location
-          ? action.payload.location
-          : initialState.location,
+        ...state, ...action.payload,
+        location: action.payload.location ? action.payload.location : initialState.location,
         results,
         accommodationDetail,
       };
+    }
     case "OPEN_EXPLORE_TYPE":
       return {
         ...state,

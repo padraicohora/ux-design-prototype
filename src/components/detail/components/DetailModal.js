@@ -4,6 +4,7 @@ import {NavHashLink} from "react-router-hash-link";
 import {useHistory, useLocation} from "react-router-dom";
 import {DateRangePicker} from "react-dates";
 import _ from "lodash";
+import moment from "moment"
 import {
     Alert,
     Badge,
@@ -320,18 +321,6 @@ const DetailModal = () => {
                     <Badge color={"light"} className={"m-3 position-absolute"}
                            style={{ bottom: 0, fontSize: 16 }}>From {price}</Badge>
                 </div>
-                {/*<div*/}
-                {/*    className={*/}
-                {/*      "card-price text-dark flex-fill pt-3 px-3 justify-content-between"*/}
-                {/*    }*/}
-                {/*>*/}
-                {/*  <span className={"price d-flex align-items-center"}>*/}
-                {/*    <small className={"mr-2"}>From</small> {price}*/}
-                {/*  </span>*/}
-                {/*<Button color={"primary"} className={"rounded-pill mr-2"}>*/}
-                {/*  View Offers*/}
-                {/*</Button>*/}
-                {/*</div>*/}
             </div>
         </section>;
     };
@@ -941,7 +930,9 @@ const DetailModal = () => {
                 <img src={deal.image} className={"w-100"}/>
             </Col>
             <Col sm="9" className={"pl-4"}>
-                <h5 className={"font-weight-bold"}>{deal.title}</h5>
+                <h5 className={"font-weight-bold d-flex align-items-center"}>
+                    <span className={"flex-fill"}>{deal.title}</span>
+                    <Badge color={"grey"}>€{deal.price}</Badge></h5>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci alias
                     aliquid, aut deserunt, dicta dolorum esse id</p>
                 <div className={"text-muted"}>
@@ -1148,6 +1139,8 @@ const DetailModal = () => {
                                     displayFormat={"DD/MM/YYYY"}
                                     hideKeyboardShortcutsPanel
                                     small
+                                    minDate={moment()}
+                                    maxDate={moment().add(1, "years")}
                                 />
                             </InputGroup>
                         </FormGroup>

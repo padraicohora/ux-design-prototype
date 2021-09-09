@@ -216,6 +216,8 @@ const Navigation = (props) => {
                     displayFormat={"DD/MM/YYYY"}
                     hideKeyboardShortcutsPanel
                     small
+                    minDate={moment()}
+                    maxDate={moment().add(1, "years")}
                   />
                 </InputGroup>
               </FormGroup>

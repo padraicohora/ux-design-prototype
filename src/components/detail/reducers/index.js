@@ -6,17 +6,37 @@ import superiorRoom from "../../../assets/rooms/superior-double.jpg";
 import twinRoom from "../../../assets/rooms/twin-room.jpg";
 import {getRandomInt} from "../../home/reducers";
 const dealData = [ {
-    title: "Economy Double Room", bed: "Large Double bed", person: 2, image: classicDouble,
+    title: "Economy Double Room",
+    bed: "Large Double bed",
+    person: 2,
+    image: classicDouble,
+    price: 180,
+    id:"economy"
 }, {
-    title: "Superior Double Room", bed: "Queen bed", person: 2, image: superiorRoom
+    title: "Superior Double Room",
+    bed: "Queen bed",
+    person: 2,
+    image: superiorRoom,
+    price: 230,
+    id:"superior"
 },
     {
-    title: "Classic Double/Twin Room", bed: "Double bed, Twin bed", person: 3, image: twinRoom
+    title: "Classic Double/Twin Room",
+        bed: "Double bed, Twin bed",
+        person: 3,
+        image: twinRoom,
+        price: 220,
+        id:"twin"
 },  {
-    title: "Family Room", bed: "Double bed, Single bed", person: 4, image: familyRoom
+    title: "Family Room",
+        bed: "Double bed, Single bed",
+        person: 4,
+        image: familyRoom,
+        price: 250,
+        id:"family"
 }, ];
 
-const getDeals = (rooms, children, adults) => {
+export const getDeals = (rooms, children, adults) => {
     const random = getRandomInt(0, rooms > 1 ? rooms : 4)
     let deals = [];
     if((children + adults) <= 2){
@@ -56,7 +76,7 @@ export default (state = initialState, action = {}) => {
                 .map(group => group.image);
                 const {startDate, endDate} = action.payload;
                 const deals = (startDate && endDate) ?
-                    getDeals(rooms, children, adults) : []
+                    (rooms, children, adults) : []
                 return {
                     ...state,
                     panelOpen: !!action.payload,

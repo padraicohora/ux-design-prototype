@@ -1,0 +1,43 @@
+.collapse.booking-form{
+  position: absolute;
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
+  max-height: 330px;
+  .card{
+    height: 100%;
+    .DateRangePicker{
+      flex: 1 1 auto;
+    }
+  }
+}
+
+table.booking-deals{
+  td{
+    vertical-align: middle;
+  }
+  .booking-rates {
+    p {
+      font-weight: bold;
+      color: darkviolet;
+    }
+  }
+  .booking-terms{
+  }
+  .booking-price{
+    font-weight: bold;
+    display: flex;
+  }
+  small{
+    color: $text-muted;
+  }
+}
+
+.booking-summary table{
+  td:first-of-type{
+    padding:4px 4px 4px 0;
+    color: $secondary;
+  }
+  td:last-of-type{
+    padding:4px 0 4px 4px;
+  }
+}
